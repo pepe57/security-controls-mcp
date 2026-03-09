@@ -231,6 +231,7 @@ class SCFData:
             "nis2_annex": "NIS2 Directive Annex",
             "psd2": "PSD2 (Payment Services Directive)",
             "eu_eba_gl_2019_04": "EU EBA GL/2019/04",
+            "tiber_eu_2025": "TIBER-EU Framework 2025",
             # === EMEA NATIONAL ===
             "uk_caf_4.0": "UK Cyber Assessment Framework 4.0",
             "uk_cyber_essentials": "UK Cyber Essentials",
@@ -567,6 +568,7 @@ class SCFData:
                 "dora",
                 "psd2",
                 "eu_eba_gl_2019_04",
+                "tiber_eu_2025",
                 "swift_cscf_2023",
                 "shared_assessments_sig_2025",
                 "singapore_mas_trm_2021",
@@ -644,6 +646,7 @@ class SCFData:
                 "eu_cyber_resilience_act",
                 "eu_cra_annexes",
                 "eu_eba_gl_2019_04",
+                "tiber_eu_2025",
                 "enisa_2.0",
             ],
             # === EUROPE NATIONAL ===
@@ -758,6 +761,27 @@ class SCFData:
                     "name": fw_name,
                     "controls_mapped": count,
                 }
+
+        # Register frameworks that exist only in the reverse index
+        # (manually-added frameworks like TIBER-EU that aren't in the SCF spreadsheet).
+        # Only register if the framework appears in at least one category.
+        all_categorized = set()
+        for cat_fws in self.framework_categories.values():
+            all_categorized.update(cat_fws)
+
+        for fw_key in self.framework_to_scf:
+            if fw_key not in self.frameworks and fw_key in framework_names and fw_key in all_categorized:
+                reverse = self.framework_to_scf[fw_key]
+                unique_scf_ids = set()
+                for scf_ids in reverse.values():
+                    unique_scf_ids.update(scf_ids)
+                count = len(unique_scf_ids)
+                if count > 0:
+                    self.frameworks[fw_key] = {
+                        "key": fw_key,
+                        "name": framework_names[fw_key],
+                        "controls_mapped": count,
+                    }
 
     def get_control(self, control_id: str) -> dict[str, Any] | None:
         """Get control by SCF ID."""

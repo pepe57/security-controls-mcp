@@ -1043,6 +1043,10 @@
     "uruguay": {
       "id": "uruguay",
       "name": "Uruguay Cybersecurity"
+    },
+    "tiber_eu_2025": {
+      "id": "tiber_eu_2025",
+      "name": "TIBER-EU Framework 2025"
     }
   },
   "categories": {
@@ -1086,7 +1090,8 @@
       "glba_cfr_314_2023",
       "ffiec",
       "dora",
-      "psd2"
+      "psd2",
+      "tiber_eu_2025"
     ],
     "healthcare": [
       "hipaa_security_rule",
@@ -1374,6 +1379,7 @@
     "costa_rica": 17,
     "mexico": 23,
     "peru": 19,
-    "uruguay": 32
+    "uruguay": 32,
+    "tiber_eu_2025": 41
   }
 }
