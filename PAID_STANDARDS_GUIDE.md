@@ -4,7 +4,7 @@ Import your purchased security standards (ISO 27001, NIST SP 800-53, etc.) to ge
 
 ## Overview
 
-The Security Controls MCP Server includes 1,451 free SCF controls that map across **261 frameworks**. When you add purchased standards:
+The Security Controls MCP Server includes 1,451 free SCF controls that map across **262 frameworks**. When you add purchased standards:
 
 - Get official text from your licensed copies
 - See full clauses with page numbers

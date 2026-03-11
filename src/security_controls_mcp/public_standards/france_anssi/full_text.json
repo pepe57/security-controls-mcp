@@ -1,0 +1,37 @@
+{
+  "structure": {
+    "sections": [
+      {
+        "id": "overview",
+        "title": "ANSSI Hygiene Overview",
+        "content": "ANSSI's cyber hygiene guidance is a practical French baseline for organizations that need strong fundamentals before specialized sector overlays. The guidance is widely used as a reference for management, administrators, and security teams to establish a disciplined security posture.",
+        "subsections": []
+      },
+      {
+        "id": "governance",
+        "title": "Governance and Security Organization",
+        "content": "ANSSI stresses management backing, documented security policy, clear responsibility assignment, supplier handling, and disciplined operating procedures. The organization should know which services and data matter most, who owns risk decisions, and how security expectations are translated into everyday operations.",
+        "subsections": []
+      },
+      {
+        "id": "identity_and_admin_security",
+        "title": "Identity, Privileged Access, and Administration",
+        "content": "A major ANSSI theme is control of administrator access and privileged operations. That includes separating administrative and user activity, limiting privilege, protecting admin workstations, controlling remote administration, and applying stronger authentication and review where compromise would create outsized impact.",
+        "subsections": []
+      },
+      {
+        "id": "hardening_and_monitoring",
+        "title": "Hardening, Patch Management, and Monitoring",
+        "content": "ANSSI highlights secure configuration, exposure reduction, patching, segmentation, filtering, and useful logging as core hygiene. The point is to reduce attack surface while making malicious or abnormal activity visible quickly enough for teams to act. Monitoring should support investigation, containment, and evidence collection.",
+        "subsections": []
+      },
+      {
+        "id": "backup_and_crisis",
+        "title": "Backups, Recovery, and Crisis Readiness",
+        "content": "Recovery capability is a first-class concern in ANSSI guidance. Organizations should maintain reliable backups, protect restoration paths, practice crisis communication, and be able to recover essential business services after destructive attacks. This bundled profile summarizes the main areas, but authoritative detail remains in the official ANSSI publications.",
+        "subsections": []
+      }
+    ],
+    "annexes": []
+  }
+}

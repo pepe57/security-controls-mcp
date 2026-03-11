@@ -1,0 +1,37 @@
+{
+  "structure": {
+    "sections": [
+      {
+        "id": "overview",
+        "title": "CyberFundamentals Overview",
+        "content": "CyberFundamentals (CyFun) is the Belgian baseline cybersecurity framework published by the Centre for Cybersecurity Belgium. It is intended to give organizations a practical baseline that can scale from smaller organizations to more critical operators while keeping the same core security logic.",
+        "subsections": []
+      },
+      {
+        "id": "assurance_levels",
+        "title": "Assurance Levels",
+        "content": "CyFun organizes expectations into assurance levels such as SMALL, BASIC, IMPORTANT, and ESSENTIAL. The level determines how rigorous the organization's control implementation and evidence should be. This makes the framework usable both as an entry-level baseline and as a stronger assurance model for critical environments.",
+        "subsections": []
+      },
+      {
+        "id": "identify_protect_detect_respond_recover",
+        "title": "Core Cyber Functions",
+        "content": "The framework is structured around the Identify, Protect, Detect, Respond, and Recover functions. In practice this means understanding assets and risk, hardening systems, monitoring for compromise, preparing response capability, and restoring services in a controlled way. CyFun therefore works well as both a management baseline and a technical improvement roadmap.",
+        "subsections": []
+      },
+      {
+        "id": "supply_chain_and_ecosystem",
+        "title": "Supply Chain and Ecosystem Resilience",
+        "content": "CyFun emphasizes supplier and ecosystem dependencies, not just internal control operation. Organizations should understand outsourced services, digital dependencies, and assurance needs across the broader ecosystem. That makes the framework relevant for procurement, third-party governance, and resilience planning in addition to classic security controls.",
+        "subsections": []
+      },
+      {
+        "id": "assessment_and_roadmap",
+        "title": "Assessment and Improvement Roadmap",
+        "content": "CyFun is intended for phased adoption and measurable improvement. Organizations can use it to scope target assurance levels, assess current state, identify gaps, and sequence remediation. This bundled profile summarizes the structure and main expectations, but exact control wording and assessment rules should be taken from the official Belgian publication.",
+        "subsections": []
+      }
+    ],
+    "annexes": []
+  }
+}

@@ -14,7 +14,7 @@ Ansvar Systems maintains a suite of interconnected MCP servers for comprehensive
 
 | Server | Purpose | Tech Stack | Package Registry | Status |
 |--------|---------|------------|------------------|--------|
-| **Security Controls MCP** | 1,451 controls across 261 frameworks | Python + JSON | PyPI | ✅ v1.0.0 Published |
+| **Security Controls MCP** | 1,451 controls across 262 frameworks | Python + JSON | PyPI | ✅ v1.0.0 Published |
 | **EU Regulations MCP** | 49 EU regulations (GDPR, DORA, etc.) | TypeScript + SQLite | npm | ✅ Published |
 | **US Regulations MCP** | 15 US federal & state laws | TypeScript + SQLite | npm | ✅ Published |
 | **Automotive MCP** | UNECE R155/R156 + ISO 21434 | TypeScript + SQLite | npm | ✅ v1.0.1 Published |
@@ -149,7 +149,7 @@ Since all Ansvar servers are read-only data retrieval tools, every tool gets `re
 
 **Repository**: https://github.com/Ansvar-Systems/security-controls-mcp
 
-**Purpose**: Query and map security controls across 28 frameworks including ISO 27001, NIST CSF, DORA, PCI DSS, SOC 2, and more.
+**Purpose**: Query and map security controls across 262 SCF-mapped frameworks, with bundled public-source national security baseline profiles including BIO, KATAKRI, NSM, MSB, CFCS, CCB, and ANSSI.
 
 **Tech Stack**:
 - **Language**: Python 3.11+
@@ -160,9 +160,10 @@ Since all Ansvar servers are read-only data retrieval tools, every tool gets `re
 
 **Key Features**:
 - 1,451 security controls
-- 261 frameworks (SCF 2025.4)
+- 262 frameworks (SCF 2025.4)
 - Bidirectional framework mapping
 - Gap analysis between frameworks
+- Bundled public-source European national framework profiles queryable via `query_standard` and `get_clause`
 - Official text import for purchased standards
 - `about` tool with structured metadata (see Architecture Principles §5)
 
@@ -181,9 +182,9 @@ pipx install security-controls-mcp
 }
 ```
 
-**Data Updates**: Manual - requires re-ingesting SCF data and republishing
+**Data Updates**: Manual - requires re-ingesting SCF data for framework mappings and curating bundled public profile summaries from official source publications
 
-**Current Version**: v1.0.0 (Published)
+**Current Version**: v1.1.0
 
 ---
 
@@ -772,7 +773,7 @@ poetry run python -m src.server  # Python
 
 | Server | Version | Date | Notes |
 |--------|---------|------|-------|
-| Security Controls | v1.0.0 | 2026-02-14 | 261 frameworks, `about` tool |
+| Security Controls | v1.0.0 | 2026-02-14 | 262 frameworks, `about` tool |
 | EU Regulations | Latest | 2026-02-14 | 49 regulations, `about` tool |
 | US Regulations | Latest | 2026-02-14 | 15 regulations, `about` tool |
 | Automotive | v1.0.1 | 2026-02-14 | R155/R156 + ISO 21434, `about` tool |

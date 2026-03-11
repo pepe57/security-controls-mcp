@@ -1,0 +1,28 @@
+{
+  "standard_id": "norway_nsm",
+  "title": "Norway NSM ICT Security Principles Profile",
+  "version": "Current public guidance",
+  "issuer": "National Security Authority (NSM)",
+  "jurisdiction": "Norway",
+  "access": "public",
+  "content_kind": "public_framework_profile",
+  "summary": "NSM's Basic Principles for ICT Security organized around identify, protect, detect, handle, and recover activities.",
+  "license": "Apache-2.0 summary data; verify against official source documents",
+  "maintainer": "Ansvar Systems",
+  "source_documents": [
+    {
+      "title": "NSM Basic Principles page",
+      "url": "https://nsm.no/regelverk-og-hjelp/rad-og-anbefalinger/grunnprinsipper-for-ikt-sikkerhet/",
+      "last_verified": "2026-03-11"
+    },
+    {
+      "title": "NSM Basic Principles PDF",
+      "url": "https://nsm.no/getfile.php/131388-1695741339/NSM/Filer/Dokumenter/Veiledere/NSMs%20grunnprinsipper%20for%20IKT-sikkerhet.pdf",
+      "last_verified": "2026-03-11"
+    }
+  ],
+  "restrictions": [
+    "Summary only; verify exact wording against official source.",
+    "Not a substitute for the official NSM guidance."
+  ]
+}

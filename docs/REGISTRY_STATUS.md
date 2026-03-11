@@ -58,10 +58,10 @@ make publisher
 ```markdown
 ### Security & Compliance
 
-- [security-controls-mcp](https://github.com/Ansvar-Systems/security-controls-mcp) - 1,451 security controls across 261 frameworks (ISO 27001, NIST, DORA, ISO 42001, EU AI Act) with bidirectional mapping. `Python` `Apache-2.0`
+- [security-controls-mcp](https://github.com/Ansvar-Systems/security-controls-mcp) - 1,451 security controls across 262 frameworks (ISO 27001, NIST, DORA, ISO 42001, EU AI Act) with bidirectional mapping. `Python` `Apache-2.0`
 ```
 
-3. Submit PR with title: "Add security-controls-mcp (261 framework coverage)"
+3. Submit PR with title: "Add security-controls-mcp (262 framework coverage)"
 
 ---
 
@@ -101,7 +101,7 @@ After submission, verify:
 
 - [ ] Package appears on https://registry.modelcontextprotocol.io/
 - [ ] Search for "security-controls" returns the package
-- [ ] Package metadata shows 261 frameworks
+- [ ] Package metadata shows 262 frameworks
 - [ ] Install command works: `pipx install security-controls-mcp`
 - [ ] Listed on awesome-mcp-servers README
 

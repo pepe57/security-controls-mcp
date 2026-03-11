@@ -1,0 +1,23 @@
+{
+  "standard_id": "finland_katakri",
+  "title": "Finland KATAKRI Profile",
+  "version": "KATAKRI 2020",
+  "issuer": "Ministry for Foreign Affairs of Finland",
+  "jurisdiction": "Finland",
+  "access": "public",
+  "content_kind": "public_framework_profile",
+  "summary": "Finnish security audit criteria for authorities covering management, physical security, and technical information security for classified and high-assurance environments.",
+  "license": "Apache-2.0 summary data; verify against official source documents",
+  "maintainer": "Ansvar Systems",
+  "source_documents": [
+    {
+      "title": "KATAKRI 2020 publication page",
+      "url": "https://um.fi/publication/-/asset_publisher/TVOLgBmLyZvu/content/tietoturvallisuuden-auditointityokalu-katakri-2020",
+      "last_verified": "2026-03-11"
+    }
+  ],
+  "restrictions": [
+    "Summary only; verify exact wording against official source.",
+    "Not a substitute for the official KATAKRI publication."
+  ]
+}

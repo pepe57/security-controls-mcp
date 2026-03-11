@@ -1,0 +1,28 @@
+{
+  "standard_id": "denmark_cfcs",
+  "title": "Denmark CFCS Cyber Defence Profile",
+  "version": "Effective Cyber Defence / NIS2 guidance",
+  "issuer": "Center for Cybersikkerhed (CFCS)",
+  "jurisdiction": "Denmark",
+  "access": "public",
+  "content_kind": "public_framework_profile",
+  "summary": "Danish cyber defence profile based on CFCS guidance for effective cyber defence, operational resilience, and current NIS2-oriented measures.",
+  "license": "Apache-2.0 summary data; verify against official source documents",
+  "maintainer": "Ansvar Systems",
+  "source_documents": [
+    {
+      "title": "Effective cyber defence guide",
+      "url": "https://www.cfcs.dk/en/publications/2023/effective-cyber-defence/",
+      "last_verified": "2026-03-11"
+    },
+    {
+      "title": "NIS2 cyber security measures guidance",
+      "url": "https://www.cfcs.dk/en/publications/2025/guidance-on-cyber-security-measures/",
+      "last_verified": "2026-03-11"
+    }
+  ],
+  "restrictions": [
+    "Summary only; verify exact wording against official source.",
+    "Not a substitute for the official CFCS publication."
+  ]
+}

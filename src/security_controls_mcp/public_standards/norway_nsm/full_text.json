@@ -1,0 +1,37 @@
+{
+  "structure": {
+    "sections": [
+      {
+        "id": "overview",
+        "title": "NSM Principles Overview",
+        "content": "NSM's Basic Principles for ICT Security are a Norwegian public guidance baseline for organizations that need practical cybersecurity measures. The principles are written to be actionable and are often used as a management and engineering bridge between general governance expectations and technical implementation.",
+        "subsections": []
+      },
+      {
+        "id": "identify_and_prioritize",
+        "title": "Identify and Prioritize",
+        "content": "Organizations should know which services, systems, data, suppliers, and dependencies matter most. NSM emphasizes asset understanding, business context, dependency mapping, and priority setting so that limited security effort is focused on the systems and information that matter most for resilience and national-interest protection.",
+        "subsections": []
+      },
+      {
+        "id": "protect",
+        "title": "Protect",
+        "content": "The protection theme covers secure configuration, identity and access management, least privilege, segmentation, patching, backups, supplier control, and secure operating practices. The expectation is disciplined implementation of basic controls that lower the probability and consequence of compromise rather than excessive dependence on advanced tooling alone.",
+        "subsections": []
+      },
+      {
+        "id": "detect",
+        "title": "Detect",
+        "content": "NSM expects monitoring and detection suited to the organization's risk picture. This includes logging, alerting, anomaly handling, and the ability to identify abuse, malware, privilege misuse, and service degradation early enough to respond. Detection is tied to knowing what normal looks like and who acts on the signal.",
+        "subsections": []
+      },
+      {
+        "id": "handle_and_recover",
+        "title": "Handle and Recover",
+        "content": "Organizations should be ready to contain incidents, communicate, restore operations, and learn. NSM places emphasis on incident handling, crisis cooperation, recovery planning, and continuity arrangements that are practiced before an event. Recovery should include both technical restoration and management-level follow-through on lessons learned.",
+        "subsections": []
+      }
+    ],
+    "annexes": []
+  }
+}

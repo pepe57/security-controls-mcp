@@ -37,7 +37,7 @@ class SCFData:
 
     def _build_framework_metadata(self):
         """Build framework metadata from controls."""
-        # Complete framework display names for all 261 frameworks in SCF 2025.4
+        # Complete framework display names for all 262 frameworks in SCF 2025.4
         framework_names = {
             # === TIER 0: AI GOVERNANCE ===
             "iso_42001_2023": "ISO/IEC 42001:2023 (AI Management System)",
@@ -886,19 +886,26 @@ class SCFData:
         # Fallback: use reverse index if no per-control mappings found
         if not results and framework in self.framework_to_scf:
             reverse = self.framework_to_scf[framework]
+            aggregated: dict[str, dict[str, Any]] = {}
             for section_id, scf_ids in reverse.items():
                 for scf_id in scf_ids:
                     ctrl = self.controls_by_id.get(scf_id)
                     if ctrl:
-                        result = {
-                            "scf_id": ctrl["id"],
-                            "scf_name": ctrl["name"],
-                            "framework_control_ids": [section_id],
-                            "weight": ctrl["weight"],
-                        }
+                        result = aggregated.setdefault(
+                            scf_id,
+                            {
+                                "scf_id": ctrl["id"],
+                                "scf_name": ctrl["name"],
+                                "framework_control_ids": [],
+                                "weight": ctrl["weight"],
+                            },
+                        )
+                        if section_id not in result["framework_control_ids"]:
+                            result["framework_control_ids"].append(section_id)
                         if include_descriptions:
                             result["description"] = ctrl["description"]
-                        results.append(result)
+
+            results = list(aggregated.values())
 
         return results
 

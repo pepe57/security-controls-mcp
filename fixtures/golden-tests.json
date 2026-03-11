@@ -76,7 +76,7 @@
       "tool": "version_info",
       "arguments": {},
       "expected": {
-        "contains": ["1451", "261", "SCF 2025.4"]
+        "contains": ["1451", "262", "SCF 2025.4"]
       }
     },
     {

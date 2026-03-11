@@ -1,0 +1,37 @@
+{
+  "structure": {
+    "sections": [
+      {
+        "id": "overview",
+        "title": "MSB Profile Overview",
+        "content": "The Swedish MSB information security profile is centered on systematic information security management for public bodies and reporting of significant IT incidents. It is especially relevant for agencies and other public-sector organizations that need an operational baseline for governance, risk treatment, and accountability.",
+        "subsections": []
+      },
+      {
+        "id": "msbfs_2020_6",
+        "title": "MSBFS 2020:6 and LIS Expectations",
+        "content": "MSBFS 2020:6 focuses on a ledningssystem for informationssakerhet (LIS). Core expectations include management commitment, scope, policy, risk assessment, documented responsibilities, control implementation, training, internal follow-up, and continuous improvement. The emphasis is on an operating management system rather than point-in-time compliance artifacts.",
+        "subsections": []
+      },
+      {
+        "id": "risk_management_and_lis",
+        "title": "Risk Management and Control Operation",
+        "content": "The public-sector expectation is a recurring risk process with identified assets, threats, vulnerabilities, impact assessment, treatment planning, and documented residual risk decisions. Technical, organizational, physical, and personnel measures should be selected from that risk process and then maintained through routine governance and review.",
+        "subsections": []
+      },
+      {
+        "id": "msbfs_2020_7",
+        "title": "MSBFS 2020:7 Incident Reporting",
+        "content": "MSBFS 2020:7 focuses on reporting significant IT incidents to the competent authority and maintaining reliable incident handling discipline. The main themes are clear thresholds, timely reporting, updates as facts change, final reporting, and the ability to describe impact, affected services, measures taken, and lessons learned.",
+        "subsections": []
+      },
+      {
+        "id": "follow_up_and_self_assessment",
+        "title": "Follow-up, Metrics, and Self-assessment",
+        "content": "Swedish public guidance supports recurring self-assessment and management follow-up. Cybersakerhetskollen and related support material help organizations measure maturity, identify weaknesses, and prioritize remediation. The profile is therefore useful as a practical audit and improvement baseline, but exact legal and regulatory obligations should be confirmed against the official source material.",
+        "subsections": []
+      }
+    ],
+    "annexes": []
+  }
+}

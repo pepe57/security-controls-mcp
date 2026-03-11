@@ -6,7 +6,11 @@ from pathlib import Path
 
 import pytest
 from security_controls_mcp.config import Config
-from security_controls_mcp.providers import PaidStandardProvider, StandardMetadata
+from security_controls_mcp.providers import (
+    BundledPublicStandardProvider,
+    PaidStandardProvider,
+    StandardMetadata,
+)
 from security_controls_mcp.registry import StandardRegistry
 
 
@@ -190,6 +194,7 @@ class TestPaidStandardProvider:
         assert metadata.standard_id == "mock_std"
         assert metadata.title == "Mock Standard"
         assert metadata.version == "1.0"
+        assert metadata.access == "paid"
 
     def test_provider_search(self, mock_standard_dir):
         """Test searching within a standard."""
@@ -245,9 +250,11 @@ class TestStandardRegistry:
             registry = StandardRegistry(config)
 
             assert not registry.has_paid_standards()
+            assert registry.has_public_standards()
             standards = registry.list_standards()
-            assert len(standards) == 1  # Just SCF
+            assert len(standards) >= 8  # SCF + bundled public profiles
             assert standards[0]["type"] == "built-in"
+            assert any(std["standard_id"] == "netherlands_bio" for std in standards)
 
     def test_registry_list_standards(self):
         """Test listing all standards."""
@@ -256,9 +263,10 @@ class TestStandardRegistry:
             registry = StandardRegistry(config)
 
             standards = registry.list_standards()
-            assert len(standards) >= 1
+            assert len(standards) >= 8
             assert standards[0]["standard_id"] == "scf"
             assert standards[0]["type"] == "built-in"
+            assert any(std["type"] == "public" for std in standards)
 
     def test_registry_get_provider_not_found(self):
         """Test getting a non-existent provider."""
@@ -268,3 +276,21 @@ class TestStandardRegistry:
 
             provider = registry.get_provider("nonexistent")
             assert provider is None
+
+    def test_registry_loads_bundled_public_profile(self):
+        """Bundled public framework profiles should be available without config."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            config = Config(Path(tmpdir) / "test-config")
+            registry = StandardRegistry(config)
+
+            provider = registry.get_provider("netherlands_bio")
+            assert isinstance(provider, BundledPublicStandardProvider)
+
+            metadata = provider.get_metadata()
+            assert metadata.access == "public"
+            assert metadata.issuer == "BIO Program Office"
+            assert metadata.source_documents
+
+            clause = provider.get_clause("risk_and_bbn")
+            assert clause is not None
+            assert "BBN" in clause.content

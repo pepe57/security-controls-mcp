@@ -53,7 +53,7 @@ build-backend = "setuptools.build_meta"
 where = ["src"]
 
 [tool.setuptools.package-data]
-security_controls_mcp = ["data/*.json"]
+security_controls_mcp = ["data/*.json", "public_standards/*/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

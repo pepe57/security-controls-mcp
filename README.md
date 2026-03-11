@@ -9,15 +9,16 @@
 
 ## Overview
 
-**THE definitive MCP server for security framework mapping.** Makes 1,451 security controls across **266 frameworks** searchable and AI-accessible through Claude, Cursor, or any MCP-compatible client.
+**THE definitive MCP server for security framework mapping.** Makes 1,451 security controls across **262 SCF-mapped frameworks** searchable and AI-accessible through Claude, Cursor, or any MCP-compatible client.
 
 Built on the [Secure Controls Framework (SCF)](https://securecontrolsframework.com/) by ComplianceForge.
 
 **Key capabilities:**
 - 1,451 security controls across governance, risk, compliance, and technical domains
-- **266 frameworks** including ISO 27001, NIST CSF, DORA, PCI DSS, CMMC, and 261 more
+- **262 SCF-mapped frameworks** including ISO 27001, NIST CSF, DORA, PCI DSS, CMMC, and TIBER-EU
 - **AI Governance:** ISO 42001, NIST AI RMF, EU AI Act, Cyber Resilience Act
 - Bidirectional mapping between frameworks via SCF rosetta stone
+- Bundled public national framework profiles for BIO, KATAKRI, NSM, MSB, CFCS, CCB, and ANSSI
 - Optional integration with purchased standards (ISO, NIST 800-53) for official text
 - Full-text search across all control descriptions
 - Natural language queries instead of framework-specific IDs
@@ -125,7 +126,7 @@ Find your path with: `which scf-mcp`
 - **NEW:** "What ISO 42001 controls map to NIST AI RMF?"
 - **NEW:** "Show me EU AI Act requirements for high-risk AI systems"
 
-## Available Frameworks (261)
+## Available Frameworks (262)
 
 ### AI Governance (NEW in v0.4.0)
 - **ISO 42001:2023** (149) - AI Management System
@@ -152,7 +153,7 @@ Find your path with: `which scf-mcp`
 - **Automotive:** ISO/SAE 21434, TISAX, UN R155
 - **Healthcare/MedDev:** HIPAA, HITRUST, CMS MARS-E, IEC 81001-5-1, IMDRF N60/N73, FDA Premarket Cybersecurity
 
-See [docs/coverage.md](docs/coverage.md) for the complete list of 266 frameworks.
+See [docs/coverage.md](docs/coverage.md) for the complete list of 262 SCF-mapped frameworks.
 
 ## Tools
 
@@ -161,10 +162,10 @@ See [docs/coverage.md](docs/coverage.md) for the complete list of 266 frameworks
 **`version_info()`** - Get server version, statistics, and top frameworks
 - Call this first to understand what data is available
 
-**`list_frameworks()`** - List all 266 frameworks with control counts
+**`list_frameworks()`** - List all 262 SCF-mapped frameworks with control counts
 
 **`get_control(control_id)`** - Get full details for a specific SCF control
-- Returns description, domain, weight, PPTDF category, and mappings to all 266 frameworks
+- Returns description, domain, weight, PPTDF category, and mappings to all 262 SCF-mapped frameworks
 
 **`search_controls(query, frameworks=[], limit=10)`** - Search controls by keyword
 - Optional framework filtering
@@ -177,16 +178,29 @@ See [docs/coverage.md](docs/coverage.md) for the complete list of 266 frameworks
 - Bidirectional mapping via SCF
 - Optional filtering to specific source control
 
-### Purchased Standards Tools
+### Standards Tools
 
-**`list_available_standards()`** - List all available standards (SCF + imported)
+**`list_available_standards()`** - List all available standards (SCF + bundled public profiles + imported)
 
-**`query_standard(standard, query, limit=10)`** - Search within purchased standard
-- Requires import first
-- Returns clauses with page numbers
+**`query_standard(standard, query, limit=10)`** - Search within a bundled public profile or purchased standard
+- Bundled public profiles return curated summaries with official source links
+- Purchased standards require import first and return clause text from the user's copy
 
-**`get_clause(standard, clause_id)`** - Get full text of specific clause
-- Requires import first
+**`get_clause(standard, clause_id)`** - Get a specific clause or section
+- Bundled public profiles return curated summary sections
+- Purchased standards require import first for official clause text
+
+### Bundled Public National Profiles
+
+These profiles are available immediately after install and are sourced from official public publications:
+
+- `netherlands_bio` - Netherlands BIO2
+- `finland_katakri` - Finland KATAKRI 2020
+- `norway_nsm` - Norway NSM Basic Principles for ICT Security
+- `sweden_msb` - Sweden MSB information security and incident reporting profile
+- `denmark_cfcs` - Denmark CFCS cyber defence profile
+- `belgium_ccb` - Belgium CyberFundamentals (CyFun)
+- `france_anssi` - France ANSSI cyber hygiene baseline
 
 See [PAID_STANDARDS_GUIDE.md](PAID_STANDARDS_GUIDE.md) for import instructions.
 
@@ -232,7 +246,7 @@ SCF JSON → In-memory index → MCP tools → AI response
 Based on **SCF 2025.4** (released December 29, 2025)
 
 - 1,451 controls across all domains
-- **266 frameworks** with full mapping coverage
+- **262 SCF-mapped frameworks** with full mapping coverage
 - Licensed under Creative Commons (data)
 - Source: [ComplianceForge SCF](https://securecontrolsframework.com/)
 

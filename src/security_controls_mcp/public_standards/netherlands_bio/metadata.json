@@ -1,0 +1,28 @@
+{
+  "standard_id": "netherlands_bio",
+  "title": "Netherlands BIO2 Profile",
+  "version": "BIO2 v1.3",
+  "issuer": "BIO Program Office",
+  "jurisdiction": "Netherlands",
+  "access": "public",
+  "content_kind": "public_framework_profile",
+  "summary": "Government information security baseline aligned to ISO 27001/27002 with Dutch public-sector specific measures and BBN risk levels.",
+  "license": "Apache-2.0 summary data; verify against official source documents",
+  "maintainer": "Ansvar Systems",
+  "source_documents": [
+    {
+      "title": "BIO2 official portal",
+      "url": "https://www.bio-overheid.nl/bio2/",
+      "last_verified": "2026-03-11"
+    },
+    {
+      "title": "BIO2 publication page",
+      "url": "https://www.bio-overheid.nl/actueel/documenten/publicaties/2025/04/28/bio2-versie-1.3",
+      "last_verified": "2026-03-11"
+    }
+  ],
+  "restrictions": [
+    "Summary only; verify exact wording against official source.",
+    "Not a substitute for the official BIO2 publication."
+  ]
+}
