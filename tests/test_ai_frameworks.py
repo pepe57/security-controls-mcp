@@ -76,9 +76,9 @@ class TestNewFrameworkCoverage:
     """Test coverage of newly added frameworks."""
 
     def test_total_framework_count(self, scf_data):
-        """Verify we have 261 frameworks from SCF 2025.4."""
-        assert len(scf_data.frameworks) == 261, (
-            f"Expected 261 frameworks, got {len(scf_data.frameworks)}"
+        """Verify we have 262 frameworks from SCF 2025.4."""
+        assert len(scf_data.frameworks) == 262, (
+            f"Expected 262 frameworks, got {len(scf_data.frameworks)}"
         )
 
     def test_cloud_security_frameworks(self, scf_data):

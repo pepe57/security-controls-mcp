@@ -25,7 +25,7 @@ class TestDataLoading:
 
     def test_expected_framework_count(self, scf_data):
         """Verify expected number of frameworks loaded."""
-        assert len(scf_data.frameworks) >= 200  # SCF 2025.4 has 261 frameworks
+        assert len(scf_data.frameworks) >= 200  # SCF 2025.4 data currently exposes 262 frameworks
 
     def test_controls_have_required_fields(self, scf_data):
         """Verify all controls have required fields."""
@@ -138,6 +138,14 @@ class TestGetFrameworkControls:
         controls = scf_data.get_framework_controls("dora", include_descriptions=True)
         for control in controls[:5]:  # Sample check
             assert "description" in control
+
+    def test_reverse_index_only_framework_controls_are_aggregated(self, scf_data):
+        """Reverse-index-only frameworks should aggregate multiple section IDs per SCF control."""
+        controls = scf_data.get_framework_controls("tiber_eu_2025")
+
+        assert len(controls) == 52
+        assert len({control["scf_id"] for control in controls}) == 52
+        assert any(len(control["framework_control_ids"]) > 1 for control in controls)
 
 
 class TestMapFrameworks:

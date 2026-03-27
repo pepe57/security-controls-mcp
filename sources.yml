@@ -10,7 +10,7 @@ sources:
     description: >
       The SCF provides a comprehensive catalog of security and privacy controls
       with cross-framework mappings. Used as the rosetta stone for bidirectional
-      framework mapping across 261 frameworks.
+      framework mapping across 262 frameworks.
     data_files:
       - src/security_controls_mcp/data/scf-controls.json
       - src/security_controls_mcp/data/framework-to-scf.json
@@ -18,7 +18,7 @@ sources:
     update_frequency: quarterly (aligned with SCF releases)
     last_checked: "2026-02-17"
     controls_count: 1451
-    frameworks_count: 261
+    frameworks_count: 262
 
 notes:
   - >

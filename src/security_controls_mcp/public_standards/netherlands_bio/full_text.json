@@ -1,0 +1,37 @@
+{
+  "structure": {
+    "sections": [
+      {
+        "id": "overview",
+        "title": "BIO2 Overview",
+        "content": "BIO2 is the Baseline Informatiebeveiliging Overheid for Dutch government bodies. It is positioned as a government baseline that builds on ISO 27001 and ISO 27002 but adds Dutch public-sector context, implementation guidance, and governance expectations. Use it to establish a common minimum security level across ministries, municipalities, provinces, water boards, and related public bodies.",
+        "subsections": []
+      },
+      {
+        "id": "positioning",
+        "title": "Positioning and Scope",
+        "content": "BIO2 is not a replacement for legal analysis or sector obligations. It acts as the baseline security framework for government organizations and is intended to be combined with applicable law, procurement obligations, and sector-specific requirements. The profile should be applied to information, services, and suppliers that fall within the organization's public-task scope.",
+        "subsections": []
+      },
+      {
+        "id": "governance",
+        "title": "Governance and ISMS Expectations",
+        "content": "BIO2 expects a management-owned information security management system. Core themes include clear accountability, policy setting, risk ownership, asset scope, supplier oversight, and demonstrable management review. The organization should be able to show how leadership decisions, risk treatment, and control operation are embedded into normal governance rather than treated as a one-off audit exercise.",
+        "subsections": []
+      },
+      {
+        "id": "risk_and_bbn",
+        "title": "Risk Management and BBN Levels",
+        "content": "BIO2 uses risk-based application and the BBN classification model to calibrate control strength. Organizations are expected to classify information and services, determine the required Baseline Beveiligingsniveau (BBN), and translate that level into concrete protective measures. This includes documenting assumptions, compensating controls, residual risk decisions, and dependencies on shared government platforms or suppliers.",
+        "subsections": []
+      },
+      {
+        "id": "implementation_and_assurance",
+        "title": "Implementation, Monitoring, and Assurance",
+        "content": "BIO2 expects implementation evidence, periodic review, and operational assurance. Typical focus areas include secure architecture, identity and access management, logging and monitoring, vulnerability handling, supplier control, incident management, and continuity. The profile is useful as a common audit and self-assessment baseline, but exact wording and mandatory interpretation should always be confirmed against the official BIO2 source documents.",
+        "subsections": []
+      }
+    ],
+    "annexes": []
+  }
+}

@@ -50,7 +50,7 @@ class TestToolCalls:
         """Test list_frameworks shows categories."""
         result = await call_tool("list_frameworks", {})
         assert len(result) == 1
-        assert "261" in result[0].text
+        assert "262" in result[0].text
         assert "categories" in result[0].text.lower()
         assert "dora" in result[0].text.lower()
 
@@ -120,6 +120,38 @@ class TestToolCalls:
         )
         assert len(result) == 1
         assert "iso_27002_2022" in result[0].text
+
+    @pytest.mark.asyncio
+    async def test_list_available_standards_includes_public_profiles(self):
+        """Bundled public profiles should appear in list_available_standards."""
+        result = await call_tool("list_available_standards", {})
+        assert len(result) == 1
+        assert "netherlands_bio" in result[0].text
+        assert "Bundled Public Profile" in result[0].text
+
+    @pytest.mark.asyncio
+    async def test_query_standard_public_profile(self):
+        """query_standard should work against bundled public profiles."""
+        result = await call_tool(
+            "query_standard",
+            {"standard": "netherlands_bio", "query": "BBN", "limit": 5},
+        )
+        assert len(result) == 1
+        assert "BIO2" in result[0].text
+        assert "risk_and_bbn" in result[0].text
+        assert "bundled public framework profile" in result[0].text
+
+    @pytest.mark.asyncio
+    async def test_get_clause_public_profile(self):
+        """get_clause should return bundled public profile content."""
+        result = await call_tool(
+            "get_clause",
+            {"standard": "belgium_ccb", "clause_id": "assurance_levels"},
+        )
+        assert len(result) == 1
+        assert "SMALL" in result[0].text
+        assert "CyberFundamentals" in result[0].text
+        assert "official source" in result[0].text.lower()
 
 
 @pytest.mark.slow

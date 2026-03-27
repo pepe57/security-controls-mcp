@@ -51,7 +51,7 @@ def test_data_loading():
             return False
 
         if frameworks_count < 100:
-            print("  - WARNING: Expected 261 frameworks")
+            print("  - WARNING: Expected 262 frameworks")
             return False
 
         print("  - Data loading: OK")

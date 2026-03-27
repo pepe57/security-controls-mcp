@@ -1,0 +1,28 @@
+{
+  "standard_id": "sweden_msb",
+  "title": "Sweden MSB Information Security Profile",
+  "version": "MSBFS 2020:6 / 2020:7",
+  "issuer": "Myndigheten for samhallskydd och beredskap (MSB) / MCF",
+  "jurisdiction": "Sweden",
+  "access": "public",
+  "content_kind": "public_framework_profile",
+  "summary": "Swedish public-sector information security management and incident reporting expectations centered on systematic LIS implementation and reporting discipline.",
+  "license": "Apache-2.0 summary data; verify against official source documents",
+  "maintainer": "Ansvar Systems",
+  "source_documents": [
+    {
+      "title": "MCF information security page",
+      "url": "https://www.mcf.se/stod-och-verktyg/stod-inom-informationssakerhet/",
+      "last_verified": "2026-03-11"
+    },
+    {
+      "title": "Cybersakerhetskollen 2025 announcement",
+      "url": "https://www.mcf.se/aktuellt/aktuellt/2025-10-08-vad-visar-resultaten-av-cybersakerhetskollen-2025.html",
+      "last_verified": "2026-03-11"
+    }
+  ],
+  "restrictions": [
+    "Summary only; verify exact wording against official source.",
+    "Not a substitute for the official MSB or MCF publication."
+  ]
+}

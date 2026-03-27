@@ -1,16 +1,22 @@
 """Registry for managing all standard providers."""
 
 import logging
+from pathlib import Path
 from typing import Dict, List, Optional
 
 from .config import Config
-from .providers import PaidStandardProvider, SearchResult, StandardProvider
+from .providers import (
+    BundledPublicStandardProvider,
+    PaidStandardProvider,
+    SearchResult,
+    StandardProvider,
+)
 
 logger = logging.getLogger(__name__)
 
 
 class StandardRegistry:
-    """Registry for all available standards (SCF + paid)."""
+    """Registry for all available standards (SCF + bundled public + paid)."""
 
     def __init__(self, config: Optional[Config] = None):
         """Initialize the registry.
@@ -21,8 +27,28 @@ class StandardRegistry:
         self.config = config or Config()
         self.providers: Dict[str, StandardProvider] = {}
 
-        # Load all enabled paid standards
+        # Load bundled public profiles first, then user-imported paid standards.
+        self._load_public_standards()
         self._load_paid_standards()
+
+    def _load_public_standards(self) -> None:
+        """Load bundled public framework profiles shipped with the package."""
+        public_dir = Path(__file__).parent / "public_standards"
+        if not public_dir.exists():
+            return
+
+        for standard_dir in sorted(path for path in public_dir.iterdir() if path.is_dir()):
+            metadata_file = standard_dir / "metadata.json"
+            full_text_file = standard_dir / "full_text.json"
+
+            if not metadata_file.exists() or not full_text_file.exists():
+                continue
+
+            try:
+                provider = BundledPublicStandardProvider(standard_dir)
+                self.providers[provider.get_metadata().standard_id] = provider
+            except Exception as e:
+                logger.error(f"Could not load bundled public standard '{standard_dir.name}': {e}")
 
     def _load_paid_standards(self) -> None:
         """Load all enabled paid standards from config."""
@@ -68,25 +94,36 @@ class StandardRegistry:
             }
         )
 
-        # Add paid standards
+        public_records = []
+        paid_records = []
+
         for standard_id, provider in self.providers.items():
             metadata = provider.get_metadata()
-            standards.append(
-                {
-                    "standard_id": standard_id,
-                    "title": metadata.title,
-                    "type": "paid",
-                    "license": metadata.license,
-                    "version": metadata.version,
-                    "purchased_from": metadata.purchased_from,
-                    "purchase_date": metadata.purchase_date,
-                }
-            )
+            record = {
+                "standard_id": standard_id,
+                "title": metadata.title,
+                "type": metadata.access,
+                "license": metadata.license,
+                "version": metadata.version,
+                "issuer": metadata.issuer,
+                "jurisdiction": metadata.jurisdiction,
+                "summary": metadata.summary,
+                "source_documents": metadata.source_documents,
+                "purchased_from": metadata.purchased_from,
+                "purchase_date": metadata.purchase_date,
+            }
+            if metadata.access == "public":
+                public_records.append(record)
+            else:
+                paid_records.append(record)
+
+        standards.extend(sorted(public_records, key=lambda record: record["title"]))
+        standards.extend(sorted(paid_records, key=lambda record: record["title"]))
 
         return standards
 
     def search_all(self, query: str, limit: int = 20) -> Dict[str, List[SearchResult]]:
-        """Search across all available paid standards.
+        """Search across all available bundled public and paid standards.
 
         Args:
             query: Search query string
@@ -127,9 +164,18 @@ class StandardRegistry:
         Returns:
             True if at least one paid standard is available
         """
-        return len(self.providers) > 0
+        return any(
+            provider.get_metadata().access == "paid" for provider in self.providers.values()
+        )
+
+    def has_public_standards(self) -> bool:
+        """Check if any bundled public standards are loaded."""
+        return any(
+            provider.get_metadata().access == "public" for provider in self.providers.values()
+        )
 
     def reload(self) -> None:
         """Reload all standards from config."""
         self.providers.clear()
+        self._load_public_standards()
         self._load_paid_standards()

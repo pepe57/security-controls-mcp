@@ -1,0 +1,28 @@
+{
+  "standard_id": "france_anssi",
+  "title": "France ANSSI Cyber Hygiene Profile",
+  "version": "Guide d'hygiene informatique / preventive measures",
+  "issuer": "Agence nationale de la securite des systemes d'information (ANSSI)",
+  "jurisdiction": "France",
+  "access": "public",
+  "content_kind": "public_framework_profile",
+  "summary": "French cyber hygiene baseline derived from ANSSI guidance on governance, privileged access, hardening, monitoring, backup, and crisis readiness.",
+  "license": "Apache-2.0 summary data; verify against official source documents",
+  "maintainer": "Ansvar Systems",
+  "source_documents": [
+    {
+      "title": "ANSSI cyber hygiene guide",
+      "url": "https://cyber.gouv.fr/en/publications/guide-hygiene-informatique",
+      "last_verified": "2026-03-11"
+    },
+    {
+      "title": "ANSSI preventive measures publication",
+      "url": "https://cyber.gouv.fr/en/publications/attacks-aiming-system-information-three-preventive-measures-apply-immediately",
+      "last_verified": "2026-03-11"
+    }
+  ],
+  "restrictions": [
+    "Summary only; verify exact wording against official source.",
+    "Not a substitute for the official ANSSI publication."
+  ]
+}

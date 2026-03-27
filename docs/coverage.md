@@ -1,13 +1,23 @@
 # Framework Coverage
 
-Complete list of 261 frameworks supported in security-controls-mcp v0.4.0.
+Complete list of 262 SCF-mapped frameworks supported in security-controls-mcp v1.1.0.
 
 Based on **SCF 2025.4** (December 29, 2025).
 
 ## Summary
 
-- **Total Frameworks**: 261
+- **Total Frameworks**: 262
 - **Total Controls**: 1,451
+
+Bundled public-source profiles are also available through `list_available_standards`, `query_standard`, and `get_clause`, but are not counted inside the 262 SCF framework total:
+
+- `netherlands_bio`
+- `finland_katakri`
+- `norway_nsm`
+- `sweden_msb`
+- `denmark_cfcs`
+- `belgium_ccb`
+- `france_anssi`
 
 ## AI Governance (Tier 0)
 
@@ -138,7 +148,9 @@ Based on **SCF 2025.4** (December 29, 2025).
 ## Regional Coverage
 
 ### Europe (EU + National)
-GDPR, NIS2, DORA, PSD2, plus national frameworks for: Austria, Belgium, Germany (BAIT, C5), Greece, Hungary, Ireland, Italy, Netherlands, Norway, Poland, Russia, Serbia, Spain (multiple), Sweden, Switzerland, Turkey, UK (CAF, Cyber Essentials, DEFSTAN)
+GDPR, NIS2, DORA, PSD2, plus SCF-mapped national frameworks for: Austria, Belgium, Germany (BAIT, C5), Greece, Hungary, Ireland, Italy, Netherlands, Norway, Poland, Russia, Serbia, Spain (multiple), Sweden, Switzerland, Turkey, UK (CAF, Cyber Essentials, DEFSTAN)
+
+Bundled public-source national profiles additionally cover: Netherlands BIO2, Finland KATAKRI, Norway NSM, Sweden MSB, Denmark CFCS, Belgium CyberFundamentals, and France ANSSI cyber hygiene guidance.
 
 ### Asia-Pacific
 Australia (ISM, Essential 8, CPS 230/234), China (Cybersecurity Law, DSL, PIPL), Hong Kong, India (DPDPA, SEBI), Japan (ISMAP, APPI), Malaysia, New Zealand (NZISM, HISF), Philippines, Singapore (MAS TRM), South Korea, Taiwan

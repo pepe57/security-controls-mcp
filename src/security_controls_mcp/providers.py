@@ -20,6 +20,13 @@ class StandardMetadata:
         self.license = data.get("license", "")
         self.pages = data.get("pages", 0)
         self.restrictions = data.get("restrictions", [])
+        self.access = data.get("access") or ("paid" if self.purchased_from else "public")
+        self.content_kind = data.get("content_kind", "")
+        self.summary = data.get("summary", "")
+        self.issuer = data.get("issuer", "")
+        self.jurisdiction = data.get("jurisdiction", "")
+        self.maintainer = data.get("maintainer", "")
+        self.source_documents = data.get("source_documents", [])
 
 
 class SearchResult:
@@ -86,8 +93,8 @@ class StandardProvider(ABC):
         pass
 
 
-class PaidStandardProvider(StandardProvider):
-    """Provider for paid standards loaded from JSON files."""
+class LocalJSONStandardProvider(StandardProvider):
+    """Provider for standards loaded from JSON files."""
 
     def __init__(self, standard_path: Path):
         """Initialize provider from standard data directory.
@@ -111,10 +118,10 @@ class PaidStandardProvider(StandardProvider):
         if not self.full_text_file.exists():
             raise FileNotFoundError(f"Full text file not found: {self.full_text_file}")
 
-        with open(self.metadata_file, "r") as f:
+        with open(self.metadata_file, "r", encoding="utf-8") as f:
             self.metadata = StandardMetadata(json.load(f))
 
-        with open(self.full_text_file, "r") as f:
+        with open(self.full_text_file, "r", encoding="utf-8") as f:
             self.data = json.load(f)
 
     def get_metadata(self) -> StandardMetadata:
@@ -242,3 +249,11 @@ class PaidStandardProvider(StandardProvider):
                 )
 
         return results
+
+
+class PaidStandardProvider(LocalJSONStandardProvider):
+    """Provider for user-imported paid standards loaded from JSON files."""
+
+
+class BundledPublicStandardProvider(LocalJSONStandardProvider):
+    """Provider for bundled public framework profiles."""

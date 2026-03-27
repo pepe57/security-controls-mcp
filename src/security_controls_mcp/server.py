@@ -14,6 +14,13 @@ from .config import Config
 from .data_loader import SCFData
 from .legal_notice import print_legal_notice
 from .registry import StandardRegistry
+from .standard_rendering import (
+    render_excerpt_footer,
+    render_standard_clause,
+    render_standard_list,
+    render_standard_not_found,
+    render_standard_search_results,
+)
 from .tools.version_tracking import PREMIUM_TOOLS, PREMIUM_HANDLERS
 
 # Initialize data loader
@@ -178,7 +185,7 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="list_frameworks",
             description=(
-                "List all 261 supported security frameworks, optionally filtered by "
+                "List all 262 supported security frameworks, optionally filtered by "
                 "category. Without a category filter, returns all frameworks grouped "
                 "by category (~3000 tokens). With a category filter, returns only that "
                 "category's frameworks (~200-500 tokens). Use this to discover valid "
@@ -308,11 +315,11 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="list_available_standards",
             description=(
-                "List all available standards: SCF (always built-in) plus any purchased "
-                "standards the user has imported via PDF upload. Purchased standards "
-                "provide official clause text for query_standard and get_clause tools. "
-                "If no standards have been imported, only SCF is shown with a guidance "
-                "message. Returns ~200-500 tokens."
+                "List all available standards: SCF (always built-in), bundled public "
+                "framework profiles shipped with the server, plus any purchased standards "
+                "the user has imported via PDF upload. Bundled public profiles provide "
+                "curated summaries linked to official sources. Purchased standards provide "
+                "official clause text from the user's imported copy. Returns ~200-800 tokens."
             ),
             inputSchema={
                 "type": "object",
@@ -323,11 +330,11 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="query_standard",
             description=(
-                "Search within a purchased standard's official text by keyword. "
-                "Requires the standard to have been imported first via PDF upload. "
-                "Returns matching clauses with text snippets. "
+                "Search within a bundled public framework profile or a purchased standard "
+                "by keyword. Bundled public profiles contain curated summaries linked to "
+                "official sources. Purchased standards return text from the user's imported "
+                "copy. Returns matching clauses with text snippets. "
                 "If the standard is not found, returns available standard IDs. "
-                "If no standards are imported, returns guidance to import first. "
                 "Use list_available_standards to check what's available before calling. "
                 "Returns ~500-2000 tokens depending on matches."
             ),
@@ -337,8 +344,9 @@ async def list_tools() -> list[Tool]:
                     "standard": {
                         "type": "string",
                         "description": (
-                            "Standard identifier (e.g., 'iso_27001_2022', 'nist_800_53_r5'). "
-                            "Use list_available_standards to see imported standards."
+                            "Standard identifier (e.g., 'netherlands_bio', "
+                            "'france_anssi', 'iso_27001_2022'). "
+                            "Use list_available_standards to see available standards."
                         ),
                     },
                     "query": {
@@ -366,11 +374,12 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="get_clause",
             description=(
-                "Get the full text of a specific clause or section from a purchased "
-                "standard by its clause ID. Requires the standard to have been imported "
-                "first via PDF upload. Returns the complete clause content with page "
-                "reference and license notice. If the clause is not found, returns an "
-                "error message. Use query_standard to discover clause IDs first."
+                "Get a specific clause or section from a bundled public framework profile "
+                "or a purchased standard by its clause ID. Bundled public profiles return "
+                "curated summary text with official source attribution. Purchased standards "
+                "return text from the user's imported copy with license notice. If the "
+                "clause is not found, returns an error message. Use query_standard to "
+                "discover clause IDs first."
             ),
             inputSchema={
                 "type": "object",
@@ -378,8 +387,9 @@ async def list_tools() -> list[Tool]:
                     "standard": {
                         "type": "string",
                         "description": (
-                            "Standard identifier (e.g., 'iso_27001_2022'). "
-                            "Use list_available_standards to see imported standards."
+                            "Standard identifier (e.g., 'netherlands_bio', "
+                            "'iso_27001_2022'). Use list_available_standards to see "
+                            "available standards."
                         ),
                     },
                     "clause_id": {
@@ -447,8 +457,9 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                 "jurisdiction": "International",
                 "content_basis": (
                     "Secure Controls Framework (SCF) 2025.4 control catalog with "
-                    "cross-framework mappings. Framework identifiers and mapping "
-                    "relationships only \u2014 no copyrighted standard text included."
+                    "cross-framework mappings, plus bundled public framework profiles "
+                    "derived from official publications. Proprietary standard text is "
+                    "only available from user-imported purchased copies."
                 ),
                 "counts": {
                     "controls": len(scf_data.controls),
@@ -461,16 +472,20 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                 },
             },
             "provenance": {
-                "sources": ["Secure Controls Framework (SCF)"],
+                "sources": [
+                    "Secure Controls Framework (SCF)",
+                    "Bundled official public-source framework publications",
+                ],
                 "license": (
-                    "Apache-2.0 (server code). SCF data used under SCF license terms. "
-                    "Framework control IDs and mapping relationships are factual data."
+                    "Apache-2.0 (server code and bundled public profile summaries). "
+                    "SCF data used under SCF license terms. Proprietary framework text "
+                    "is only exposed from user-imported copies."
                 ),
                 "authenticity_note": (
                     "Control mappings are derived from the Secure Controls Framework. "
-                    "Individual framework standards (ISO 27001, NIST, etc.) are copyrighted "
-                    "by their respective bodies. This server provides mapping relationships, "
-                    "not standard text."
+                    "Bundled public profiles are curated summaries of official public "
+                    "publications. Individual proprietary framework standards (ISO 27001, "
+                    "NIST, etc.) remain copyrighted by their respective bodies."
                 ),
             },
             "security": {
@@ -481,10 +496,20 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             },
         }
 
-        # Include paid standards count if available
-        if registry.has_paid_standards():
-            standards = registry.list_standards()
-            paid = [s for s in standards if s["type"] == "paid"]
+        standards = registry.list_standards()
+        public = [s for s in standards if s["type"] == "public"]
+        paid = [s for s in standards if s["type"] == "paid"]
+        if public:
+            about_data["dataset"]["counts"]["public_standards"] = len(public)
+            about_data["provenance"]["bundled_public_profiles"] = [
+                {
+                    "standard_id": standard["standard_id"],
+                    "title": standard["title"],
+                    "issuer": standard.get("issuer"),
+                }
+                for standard in public
+            ]
+        if paid:
             about_data["dataset"]["counts"]["paid_standards"] = len(paid)
 
         return [TextContent(type="text", text=json_module.dumps(about_data, indent=2))]
@@ -538,15 +563,15 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                     fw_name = scf_data.frameworks.get(fw_key, {}).get("name", fw_key)
                     text += f"- **{fw_name}:** {', '.join(mappings)}\n"
 
-        # Check if user has paid standards with official text for mapped frameworks
-        if include_mappings and registry.has_paid_standards():
+        # Check if user has additional standards with text for mapped frameworks
+        if include_mappings and registry.providers:
             official_texts = []
 
             for fw_key, control_ids in response["framework_mappings"].items():
                 if not control_ids:
                     continue
 
-                # Check if we have a paid standard for this framework
+                # Check if we have a bundled or imported standard for this framework
                 provider = registry.get_provider(fw_key)
                 if not provider:
                     continue
@@ -572,7 +597,7 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             # Display official texts if we found any
             if official_texts:
                 text += "\n" + "=" * 80 + "\n"
-                text += "**📜 Official Text from Your Purchased Standards**\n"
+                text += "**📜 Additional Standard Text**\n"
                 text += "=" * 80 + "\n\n"
 
                 for item in official_texts:
@@ -591,8 +616,7 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                     if item["clause"].page:
                         text += f"📄 Page {item['clause'].page}\n"
 
-                    text += f"**Source:** {item['metadata'].title} (your licensed copy)\n"
-                    text += "⚠️ Licensed content - do not redistribute\n\n"
+                    text += render_excerpt_footer(item["metadata"])
 
         return [TextContent(type="text", text=text)]
 
@@ -791,14 +815,14 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
         if len(mappings) > 20:
             text += f"\n*Showing first 20 of {len(mappings)} mappings*\n"
 
-        # Check if user has paid standards for source or target frameworks
-        if registry.has_paid_standards():
+        # Check if user has bundled or paid standards for source or target frameworks
+        if registry.providers:
             source_provider = registry.get_provider(source_framework)
             target_provider = registry.get_provider(target_framework)
 
             if source_provider or target_provider:
                 text += "\n" + "=" * 80 + "\n"
-                text += "**📜 Official Text from Your Purchased Standards**\n"
+                text += "**📜 Additional Standard Text**\n"
                 text += "=" * 80 + "\n\n"
 
                 # Show example from first mapping
@@ -820,8 +844,8 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                                 text += f"{content}\n\n"
 
                                 if clause.page:
-                                    text += f"📄 Page {clause.page} | "
-                                text += f"**Source:** {metadata.title}\n\n"
+                                    text += f"📄 Page {clause.page}\n"
+                                text += render_excerpt_footer(metadata)
 
                     # Show target framework official text
                     if target_provider and example_mapping["target_controls"]:
@@ -838,39 +862,21 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                                 text += f"{content}\n\n"
 
                                 if clause.page:
-                                    text += f"📄 Page {clause.page} | "
-                                text += f"**Source:** {metadata.title}\n\n"
+                                    text += f"📄 Page {clause.page}\n"
+                                text += render_excerpt_footer(metadata)
 
-                text += "⚠️ Licensed content - do not redistribute\n"
-                text += (
-                    "\n*Showing example from first mapping. Use get_clause for specific clauses.*\n"
-                )
+                text += "*Showing example from first mapping. Use get_clause for specific clauses.*\n"
 
         return [TextContent(type="text", text=text)]
 
     elif name == "list_available_standards":
         standards = registry.list_standards()
-
-        text = f"**Available Standards ({len(standards)} total)**\n\n"
-
-        for std in standards:
-            if std["type"] == "built-in":
-                text += f"### {std['title']} (Built-in)\n"
-                text += f"- **License:** {std['license']}\n"
-                text += f"- **Coverage:** {std['controls']}\n\n"
-            else:
-                text += f"### {std['title']} (Purchased)\n"
-                text += f"- **ID:** `{std['standard_id']}`\n"
-                text += f"- **Version:** {std['version']}\n"
-                text += f"- **License:** {std['license']}\n"
-                text += f"- **Purchased from:** {std['purchased_from']}\n"
-                text += f"- **Purchase date:** {std['purchase_date']}\n\n"
-
-        if not registry.has_paid_standards():
-            text += "\n*No purchased standards imported yet. Purchase a standard "
-            text += "(e.g., ISO 27001 from ISO.org) and use the import tool to add it.*\n"
-
-        return [TextContent(type="text", text=text)]
+        return [
+            TextContent(
+                type="text",
+                text=render_standard_list(standards, registry.has_paid_standards()),
+            )
+        ]
 
     elif name == "query_standard":
         standard = str(arguments.get("standard") or "").strip()
@@ -890,12 +896,12 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
 
         provider = registry.get_provider(standard)
         if not provider:
-            available = [s["standard_id"] for s in registry.list_standards() if s["type"] == "paid"]
-            if available:
-                text = f"Standard '{standard}' not found. Available: {', '.join(available)}"
-            else:
-                text = "No purchased standards available. Import a standard first using the import tool."
-            return [TextContent(type="text", text=text)]
+            return [
+                TextContent(
+                    type="text",
+                    text=render_standard_not_found(registry.list_standards(), standard),
+                )
+            ]
 
         results = provider.search(query, limit=limit)
 
@@ -903,20 +909,12 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             return [TextContent(type="text", text=f"No results found for '{query}' in {standard}")]
 
         metadata = provider.get_metadata()
-        text = f"**{metadata.title} - Search Results for '{query}'**\n\n"
-        text += f"Found {len(results)} result(s)\n\n"
-
-        for result in results:
-            text += f"### {result.clause_id}: {result.title}\n"
-            if result.section_type:
-                text += f"*{result.section_type}*\n"
-            text += f"{result.content[:300]}...\n"
-            if result.page:
-                text += f"📄 Page {result.page}\n"
-            text += f"\n**Source:** {metadata.title} (your licensed copy)\n"
-            text += "⚠️ Licensed content - do not redistribute\n\n"
-
-        return [TextContent(type="text", text=text)]
+        return [
+            TextContent(
+                type="text",
+                text=render_standard_search_results(metadata, query, results),
+            )
+        ]
 
     elif name == "get_clause":
         standard = str(arguments.get("standard") or "").strip()
@@ -932,12 +930,12 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
 
         provider = registry.get_provider(standard)
         if not provider:
-            available = [s["standard_id"] for s in registry.list_standards() if s["type"] == "paid"]
-            if available:
-                text = f"Standard '{standard}' not found. Available: {', '.join(available)}"
-            else:
-                text = "No purchased standards available. Import a standard first using the import tool."
-            return [TextContent(type="text", text=text)]
+            return [
+                TextContent(
+                    type="text",
+                    text=render_standard_not_found(registry.list_standards(), standard),
+                )
+            ]
 
         result = provider.get_clause(clause_id)
 
@@ -945,17 +943,10 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             return [TextContent(type="text", text=f"Clause '{clause_id}' not found in {standard}")]
 
         metadata = provider.get_metadata()
-        text = f"**{metadata.title}**\n\n"
-        text += f"## {result.clause_id}: {result.title}\n\n"
-        if result.section_type:
-            text += f"*{result.section_type}*\n\n"
-        text += f"{result.content}\n\n"
-        if result.page:
-            text += f"📄 **Page:** {result.page}\n"
-        text += f"\n**Source:** {metadata.title} (your licensed copy, purchased {metadata.purchase_date})\n"
-        text += f"**License:** {metadata.license}\n"
-        text += "⚠️ **This content is from your personally licensed copy. Do not share or redistribute.**\n"
+        return [TextContent(type="text", text=render_standard_clause(metadata, result))]
 
+    elif name in PREMIUM_HANDLERS:
+        text = PREMIUM_HANDLERS[name](arguments)
         return [TextContent(type="text", text=text)]
 
     elif name in PREMIUM_HANDLERS:

@@ -1,0 +1,37 @@
+{
+  "structure": {
+    "sections": [
+      {
+        "id": "overview",
+        "title": "KATAKRI Overview",
+        "content": "KATAKRI is Finland's security audit criteria for authorities and organizations that handle security-sensitive activities or classified information. It is used as an assessment tool rather than a generic control catalogue. The framework is intended to support consistent auditing, assurance, and readiness discussions between authorities and the organizations that depend on them.",
+        "subsections": []
+      },
+      {
+        "id": "security_management",
+        "title": "Security Management",
+        "content": "The management dimension focuses on leadership accountability, roles, policy, personnel trust, training, supplier handling, and the ability to operate security governance as a controlled management system. KATAKRI expects evidence that responsibilities are assigned, risks are understood, and security requirements are embedded into operations and contractual arrangements.",
+        "subsections": []
+      },
+      {
+        "id": "physical_security",
+        "title": "Physical Security",
+        "content": "KATAKRI addresses facility protection, zoning, visitor control, storage, environmental safeguards, and handling arrangements for classified or otherwise sensitive information. Organizations should be able to show how premises, equipment, and media are protected against unauthorized access, compromise, and disruption.",
+        "subsections": []
+      },
+      {
+        "id": "technical_security",
+        "title": "Technical Information Security",
+        "content": "The technical dimension covers network separation, identity and access control, system administration, logging, hardening, cryptographic protection, incident response, and secure handling of information systems that process protected information. The focus is on assurance and operational discipline, especially where compromise could affect national interests or protected data.",
+        "subsections": []
+      },
+      {
+        "id": "assessment_and_use",
+        "title": "Assessment and Use",
+        "content": "KATAKRI is typically used to structure audits, maturity checks, and authority dialogue. It is not a shortcut to formal approval by itself. The profile helps teams understand the main assurance areas and prepare evidence, but final interpretation, applicability, and scoring should always be taken from the official Finnish source publication and any authority instructions tied to the engagement.",
+        "subsections": []
+      }
+    ],
+    "annexes": []
+  }
+}

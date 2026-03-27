@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- **Bundled public framework profiles** — BIO (Netherlands), KATAKRI (Finland), NSM (Norway), MSB (Sweden), CFCS (Denmark), CCB/CyFun (Belgium), and ANSSI cyber hygiene guidance (France)
+- **Public standards registry support** — bundled public profiles now load automatically alongside SCF and user-imported paid standards
+- **Public profile tests** — coverage for bundled profile listing, querying, and clause retrieval
+
+### Changed
+- `list_available_standards`, `query_standard`, and `get_clause` now distinguish built-in SCF mappings, bundled public profiles, and imported paid standards
+- `about` now reports bundled public profile counts and provenance metadata
+- README and architecture docs now document bundled public-source profile coverage
+- Reverse-index-only frameworks now aggregate multiple source section IDs onto a single SCF control entry, fixing inflated counts for TIBER-EU
+- Current metadata and tests now reflect the 262-framework SCF dataset actually shipped by the server
+
 ## [1.1.0] - 2026-02-16
 
 ### Added

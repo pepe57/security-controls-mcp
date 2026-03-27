@@ -1,0 +1,28 @@
+{
+  "standard_id": "belgium_ccb",
+  "title": "Belgium CyberFundamentals Profile",
+  "version": "CyFun 2025",
+  "issuer": "Centre for Cybersecurity Belgium (CCB)",
+  "jurisdiction": "Belgium",
+  "access": "public",
+  "content_kind": "public_framework_profile",
+  "summary": "Belgian CyberFundamentals profile covering assurance levels, the Identify-Protect-Detect-Respond-Recover functions, and ecosystem resilience.",
+  "license": "Apache-2.0 summary data; verify against official source documents",
+  "maintainer": "Ansvar Systems",
+  "source_documents": [
+    {
+      "title": "CyberFundamentals 2025 publication",
+      "url": "https://ccb.belgium.be/en/cyberfundamentals-framework-2025",
+      "last_verified": "2026-03-11"
+    },
+    {
+      "title": "CCB NCCA CyFun 2.0 note",
+      "url": "https://ccb.belgium.be/en/cyfunr-framework-20-now-published",
+      "last_verified": "2026-03-11"
+    }
+  ],
+  "restrictions": [
+    "Summary only; verify exact wording against official source.",
+    "Not a substitute for the official CyberFundamentals publication."
+  ]
+}

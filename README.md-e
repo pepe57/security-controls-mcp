@@ -35,12 +35,12 @@ This MCP server provides instant bidirectional mapping between any two framework
 
 > Connect directly to the hosted version — zero dependencies, nothing to install.
 
-**Endpoint:** `https://mcp.ansvar.eu/security-controls/mcp`
+**Endpoint:** `https://security-controls-mcp.vercel.app/mcp`
 
 | Client | How to Connect |
 |--------|---------------|
 | **Claude.ai** | Settings > Connectors > Add Integration > paste URL |
-| **Claude Code** | `claude mcp add security-controls --transport http https://mcp.ansvar.eu/security-controls/mcp` |
+| **Claude Code** | `claude mcp add security-controls --transport http https://security-controls-mcp.vercel.app/mcp` |
 | **Claude Desktop** | Add to config (see below) |
 | **GitHub Copilot** | Add to VS Code settings (see below) |
 
@@ -51,7 +51,7 @@ This MCP server provides instant bidirectional mapping between any two framework
   "mcpServers": {
     "security-controls": {
       "type": "url",
-      "url": "https://mcp.ansvar.eu/security-controls/mcp"
+      "url": "https://security-controls-mcp.vercel.app/mcp"
     }
   }
 }
@@ -64,7 +64,7 @@ This MCP server provides instant bidirectional mapping between any two framework
   "github.copilot.chat.mcp.servers": {
     "security-controls": {
       "type": "http",
-      "url": "https://mcp.ansvar.eu/security-controls/mcp"
+      "url": "https://security-controls-mcp.vercel.app/mcp"
     }
   }
 }

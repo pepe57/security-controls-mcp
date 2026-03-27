@@ -1,0 +1,38 @@
+{
+  "standard_id": "imdrf_cybersecurity",
+  "title": "IMDRF Medical Device Cybersecurity Guidance Suite",
+  "version": "N60 (2020), N70 (2023), N73 (2023), N88 (2025)",
+  "issuer": "International Medical Device Regulators Forum (IMDRF)",
+  "jurisdiction": "International",
+  "access": "public",
+  "content_kind": "public_framework_profile",
+  "summary": "International principles for medical device cybersecurity, legacy device security, software bill of materials (SBOM), and good machine learning practices (GMLP). Referenced by FDA, PMDA, NMPA, Health Canada, TGA, and ANVISA.",
+  "license": "Public domain — IMDRF publications are freely available",
+  "maintainer": "Ansvar Systems",
+  "source_documents": [
+    {
+      "title": "IMDRF N60: Principles and Practices for Medical Device Cybersecurity",
+      "url": "https://www.imdrf.org/documents/principles-and-practices-medical-device-cybersecurity",
+      "last_verified": "2026-03-27"
+    },
+    {
+      "title": "IMDRF N70: Principles and Practices for the Cybersecurity of Legacy Medical Devices",
+      "url": "https://www.imdrf.org/documents/principles-and-practices-cybersecurity-legacy-medical-devices",
+      "last_verified": "2026-03-27"
+    },
+    {
+      "title": "IMDRF N73: Principles and Practices for SBOM for Medical Device Cybersecurity",
+      "url": "https://www.imdrf.org/documents/principles-and-practices-software-bill-materials-medical-device-cybersecurity",
+      "last_verified": "2026-03-27"
+    },
+    {
+      "title": "IMDRF N88: Good Machine Learning Practice for Medical Device Development",
+      "url": "https://www.imdrf.org/documents/good-machine-learning-practice-medical-device-development",
+      "last_verified": "2026-03-27"
+    }
+  ],
+  "restrictions": [
+    "Summary and analysis only; verify exact wording against official IMDRF publications.",
+    "Not a substitute for full IMDRF guidance documents."
+  ]
+}

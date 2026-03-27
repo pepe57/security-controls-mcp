@@ -130794,5 +130794,220 @@
       "GOV-02",
       "VPM-01"
     ]
+  },
+  "tiber_eu_2025": {
+    "TIBER-GOV-01": [
+      "GOV-01",
+      "GOV-04",
+      "GOV-04.1",
+      "GOV-04.2"
+    ],
+    "TIBER-GOV-02": [
+      "GOV-01",
+      "GOV-04",
+      "CPL-02"
+    ],
+    "TIBER-GOV-03": [
+      "GOV-06",
+      "CPL-01",
+      "CPL-01.2"
+    ],
+    "TIBER-GOV-04": [
+      "GOV-02",
+      "IAC-21",
+      "TDA-01",
+      "TDA-01.1"
+    ],
+    "TIBER-GOV-05": [
+      "RSK-01",
+      "RSK-02",
+      "RSK-04",
+      "AST-02"
+    ],
+    "TIBER-GOV-06": [
+      "RSK-01",
+      "RSK-04",
+      "RSK-08",
+      "OPS-01"
+    ],
+    "TIBER-PREP-01": [
+      "RSK-01",
+      "RSK-02",
+      "RSK-08",
+      "AST-01.1",
+      "AST-02"
+    ],
+    "TIBER-PREP-02": [
+      "TPM-01",
+      "TPM-02",
+      "TPM-03"
+    ],
+    "TIBER-PREP-03": [
+      "TPM-01",
+      "TPM-02",
+      "TPM-03",
+      "VPM-07"
+    ],
+    "TIBER-PREP-04": [
+      "PRM-01",
+      "PRM-01.1",
+      "IAO-04"
+    ],
+    "TIBER-PREP-05": [
+      "VPM-07",
+      "VPM-10",
+      "THR-01"
+    ],
+    "TIBER-PREP-06": [
+      "GOV-02",
+      "TDA-01",
+      "TDA-01.1"
+    ],
+    "TIBER-PREP-07": [
+      "TPM-05",
+      "CPL-01"
+    ],
+    "TIBER-TI-01": [
+      "THR-01",
+      "THR-03",
+      "THR-09"
+    ],
+    "TIBER-TI-02": [
+      "THR-01",
+      "THR-03",
+      "THR-07"
+    ],
+    "TIBER-TI-03": [
+      "THR-01",
+      "THR-07",
+      "VPM-07",
+      "VPM-10"
+    ],
+    "TIBER-TI-04": [
+      "THR-01",
+      "THR-02",
+      "VPM-06"
+    ],
+    "TIBER-TI-05": [
+      "THR-01",
+      "THR-03",
+      "THR-07"
+    ],
+    "TIBER-TI-06": [
+      "RSK-03",
+      "RSK-04",
+      "RSK-05",
+      "THR-10"
+    ],
+    "TIBER-RT-01": [
+      "VPM-07",
+      "VPM-10"
+    ],
+    "TIBER-RT-02": [
+      "VPM-07",
+      "VPM-10",
+      "IRO-06"
+    ],
+    "TIBER-RT-03": [
+      "VPM-07",
+      "VPM-10",
+      "THR-01"
+    ],
+    "TIBER-RT-04": [
+      "VPM-07",
+      "VPM-10",
+      "IAO-04"
+    ],
+    "TIBER-RT-05": [
+      "VPM-07",
+      "VPM-10",
+      "OPS-01"
+    ],
+    "TIBER-RT-06": [
+      "RSK-01",
+      "RSK-06",
+      "IRO-01"
+    ],
+    "TIBER-RT-07": [
+      "VPM-07",
+      "IRO-08",
+      "IAO-04"
+    ],
+    "TIBER-RT-08": [
+      "VPM-07",
+      "IRO-02",
+      "MON-01"
+    ],
+    "TIBER-CLO-01": [
+      "VPM-07",
+      "IAO-02",
+      "IAO-04"
+    ],
+    "TIBER-CLO-02": [
+      "THR-01",
+      "IAO-02"
+    ],
+    "TIBER-CLO-03": [
+      "VPM-07",
+      "VPM-10",
+      "IRO-06"
+    ],
+    "TIBER-CLO-04": [
+      "IAO-05",
+      "RSK-06",
+      "VPM-04"
+    ],
+    "TIBER-CLO-05": [
+      "IRO-13",
+      "IAO-02"
+    ],
+    "TIBER-CLO-06": [
+      "CPL-01",
+      "CPL-01.2",
+      "IAO-02",
+      "GOV-17"
+    ],
+    "TIBER-CLO-07": [
+      "IAO-05",
+      "RSK-06",
+      "VPM-04"
+    ],
+    "TIBER-CLO-08": [
+      "IAO-01",
+      "TDA-17.1"
+    ],
+    "TIBER-DORA-01": [
+      "VPM-07",
+      "VPM-07.1",
+      "CPL-01"
+    ],
+    "TIBER-DORA-02": [
+      "VPM-07",
+      "VPM-07.1"
+    ],
+    "TIBER-DORA-03": [
+      "VPM-07",
+      "VPM-07.1",
+      "TPM-01",
+      "TPM-02"
+    ],
+    "TIBER-DORA-04": [
+      "VPM-07",
+      "VPM-07.1",
+      "CPL-01",
+      "GOV-17"
+    ],
+    "TIBER-DORA-05": [
+      "VPM-07",
+      "VPM-07.1",
+      "RSK-01",
+      "RSK-04"
+    ],
+    "TIBER-DORA-06": [
+      "VPM-07",
+      "VPM-07.1",
+      "CPL-01",
+      "CPL-09"
+    ]
   }
 }

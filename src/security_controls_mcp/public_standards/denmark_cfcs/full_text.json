@@ -1,0 +1,37 @@
+{
+  "structure": {
+    "sections": [
+      {
+        "id": "overview",
+        "title": "CFCS Profile Overview",
+        "content": "CFCS publishes practical Danish guidance aimed at helping organizations establish effective cyber defence. The focus is operational resilience: knowing what matters, reducing exposure, improving detection, and being ready to handle attacks in a disciplined way.",
+        "subsections": []
+      },
+      {
+        "id": "governance",
+        "title": "Management Ownership and Prioritization",
+        "content": "CFCS guidance expects cybersecurity to be anchored in management decisions, risk prioritization, and clear operational ownership. Organizations should understand critical services, dependencies, suppliers, and business consequences so they can prioritize measures and response planning where compromise hurts most.",
+        "subsections": []
+      },
+      {
+        "id": "preventive_measures",
+        "title": "Preventive and Hardening Measures",
+        "content": "Preventive measures include secure configuration, access control, vulnerability remediation, network separation, backup discipline, and supplier governance. The Danish approach stresses practical implementation of baseline cyber hygiene and resilience measures before pursuing advanced edge cases.",
+        "subsections": []
+      },
+      {
+        "id": "detect_and_respond",
+        "title": "Detection and Response",
+        "content": "CFCS highlights logging, monitoring, early warning, and a prepared incident response capability. Teams should know how to recognize suspicious activity, escalate fast, coordinate internally, and restore essential services. Response planning should be exercised rather than left as a paper document.",
+        "subsections": []
+      },
+      {
+        "id": "supply_chain_and_nis2",
+        "title": "Supply Chain and NIS2-oriented Measures",
+        "content": "More recent CFCS guidance reinforces governance, risk analysis, supply-chain control, and documented security measures in line with NIS2-era expectations. This profile is therefore useful for Danish baseline planning and NIS2 preparation, but final applicability and wording must be confirmed against the official CFCS source documents.",
+        "subsections": []
+      }
+    ],
+    "annexes": []
+  }
+}

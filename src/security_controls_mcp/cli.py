@@ -243,6 +243,15 @@ def list_standards():
             click.echo(f"✓ {std['title']} (Built-in)")
             click.echo(f"  License: {std['license']}")
             click.echo(f"  Coverage: {std['controls']}")
+        elif std["type"] == "public":
+            click.echo(f"✓ {std['title']} (Bundled Public Profile)")
+            click.echo(f"  ID: {std['standard_id']}")
+            click.echo(f"  Version: {std['version']}")
+            click.echo(f"  Issuer: {std.get('issuer', 'Unknown')}")
+            click.echo(f"  Jurisdiction: {std.get('jurisdiction', 'Unknown')}")
+            sources = std.get("source_documents") or []
+            if sources:
+                click.echo(f"  Primary source: {sources[0].get('url', 'n/a')}")
         else:
             click.echo(f"✓ {std['title']} (Purchased)")
             click.echo(f"  ID: {std['standard_id']}")

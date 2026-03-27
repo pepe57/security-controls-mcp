@@ -37,7 +37,7 @@ class SCFData:
 
     def _build_framework_metadata(self):
         """Build framework metadata from controls."""
-        # Complete framework display names for all 261 frameworks in SCF 2025.4
+        # Complete framework display names for all 262 frameworks in SCF 2025.4
         framework_names = {
             # === TIER 0: AI GOVERNANCE ===
             "iso_42001_2023": "ISO/IEC 42001:2023 (AI Management System)",
@@ -231,6 +231,7 @@ class SCFData:
             "nis2_annex": "NIS2 Directive Annex",
             "psd2": "PSD2 (Payment Services Directive)",
             "eu_eba_gl_2019_04": "EU EBA GL/2019/04",
+            "tiber_eu_2025": "TIBER-EU Framework 2025",
             # === EMEA NATIONAL ===
             "uk_caf_4.0": "UK Cyber Assessment Framework 4.0",
             "uk_cyber_essentials": "UK Cyber Essentials",
@@ -567,6 +568,7 @@ class SCFData:
                 "dora",
                 "psd2",
                 "eu_eba_gl_2019_04",
+                "tiber_eu_2025",
                 "swift_cscf_2023",
                 "shared_assessments_sig_2025",
                 "singapore_mas_trm_2021",
@@ -644,6 +646,7 @@ class SCFData:
                 "eu_cyber_resilience_act",
                 "eu_cra_annexes",
                 "eu_eba_gl_2019_04",
+                "tiber_eu_2025",
                 "enisa_2.0",
             ],
             # === EUROPE NATIONAL ===
@@ -759,6 +762,27 @@ class SCFData:
                     "controls_mapped": count,
                 }
 
+        # Register frameworks that exist only in the reverse index
+        # (manually-added frameworks like TIBER-EU that aren't in the SCF spreadsheet).
+        # Only register if the framework appears in at least one category.
+        all_categorized = set()
+        for cat_fws in self.framework_categories.values():
+            all_categorized.update(cat_fws)
+
+        for fw_key in self.framework_to_scf:
+            if fw_key not in self.frameworks and fw_key in framework_names and fw_key in all_categorized:
+                reverse = self.framework_to_scf[fw_key]
+                unique_scf_ids = set()
+                for scf_ids in reverse.values():
+                    unique_scf_ids.update(scf_ids)
+                count = len(unique_scf_ids)
+                if count > 0:
+                    self.frameworks[fw_key] = {
+                        "key": fw_key,
+                        "name": framework_names[fw_key],
+                        "controls_mapped": count,
+                    }
+
     def get_control(self, control_id: str) -> dict[str, Any] | None:
         """Get control by SCF ID."""
         return self.controls_by_id.get(control_id)
@@ -862,19 +886,26 @@ class SCFData:
         # Fallback: use reverse index if no per-control mappings found
         if not results and framework in self.framework_to_scf:
             reverse = self.framework_to_scf[framework]
+            aggregated: dict[str, dict[str, Any]] = {}
             for section_id, scf_ids in reverse.items():
                 for scf_id in scf_ids:
                     ctrl = self.controls_by_id.get(scf_id)
                     if ctrl:
-                        result = {
-                            "scf_id": ctrl["id"],
-                            "scf_name": ctrl["name"],
-                            "framework_control_ids": [section_id],
-                            "weight": ctrl["weight"],
-                        }
+                        result = aggregated.setdefault(
+                            scf_id,
+                            {
+                                "scf_id": ctrl["id"],
+                                "scf_name": ctrl["name"],
+                                "framework_control_ids": [],
+                                "weight": ctrl["weight"],
+                            },
+                        )
+                        if section_id not in result["framework_control_ids"]:
+                            result["framework_control_ids"].append(section_id)
                         if include_descriptions:
                             result["description"] = ctrl["description"]
-                        results.append(result)
+
+            results = list(aggregated.values())
 
         return results
 
