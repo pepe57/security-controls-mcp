@@ -1,0 +1,184 @@
+{
+  "structure": {
+    "sections": [
+      {
+        "id": "n60_overview",
+        "title": "IMDRF N60 — Principles and Practices for Medical Device Cybersecurity (2020)",
+        "content": "IMDRF N60 establishes international principles for medical device cybersecurity applicable across the total product lifecycle. It provides a harmonized framework that regulators worldwide reference for premarket and postmarket cybersecurity expectations. The document defines shared responsibility between manufacturers, healthcare providers, and regulators for managing cybersecurity risks to medical devices.",
+        "subsections": [
+          {
+            "id": "n60_principle_1",
+            "title": "Principle 1: Shared Responsibility",
+            "content": "Medical device cybersecurity is a shared responsibility among manufacturers, healthcare providers, users, regulators, and vulnerability researchers. Manufacturers bear primary responsibility for designing secure devices, providing timely patches, and maintaining a coordinated vulnerability disclosure process. Healthcare delivery organizations are responsible for implementing appropriate network security controls and maintaining cybersecurity hygiene for deployed devices."
+          },
+          {
+            "id": "n60_principle_2",
+            "title": "Principle 2: Total Product Lifecycle (TPLC) Approach",
+            "content": "Cybersecurity risk management shall be integrated throughout the total product lifecycle: design, development, production, deployment, maintenance, and decommissioning. Manufacturers shall implement a Secure Product Development Framework (SPDF) that includes threat modeling, security architecture review, security testing, and vulnerability management processes. The TPLC approach requires premarket cybersecurity documentation and postmarket cybersecurity monitoring capabilities."
+          },
+          {
+            "id": "n60_principle_3",
+            "title": "Principle 3: Risk-Based Approach",
+            "content": "Cybersecurity measures shall be commensurate with the risk associated with the device. Risk assessment shall consider: exploitability of identified vulnerabilities, severity of patient harm if cybersecurity controls fail, clinical context and compensating controls available in the use environment. Risk management for cybersecurity shall be integrated with the overall risk management process (ISO 14971) and consider both safety risks (patient harm) and security risks (confidentiality, integrity, availability of device functions)."
+          },
+          {
+            "id": "n60_principle_4",
+            "title": "Principle 4: Transparency and Information Sharing",
+            "content": "Manufacturers shall provide users with cybersecurity information needed to deploy and operate devices securely. This includes: a Manufacturer Disclosure Statement for Medical Device Security (MDS2), security guidance documentation, known vulnerabilities and available patches, end-of-support timelines, and SBOM (Software Bill of Materials). Manufacturers should participate in ISAOs (Information Sharing and Analysis Organizations) for coordinated vulnerability disclosure."
+          },
+          {
+            "id": "n60_premarket",
+            "title": "Premarket Cybersecurity Expectations",
+            "content": "Before market authorization, manufacturers should demonstrate: threat modeling results covering the device and its intended use environment, security architecture documentation showing how the device mitigates identified threats, evidence of security testing (vulnerability scanning, penetration testing, fuzz testing), a plan for managing postmarket cybersecurity including coordinated vulnerability disclosure, an SBOM listing all software components including version information, and documentation of cybersecurity risk management integrated with ISO 14971."
+          },
+          {
+            "id": "n60_postmarket",
+            "title": "Postmarket Cybersecurity Expectations",
+            "content": "After market authorization, manufacturers shall maintain: continuous monitoring for newly discovered vulnerabilities in device software components, a process for assessing whether vulnerabilities affect device safety or performance, timely development and deployment of security patches, communication to users about identified vulnerabilities and available mitigations, coordinated vulnerability disclosure with security researchers and ISAOs, and periodic reassessment of the device's cybersecurity risk profile."
+          }
+        ]
+      },
+      {
+        "id": "n70_overview",
+        "title": "IMDRF N70 — Legacy Medical Device Cybersecurity (2023)",
+        "content": "IMDRF N70 addresses cybersecurity challenges specific to legacy medical devices — devices that cannot be reasonably protected against current cybersecurity threats through manufacturer actions alone. These include devices with outdated operating systems, devices no longer supported by the manufacturer, and devices that cannot receive security patches.",
+        "subsections": [
+          {
+            "id": "n70_definition",
+            "title": "Definition of Legacy Medical Device",
+            "content": "A legacy medical device is a device that cannot be reasonably protected against current cybersecurity threats. Contributing factors include: the device uses software or operating system versions that are no longer supported by the vendor, the device architecture does not support the application of security patches, the manufacturer no longer provides cybersecurity support for the device, or the device lacks capabilities for modern security controls (encryption, authentication, access control)."
+          },
+          {
+            "id": "n70_compensating_controls",
+            "title": "Compensating Controls for Legacy Devices",
+            "content": "When a medical device cannot be directly secured, compensating controls should be implemented: network segmentation to isolate legacy devices from the broader network, firewalls and intrusion detection/prevention systems monitoring traffic to legacy devices, restricted physical access to legacy device interfaces, monitoring and logging of legacy device network activity, regular vulnerability assessment of the legacy device environment, and documented risk acceptance by the healthcare delivery organization."
+          },
+          {
+            "id": "n70_transition_planning",
+            "title": "Transition and Decommissioning",
+            "content": "Healthcare organizations should establish transition plans for legacy devices: inventory all legacy medical devices and their cybersecurity risk profiles, prioritize replacement based on cybersecurity risk and clinical criticality, coordinate with manufacturers on end-of-support timelines and transition pathways, ensure data migration and interoperability during device transitions, and document decommissioning procedures including data sanitization."
+          }
+        ]
+      },
+      {
+        "id": "n73_overview",
+        "title": "IMDRF N73 — Software Bill of Materials (SBOM) for Medical Device Cybersecurity (2023)",
+        "content": "IMDRF N73 establishes international principles for Software Bills of Materials in the medical device context. SBOMs enable transparency about software components used in medical devices, supporting vulnerability management, regulatory review, and healthcare delivery organization risk assessment.",
+        "subsections": [
+          {
+            "id": "n73_sbom_content",
+            "title": "SBOM Content Requirements",
+            "content": "A medical device SBOM shall identify all software components including: component name and supplier, version identifiers, unique component identifiers (e.g., CPE, PURL), dependency relationships (direct and transitive), the component's role in the device (critical, supporting, optional). SBOMs should be provided in machine-readable formats such as SPDX (ISO/IEC 5962:2021) or CycloneDX. The SBOM should cover all software layers: application software, middleware, operating system, firmware, and third-party/open-source libraries."
+          },
+          {
+            "id": "n73_sbom_management",
+            "title": "SBOM Lifecycle Management",
+            "content": "Manufacturers shall maintain and update SBOMs throughout the device lifecycle: generate SBOMs during the build process, update SBOMs when software components change (patches, updates, new versions), provide SBOMs to regulators as part of premarket submissions, make SBOMs available to healthcare organizations for their vulnerability management programs, and use SBOMs proactively to assess exposure when new vulnerabilities are disclosed (e.g., by cross-referencing SBOM components against NVD/CVE databases)."
+          },
+          {
+            "id": "n73_vex",
+            "title": "Vulnerability Exploitability Exchange (VEX)",
+            "content": "Manufacturers should supplement SBOMs with VEX documents that communicate whether known vulnerabilities in SBOM components actually affect the medical device. VEX statuses include: not affected (vulnerability present in component but does not affect device due to usage context), affected (vulnerability affects the device and remediation is needed), fixed (vulnerability was present but has been remediated), under investigation (impact assessment is ongoing). VEX reduces false positives and focuses remediation on actual risks to patient safety."
+          }
+        ]
+      },
+      {
+        "id": "n88_overview",
+        "title": "IMDRF N88 — Good Machine Learning Practice (GMLP) for Medical Devices (2025)",
+        "content": "IMDRF N88 provides good machine learning practices for the development of AI/ML-enabled medical devices. It addresses the unique challenges of ML models: training data quality, algorithm bias, performance monitoring, and the need for continuous learning governance.",
+        "subsections": [
+          {
+            "id": "n88_data_management",
+            "title": "Training Data Management",
+            "content": "Data used to train, validate, and test ML models in medical devices shall be managed with the same rigor as design inputs: data provenance (source, collection methodology, demographics) shall be documented, training datasets shall be representative of the intended patient population, known biases in training data shall be identified and mitigated, data quality metrics (completeness, accuracy, consistency) shall be established, and data governance policies shall address privacy, consent, and regulatory requirements for health data."
+          },
+          {
+            "id": "n88_model_transparency",
+            "title": "Algorithm Transparency and Explainability",
+            "content": "Manufacturers shall provide appropriate transparency about ML algorithms used in medical devices: document the type of algorithm (e.g., deep learning, random forest, SVM), describe the inputs, outputs, and intended use of the model, provide information about model performance (accuracy, sensitivity, specificity, AUC) on relevant clinical populations, describe known limitations and failure modes, and provide explainability appropriate to the clinical context — clinicians need sufficient information to understand the basis for the model's output."
+          },
+          {
+            "id": "n88_monitoring",
+            "title": "Performance Monitoring and Drift Detection",
+            "content": "Manufacturers of AI/ML-enabled medical devices shall establish ongoing performance monitoring: monitor model performance in real-world use against predefined performance targets, detect data drift (changes in input data distributions) and concept drift (changes in the relationship between inputs and outputs), establish thresholds for performance degradation that trigger retraining or human review, maintain audit logs of model predictions for retrospective analysis, and report significant performance degradation to regulators as part of postmarket surveillance."
+          },
+          {
+            "id": "n88_change_management",
+            "title": "ML Model Change Management",
+            "content": "Changes to ML models (retraining, architecture changes, feature engineering) shall follow a predetermined change control plan: categorize changes by their potential impact on device safety and effectiveness, define the level of validation required for each change category, establish governance for continuous learning systems (locked vs. adaptive algorithms), document the rationale for model changes and validation evidence, and submit significant changes to regulators through appropriate regulatory pathways."
+          }
+        ]
+      },
+      {
+        "id": "iec_81001_5_1_overview",
+        "title": "IEC 81001-5-1:2021 — Health Software and Health IT Systems Safety, Effectiveness and Security (Summary)",
+        "content": "IEC 81001-5-1 is the primary international standard for medical device software cybersecurity. It defines 64 requirements across the software development lifecycle for health software security. The standard is harmonized under the EU MDR, mandatory in Japan (via PMDA guidebook), and cross-referenced by FDA premarket guidance. This profile contains publicly available requirement summaries based on published regulatory cross-reference materials.",
+        "subsections": [
+          {
+            "id": "iec_81001_security_context",
+            "title": "Clause 5: Security Context",
+            "content": "Requirements for establishing the security context of the health software system: identify assets to be protected (patient data, device functionality, communication channels), identify threat agents and attack vectors relevant to the intended use environment, identify applicable security regulations and standards, and document assumptions about the deployment environment. This clause aligns with the threat modeling requirements in IMDRF N60 and FDA premarket guidance."
+          },
+          {
+            "id": "iec_81001_security_requirements",
+            "title": "Clause 6: Security Requirements",
+            "content": "Requirements for defining security requirements: derive security requirements from the security context analysis and risk assessment, specify requirements for authentication, authorization, audit logging, data protection (encryption at rest and in transit), input validation, session management, error handling, and cryptographic controls. Requirements shall be traceable to identified threats and risks. The standard requires both functional security requirements (what the software must do) and assurance requirements (evidence that security controls work)."
+          },
+          {
+            "id": "iec_81001_secure_design",
+            "title": "Clause 7: Security by Design",
+            "content": "Requirements for secure architecture and design: apply defense-in-depth principles, implement least privilege access controls, design for secure defaults, implement secure communication protocols, design for fail-safe behavior when security controls fail, implement software integrity verification, and design for secure update mechanisms. The architecture shall document trust boundaries, data flows across trust boundaries, and security controls at each boundary."
+          },
+          {
+            "id": "iec_81001_secure_implementation",
+            "title": "Clause 8: Secure Implementation",
+            "content": "Requirements for secure coding practices: use secure coding guidelines appropriate to the programming language, implement input validation for all external inputs, implement output encoding to prevent injection attacks, use parameterized queries for database access, implement proper error handling without information disclosure, use cryptographic primitives correctly (no custom cryptography), and manage secrets securely (no hardcoded credentials). Static analysis and code review shall verify compliance with secure coding standards."
+          },
+          {
+            "id": "iec_81001_security_verification",
+            "title": "Clause 9: Security Verification and Validation",
+            "content": "Requirements for security testing: perform vulnerability scanning with current vulnerability databases, perform penetration testing by qualified security testers, perform fuzz testing on interfaces that accept external input, perform static application security testing (SAST), perform dynamic application security testing (DAST), verify that all security requirements are tested, and document test results and remediation of identified vulnerabilities. Testing shall be performed before release and after significant changes."
+          },
+          {
+            "id": "iec_81001_security_maintenance",
+            "title": "Clause 10: Security Maintenance",
+            "content": "Requirements for ongoing security maintenance: monitor for newly disclosed vulnerabilities in software components (using SBOM), assess the impact of newly disclosed vulnerabilities on the health software, develop and test security patches in a timely manner, communicate security advisories to users, implement a coordinated vulnerability disclosure (CVD) process, and maintain security throughout the entire support period. End-of-support dates shall be communicated to users with adequate transition time."
+          },
+          {
+            "id": "iec_81001_security_risk_management",
+            "title": "Clause 11: Security Risk Management",
+            "content": "Requirements for integrating cybersecurity risk management with the overall risk management process (ISO 14971): perform cybersecurity risk analysis as part of the product risk management process, consider both patient safety risks and information security risks, evaluate residual cybersecurity risks in the context of the overall benefit-risk assessment, and document cybersecurity risk management activities in the risk management file. The standard recognizes that cybersecurity risks are dynamic — new vulnerabilities can emerge after market release — and requires ongoing risk reassessment."
+          }
+        ]
+      },
+      {
+        "id": "aami_tir57_overview",
+        "title": "AAMI TIR57:2016/(R)2023 — Principles for Medical Device Security Risk Management (Summary)",
+        "content": "AAMI TIR57 provides principles for applying security risk management to medical devices. It complements ISO 14971 (safety risk management) by providing cybersecurity-specific risk management guidance. AAMI TIR57 is widely referenced by FDA and used as an industry-standard methodology for medical device cybersecurity risk assessment.",
+        "subsections": [
+          {
+            "id": "aami_tir57_scope",
+            "title": "Scope and Relationship to ISO 14971",
+            "content": "AAMI TIR57 addresses the application of risk management principles from ISO 14971 to the cybersecurity domain. It recognizes that cybersecurity risks differ from traditional safety risks: threat agents are intentional and adaptive, vulnerabilities can emerge at any time, and the threat landscape changes continuously. The technical report provides a framework for identifying cybersecurity threats, assessing their likelihood and impact, implementing risk controls, and monitoring residual risk throughout the device lifecycle."
+          },
+          {
+            "id": "aami_tir57_threat_modeling",
+            "title": "Threat Modeling for Medical Devices",
+            "content": "AAMI TIR57 recommends systematic threat modeling as the foundation of cybersecurity risk management: identify device assets (protected health information, device configuration, firmware, clinical data), identify trust boundaries and data flows, enumerate threats using structured methodologies (STRIDE, attack trees), assess threat agent capabilities and motivations (nation-state, criminal, insider, researcher), and document the attack surface including network interfaces, physical interfaces, removable media, and wireless communications."
+          },
+          {
+            "id": "aami_tir57_risk_assessment",
+            "title": "Cybersecurity Risk Assessment",
+            "content": "Risk assessment shall evaluate: exploitability — how difficult is it to exploit the vulnerability (consider CVSS exploitability metrics), severity — what is the patient safety impact if the vulnerability is exploited (align with ISO 14971 severity categories), detectability — can an exploit be detected in time to mitigate harm, and controllability — can the user or system take action to prevent or reduce harm. The risk assessment produces a risk priority ranking that drives mitigation decisions. Uncontrolled risks (high exploitability, high severity, low detectability) require design changes, not just operational controls."
+          },
+          {
+            "id": "aami_tir57_risk_controls",
+            "title": "Security Risk Controls",
+            "content": "Risk controls should follow the ISO 14971 hierarchy: inherently safe design (eliminate the vulnerability by design), protective measures in the device (authentication, encryption, access controls, secure boot), and information for safety (user guidance on secure deployment). Cybersecurity risk controls should be evaluated for: effectiveness at mitigating the identified threat, potential introduction of new risks, impact on device usability and clinical workflow, and feasibility of implementation and maintenance throughout the device lifecycle."
+          }
+        ]
+      }
+    ],
+    "annexes": []
+  }
+}

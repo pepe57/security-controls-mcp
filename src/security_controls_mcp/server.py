@@ -949,6 +949,10 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
         text = PREMIUM_HANDLERS[name](arguments)
         return [TextContent(type="text", text=text)]
 
+    elif name in PREMIUM_HANDLERS:
+        text = PREMIUM_HANDLERS[name](arguments)
+        return [TextContent(type="text", text=text)]
+
     else:
         raise ValueError(f"Unknown tool: {name}")
 
