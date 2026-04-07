@@ -21,6 +21,7 @@ from .standard_rendering import (
     render_standard_not_found,
     render_standard_search_results,
 )
+from .citation import build_citation
 from .tools.version_tracking import PREMIUM_TOOLS, PREMIUM_HANDLERS
 
 # Initialize data loader
@@ -618,7 +619,22 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
 
                     text += render_excerpt_footer(item["metadata"])
 
-        return [TextContent(type="text", text=text)]
+        return [
+            TextContent(type="text", text=text),
+            TextContent(
+                type="text",
+                text=json_module.dumps(
+                    {
+                        "_citation": build_citation(
+                            f"SCF:{control_id}",
+                            f"{control_id}: {control['name']}",
+                            "get_control",
+                            {"control_id": control_id},
+                        )
+                    }
+                ),
+            ),
+        ]
 
     elif name == "search_controls":
         query = str(arguments.get("query") or "").strip()
@@ -647,12 +663,27 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             ]
 
         text = f"**Found {len(results)} control(s) matching '{query}'**\n\n"
+        citations = []
         for result in results:
             text += f"**{result['control_id']}: {result['name']}**\n"
             text += f"{result['snippet']}\n"
             text += f"*Mapped to: {', '.join(result['mapped_frameworks'][:5])}*\n\n"
+            citations.append(
+                build_citation(
+                    f"SCF:{result['control_id']}",
+                    f"{result['control_id']}: {result['name']}",
+                    "get_control",
+                    {"control_id": result["control_id"]},
+                )
+            )
 
-        return [TextContent(type="text", text=text)]
+        return [
+            TextContent(type="text", text=text),
+            TextContent(
+                type="text",
+                text=json_module.dumps({"_citations": citations}),
+            ),
+        ]
 
     elif name == "list_frameworks":
         category = arguments.get("category")
@@ -737,7 +768,22 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             if len(domain_ctrls) > 10:
                 text += f"  *... and {len(domain_ctrls) - 10} more controls*\n"
 
-        return [TextContent(type="text", text=text)]
+        return [
+            TextContent(type="text", text=text),
+            TextContent(
+                type="text",
+                text=json_module.dumps(
+                    {
+                        "_citation": build_citation(
+                            framework,
+                            fw_info["name"],
+                            "get_framework_controls",
+                            {"framework": framework},
+                        )
+                    }
+                ),
+            ),
+        ]
 
     elif name == "map_frameworks":
         source_framework = str(arguments.get("source_framework") or "").strip()
@@ -867,7 +913,25 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
 
                 text += "*Showing example from first mapping. Use get_clause for specific clauses.*\n"
 
-        return [TextContent(type="text", text=text)]
+        return [
+            TextContent(type="text", text=text),
+            TextContent(
+                type="text",
+                text=json_module.dumps(
+                    {
+                        "_citation": build_citation(
+                            f"{source_framework}->{target_framework}",
+                            f"Mapping: {source_name} to {target_name}",
+                            "map_frameworks",
+                            {
+                                "source_framework": source_framework,
+                                "target_framework": target_framework,
+                            },
+                        )
+                    }
+                ),
+            ),
+        ]
 
     elif name == "list_available_standards":
         standards = registry.list_standards()
@@ -943,7 +1007,22 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             return [TextContent(type="text", text=f"Clause '{clause_id}' not found in {standard}")]
 
         metadata = provider.get_metadata()
-        return [TextContent(type="text", text=render_standard_clause(metadata, result))]
+        return [
+            TextContent(type="text", text=render_standard_clause(metadata, result)),
+            TextContent(
+                type="text",
+                text=json_module.dumps(
+                    {
+                        "_citation": build_citation(
+                            f"{standard}:{clause_id}",
+                            f"{standard} clause {clause_id}",
+                            "get_clause",
+                            {"standard": standard, "clause_id": clause_id},
+                        )
+                    }
+                ),
+            ),
+        ]
 
     elif name in PREMIUM_HANDLERS:
         text = PREMIUM_HANDLERS[name](arguments)
