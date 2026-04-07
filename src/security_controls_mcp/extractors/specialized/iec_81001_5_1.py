@@ -119,19 +119,34 @@ class IEC81001Extractor(BaseExtractor):
 
         return ("unknown", VersionDetection.UNKNOWN, evidence)
 
-    def _parse_clauses_from_text(
-        self, text: str, page_num: int
-    ) -> List[Control]:
-        controls: List[Control] = []
+    def _extract_full_text(self, pdf_bytes: bytes) -> str:
+        """Extract all text from PDF, concatenated with page breaks."""
+        try:
+            import pdfplumber
+        except ImportError:
+            return pdf_bytes.decode("utf-8", errors="ignore")
 
+        pages: List[str] = []
+        with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
+            for page in pdf.pages:
+                page_text = page.extract_text()
+                if page_text:
+                    pages.append(page_text)
+        return "\n\n".join(pages)
+
+    def _extract_clauses_with_body(self, full_text: str) -> List[Control]:
+        """Extract clauses with body text captured between consecutive headings."""
         # IEC 81001-5-1 clause format: X.Y.Z Title
-        # Main clauses 4-9, sub-clauses up to 3 levels deep
-        pattern = (
-            r"(\d+(?:\.\d+){0,3})\s+"
-            r"([A-Z][A-Za-z\s,\-\(\)/]+?)(?:\n|$|\.(?=\s*\d+\.))"
+        heading_re = re.compile(
+            r"^(\d+(?:\.\d+){0,3})\s+([A-Z][A-Za-z\s,\-\(\)/]+?)$",
+            re.MULTILINE,
         )
+        headings = list(heading_re.finditer(full_text))
+        if not headings:
+            return []
 
-        for match in re.finditer(pattern, text):
+        controls: List[Control] = []
+        for i, match in enumerate(headings):
             clause_id = match.group(1)
             title = match.group(2).strip()
 
@@ -142,21 +157,30 @@ class IEC81001Extractor(BaseExtractor):
             if main_clause not in CLAUSE_CATEGORIES:
                 continue
 
-            category = CLAUSE_CATEGORIES.get(main_clause, "General")
+            # Body text: from end of this heading to start of next heading
+            body_start = match.end()
+            body_end = headings[i + 1].start() if i + 1 < len(headings) else len(full_text)
+            body = full_text[body_start:body_end].strip()
+            # Clean up artifacts
+            body = re.sub(r"\n{3,}", "\n\n", body)
+            body = re.sub(r"(?m)^–\s*\d+\s*–$", "", body)
+            body = body.strip()
 
+            category = CLAUSE_CATEGORIES.get(main_clause, "General")
             parent = None
             parts = clause_id.split(".")
             if len(parts) > 1:
                 parent = ".".join(parts[:-1])
 
-            content = title
+            content = f"{title}\n\n{body}" if body else title
+
             if len(content) >= MIN_CONTENT_LENGTH:
                 controls.append(
                     Control(
                         id=clause_id,
                         title=title,
                         content=content,
-                        page=page_num,
+                        page=0,
                         category=category,
                         parent=parent,
                     )
@@ -172,32 +196,16 @@ class IEC81001Extractor(BaseExtractor):
         if version == "unknown":
             warnings.append("Could not detect IEC 81001-5-1 version")
 
-        controls: List[Control] = []
-        try:
-            import pdfplumber
+        full_text = self._extract_full_text(pdf_bytes)
+        controls = self._extract_clauses_with_body(full_text)
 
-            with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
-                for page_num, page in enumerate(pdf.pages):
-                    page_text = page.extract_text()
-                    if page_text:
-                        page_controls = self._parse_clauses_from_text(
-                            page_text, page_num + 1
-                        )
-                        controls.extend(page_controls)
-        except ImportError:
-            text = pdf_bytes.decode("utf-8", errors="ignore")
-            controls = self._parse_clauses_from_text(text, 1)
-        except Exception as e:
-            warnings.append(f"PDF extraction error: {e}")
-
-        # Deduplicate by clause ID (keep first occurrence with best page number)
-        seen: dict[str, int] = {}
-        deduped: List[Control] = []
-        for ctrl in controls:
-            if ctrl.id not in seen:
-                seen[ctrl.id] = len(deduped)
-                deduped.append(ctrl)
-        controls = deduped
+        # Quality check: flag heading-only extractions
+        heading_only = sum(1 for c in controls if c.content.strip() == c.title.strip())
+        if heading_only > len(controls) * 0.5 and controls:
+            warnings.append(
+                f"{heading_only}/{len(controls)} clauses have heading-only content; "
+                "body text extraction may have failed"
+            )
 
         # Confidence calculation
         extracted_ids = {c.id for c in controls}
