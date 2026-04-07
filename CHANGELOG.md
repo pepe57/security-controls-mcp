@@ -7,10 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-04-07
+
 ### Added
+- **IEC 81001-5-1 specialized extractor** for medical device cybersecurity lifecycle standard
+- **IMDRF/AAMI medical device standards** (N60, N70, N73, N88, AAMI TIR57)
 - **Bundled public framework profiles** — BIO (Netherlands), KATAKRI (Finland), NSM (Norway), MSB (Sweden), CFCS (Denmark), CCB/CyFun (Belgium), and ANSSI cyber hygiene guidance (France)
 - **Public standards registry support** — bundled public profiles now load automatically alongside SCF and user-imported paid standards
 - **Public profile tests** — coverage for bundled profile listing, querying, and clause retrieval
+
+### Fixed
+- IEC 81001-5-1 extractor now correctly extracts body text between headings
 
 ### Changed
 - `list_available_standards`, `query_standard`, and `get_clause` now distinguish built-in SCF mappings, bundled public profiles, and imported paid standards
@@ -229,5 +236,6 @@ This is the first production-ready release with comprehensive standards import c
 - GDPR (42 controls)
 - UK Cyber Essentials (26 controls)
 
+[1.1.1]: https://github.com/Ansvar-Systems/security-controls-mcp/releases/tag/v1.1.1
 [0.2.0]: https://github.com/Ansvar-Systems/security-controls-mcp/releases/tag/v0.2.0
 [0.1.0]: https://github.com/Ansvar-Systems/security-controls-mcp/releases/tag/v0.1.0

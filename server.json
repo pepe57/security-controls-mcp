@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.Ansvar-Systems/security-controls",
   "description": "1,451 security controls across 262 frameworks with bidirectional mapping",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "homepage": "https://github.com/Ansvar-Systems/security-controls-mcp",
   "license": "Apache-2.0",
   "tags": [
@@ -28,7 +28,7 @@
       "registryType": "pypi",
       "registryBaseUrl": "https://pypi.org",
       "identifier": "security-controls-mcp",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "transport": {
         "type": "stdio"
       },
