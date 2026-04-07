@@ -34,7 +34,7 @@ from .standard_rendering import (
 
 logger = logging.getLogger(__name__)
 
-SERVER_VERSION = "1.1.0"
+SERVER_VERSION = "1.1.1"
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB max upload size
 
 # Initialize data loader

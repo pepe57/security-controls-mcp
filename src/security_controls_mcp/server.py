@@ -34,7 +34,7 @@ registry = StandardRegistry(config)
 app = Server("security-controls-mcp")
 
 
-SERVER_VERSION = "1.1.0"
+SERVER_VERSION = "1.1.1"
 
 # Compute data fingerprint and build timestamp once at module load
 _data_dir = Path(__file__).parent / "data"
