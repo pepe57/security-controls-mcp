@@ -4,7 +4,7 @@ import io
 import logging
 import re
 import time
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Tuple
 
 from ..base import BaseExtractor, Control, ExtractionResult, VersionDetection
 from ..registry import register_extractor
@@ -265,9 +265,7 @@ class ISO27001Extractor(BaseExtractor):
         },
     }
 
-    def _detect_version(
-        self, pdf_bytes: bytes
-    ) -> Tuple[str, VersionDetection, List[str]]:
+    def _detect_version(self, pdf_bytes: bytes) -> Tuple[str, VersionDetection, List[str]]:
         """Detect ISO 27001 version from PDF content.
 
         Args:
@@ -301,7 +299,7 @@ class ISO27001Extractor(BaseExtractor):
                 with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                     text_parts = []
                     # Extract from first N pages only for performance
-                    for page in pdf.pages[:self.VERSION_DETECTION_MAX_PAGES]:
+                    for page in pdf.pages[: self.VERSION_DETECTION_MAX_PAGES]:
                         page_text = page.extract_text()
                         if page_text:
                             text_parts.append(page_text)
@@ -446,9 +444,7 @@ class ISO27001Extractor(BaseExtractor):
                     page_text = page.extract_text()
                     if page_text:
                         # Extract controls from this page
-                        page_controls = self._parse_controls_from_text(
-                            page_text, page_num + 1
-                        )
+                        page_controls = self._parse_controls_from_text(page_text, page_num + 1)
                         controls.extend(page_controls)
         except ImportError:
             logger.debug("pdfplumber not available, using fallback text extraction")
@@ -499,9 +495,7 @@ class ISO27001Extractor(BaseExtractor):
                     page_text = page.extract_text()
                     if page_text:
                         # Extract controls from this page
-                        page_controls = self._parse_controls_2013_from_text(
-                            page_text, page_num + 1
-                        )
+                        page_controls = self._parse_controls_2013_from_text(page_text, page_num + 1)
                         controls.extend(page_controls)
         except ImportError:
             logger.debug("pdfplumber not available, using fallback text extraction")
@@ -527,9 +521,7 @@ class ISO27001Extractor(BaseExtractor):
 
         return controls
 
-    def _parse_controls_2013_from_text(
-        self, text: str, page_num: int
-    ) -> List[Control]:
+    def _parse_controls_2013_from_text(self, text: str, page_num: int) -> List[Control]:
         """Parse 2013 controls from text content.
 
         Args:
@@ -628,9 +620,7 @@ class ISO27001Extractor(BaseExtractor):
                 continue
 
             if not content or len(content.strip()) < self.MIN_CONTENT_LENGTH:
-                logger.debug(
-                    f"Control {control_id} has minimal content (length: {len(content)})"
-                )
+                logger.debug(f"Control {control_id} has minimal content (length: {len(content)})")
                 # Don't skip - still create control, but content may be incomplete
 
             # Create control object
@@ -734,9 +724,7 @@ class ISO27001Extractor(BaseExtractor):
                 continue
 
             if not content or len(content.strip()) < self.MIN_CONTENT_LENGTH:
-                logger.debug(
-                    f"Control {control_id} has minimal content (length: {len(content)})"
-                )
+                logger.debug(f"Control {control_id} has minimal content (length: {len(content)})")
                 # Don't skip - still create control, but content may be incomplete
 
             # Create control object
@@ -784,9 +772,7 @@ class ISO27001Extractor(BaseExtractor):
 
             # Calculate missing controls
             extracted_ids = [c.id for c in controls]
-            missing_control_ids = [
-                cid for cid in expected_control_ids if cid not in extracted_ids
-            ]
+            missing_control_ids = [cid for cid in expected_control_ids if cid not in extracted_ids]
 
             # Calculate confidence score based on completeness
             if len(expected_control_ids) > 0:
@@ -810,9 +796,7 @@ class ISO27001Extractor(BaseExtractor):
 
             # Calculate missing controls
             extracted_ids = [c.id for c in controls]
-            missing_control_ids = [
-                cid for cid in expected_control_ids if cid not in extracted_ids
-            ]
+            missing_control_ids = [cid for cid in expected_control_ids if cid not in extracted_ids]
 
             # Calculate confidence score based on completeness
             if len(expected_control_ids) > 0:

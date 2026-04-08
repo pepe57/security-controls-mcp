@@ -26,6 +26,7 @@ class ISO27701Extractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page in pdf.pages[:VERSION_DETECTION_MAX_PAGES]:
                     if page_text := page.extract_text():
@@ -34,7 +35,7 @@ class ISO27701Extractor(BaseExtractor):
             logger.debug(f"Error: {e}")
 
         if not text:
-            text = pdf_bytes.decode('utf-8', errors='ignore')
+            text = pdf_bytes.decode("utf-8", errors="ignore")
 
         # ISO 27701:2019
         if re.search(r"27701:2019", text):
@@ -57,6 +58,7 @@ class ISO27701Extractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page_num, page in enumerate(pdf.pages):
                     if page_text := page.extract_text():
@@ -72,7 +74,7 @@ class ISO27701Extractor(BaseExtractor):
 
         # ISO 27701 extends ISO 27002 with additional controls
         # Format: X.Y.Z (e.g., 6.2.1) or Annex format
-        pattern = r'(\d+\.\d+\.\d+)\s+([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$)'
+        pattern = r"(\d+\.\d+\.\d+)\s+([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$)"
 
         for match in re.finditer(pattern, text):
             control_id = match.group(1)
@@ -101,14 +103,16 @@ class ISO27701Extractor(BaseExtractor):
             }
             category = categories.get(main_clause, "Privacy Management")
 
-            controls.append(Control(
-                id=control_id,
-                title=title,
-                content=title,
-                page=page_num,
-                category=category,
-                parent=None
-            ))
+            controls.append(
+                Control(
+                    id=control_id,
+                    title=title,
+                    content=title,
+                    page=page_num,
+                    category=category,
+                    parent=None,
+                )
+            )
 
         return controls
 

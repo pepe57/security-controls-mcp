@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8  # v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
         with:
           fetch-depth: 0
 
@@ -52,7 +52,7 @@ jobs:
           cat CHANGELOG.md >> $GITHUB_STEP_SUMMARY
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@26994186c0ac3ef5cae75ac16aa32e8153525f77  # v1
+        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844  # v1
         with:
           body_path: CHANGELOG.md
           draft: false
@@ -76,7 +76,7 @@ jobs:
           output-file: sbom.cyclonedx.json
 
       - name: Upload SBOM to Release
-        uses: softprops/action-gh-release@26994186c0ac3ef5cae75ac16aa32e8153525f77  # v1
+        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844  # v1
         with:
           files: |
             sbom.spdx.json
