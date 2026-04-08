@@ -79,9 +79,9 @@ def check_data_integrity():
         controls_ok = len(data.controls) == 1451
         print_check("Control count (1451)", controls_ok, f"Found: {len(data.controls)}")
 
-        # Check frameworks (261 in v0.4.0)
-        frameworks_ok = len(data.frameworks) == 261
-        print_check("Framework count (261)", frameworks_ok, f"Found: {len(data.frameworks)}")
+        # Check frameworks (262: 261 base + TIBER-EU)
+        frameworks_ok = len(data.frameworks) == 262
+        print_check("Framework count (262)", frameworks_ok, f"Found: {len(data.frameworks)}")
 
         # Check specific high-value frameworks
         critical_frameworks = {
@@ -145,8 +145,8 @@ def check_tool_functionality():
         test2 = len(results) > 0
         print_check("search_controls('encryption')", test2, f"Found {len(results)} results")
 
-        # Test 3: list_frameworks (261 in v0.4.0)
-        test3 = len(data.frameworks) == 261
+        # Test 3: list_frameworks (262: 261 base + TIBER-EU)
+        test3 = len(data.frameworks) == 262
         print_check("list_frameworks", test3, f"{len(data.frameworks)} frameworks")
 
         # Test 4: get_framework_controls

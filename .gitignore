@@ -70,3 +70,6 @@ standards/
 .mcpregistry_*
 .vercel
 *.mcpb
+
+# Stale sed backup files
+*-e

@@ -4,12 +4,13 @@
 #
 # Using Alpine for minimal CVE footprint
 
-FROM python:3.11-alpine@sha256:6ce68f8bfbb40866c43b271be97d7fccc4f700c0af2a07d2ef3c7c7da93e1f8a AS builder
+FROM python:3.11-alpine AS builder
 
 WORKDIR /app
 
-# Install build dependencies (Alpine uses apk, not apt)
-RUN apk add --no-cache gcc musl-dev
+# Install build dependencies and upgrade all packages (fix zlib CVE-2026-22184/27171)
+RUN apk upgrade --no-cache && \
+    apk add --no-cache gcc musl-dev
 
 # Copy package files
 COPY pyproject.toml README.md ./
@@ -24,12 +25,13 @@ RUN pip install --no-cache-dir "pip>=26.0" && \
 RUN pip install --no-cache-dir uvicorn starlette
 
 # Production stage - minimal Alpine image
-FROM python:3.11-alpine@sha256:6ce68f8bfbb40866c43b271be97d7fccc4f700c0af2a07d2ef3c7c7da93e1f8a
+FROM python:3.11-alpine
 
 WORKDIR /app
 
-# Install curl for health checks (minimal addition)
-RUN apk add --no-cache curl
+# Upgrade all packages (fix zlib CVE-2026-22184/27171) and install curl for health checks
+RUN apk upgrade --no-cache && \
+    apk add --no-cache curl
 
 # Security: create non-root user
 RUN adduser -D -u 1001 mcp && \

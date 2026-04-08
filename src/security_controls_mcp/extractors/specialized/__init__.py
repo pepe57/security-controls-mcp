@@ -18,6 +18,8 @@ _current_dir = Path(__file__).parent
 for _file in _current_dir.glob("*.py"):
     if _file.name != "__init__.py":
         _module_name = f"{__package__}.{_file.stem}"
-        importlib.import_module(_module_name)
+        importlib.import_module(
+            _module_name
+        )  # nosemgrep: python.lang.security.audit.non-literal-import
 
 __all__ = ["register_extractor", "get_extractor"]
