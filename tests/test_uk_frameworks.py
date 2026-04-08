@@ -14,11 +14,11 @@ class TestUKCybersecurityFrameworks:
     """Test UK cybersecurity frameworks are properly integrated."""
 
     UK_FRAMEWORKS = [
-        ("uk_cyber_essentials", "UK Cyber Essentials", 20),
-        ("uk_caf_4.0", "UK Cyber Assessment Framework 4.0", 50),
-        ("uk_dpa", "UK Data Protection Act", 5),
-        ("uk_defstan_05_138", "UK DEFSTAN 05-138", 100),
-        ("uk_cap_1850", "UK CAP 1850", 30),
+        ("emea_uk_cyber_essentials", "EMEA UK Cyber Essentials", 20),
+        ("emea_uk_caf_4.0", "EMEA UK CAF 4.0", 50),
+        ("emea_uk_dpa", "EMEA UK DPA", 5),
+        ("emea_uk_defstan_05_138", "EMEA UK DEFSTAN 05-138", 100),
+        ("emea_uk_cap_1850", "EMEA UK CAP 1850", 30),
     ]
 
     @pytest.mark.parametrize("fw_id,fw_name,min_controls", UK_FRAMEWORKS)
@@ -41,12 +41,13 @@ class TestUKCybersecurityFrameworks:
         assert fw["name"] == fw_name
 
     def test_uk_frameworks_in_category(self, scf_data):
-        """Test UK frameworks are in the uk_cybersecurity category."""
-        assert "uk_cybersecurity" in scf_data.framework_categories
-        uk_category = scf_data.framework_categories["uk_cybersecurity"]
-        assert "uk_cyber_essentials" in uk_category
-        assert "uk_caf_4.0" in uk_category
-        assert "uk_dpa" in uk_category
+        """Test UK frameworks are in a relevant category."""
+        # UK frameworks should appear in europe_national category
+        assert "europe_national" in scf_data.framework_categories
+        eu_nat = scf_data.framework_categories["europe_national"]
+        assert "emea_uk_cyber_essentials" in eu_nat
+        assert "emea_uk_caf_4.0" in eu_nat
+        assert "emea_uk_dpa" in eu_nat
 
 
 class TestCyberEssentials:
@@ -54,7 +55,7 @@ class TestCyberEssentials:
 
     def test_cyber_essentials_control_ids(self, scf_data):
         """Verify Cyber Essentials controls have proper control IDs."""
-        controls = scf_data.get_framework_controls("uk_cyber_essentials")
+        controls = scf_data.get_framework_controls("emea_uk_cyber_essentials")
         assert len(controls) > 0, "Expected Cyber Essentials controls"
 
         for ctrl in controls:
@@ -64,7 +65,7 @@ class TestCyberEssentials:
 
     def test_cyber_essentials_covers_five_controls(self, scf_data):
         """Verify Cyber Essentials maps to its 5 core control areas."""
-        controls = scf_data.get_framework_controls("uk_cyber_essentials")
+        controls = scf_data.get_framework_controls("emea_uk_cyber_essentials")
         all_ce_ids = set()
         for ctrl in controls:
             for ce_id in ctrl["framework_control_ids"]:
@@ -78,7 +79,7 @@ class TestCyberEssentials:
 
     def test_cyber_essentials_to_nist_csf_mapping(self, scf_data):
         """Test mapping Cyber Essentials to NIST CSF 2.0."""
-        mappings = scf_data.map_frameworks("uk_cyber_essentials", "nist_csf_2.0")
+        mappings = scf_data.map_frameworks("emea_uk_cyber_essentials", "nist_csf_2.0")
         assert len(mappings) > 5, (
             "Expected overlap between Cyber Essentials and NIST CSF"
         )
@@ -89,7 +90,7 @@ class TestNCSCCAF:
 
     def test_caf_control_ids(self, scf_data):
         """Verify CAF controls have proper control IDs (A1.a format)."""
-        controls = scf_data.get_framework_controls("uk_caf_4.0")
+        controls = scf_data.get_framework_controls("emea_uk_caf_4.0")
         assert len(controls) > 0, "Expected CAF controls"
 
         for ctrl in controls:
@@ -99,7 +100,7 @@ class TestNCSCCAF:
 
     def test_caf_covers_four_objectives(self, scf_data):
         """Verify CAF maps to its 4 objectives (A, B, C, D)."""
-        controls = scf_data.get_framework_controls("uk_caf_4.0")
+        controls = scf_data.get_framework_controls("emea_uk_caf_4.0")
         objectives = set()
         for ctrl in controls:
             for caf_id in ctrl["framework_control_ids"]:
@@ -113,14 +114,14 @@ class TestNCSCCAF:
 
     def test_caf_to_nist_csf_mapping(self, scf_data):
         """Test mapping NCSC CAF to NIST CSF 2.0."""
-        mappings = scf_data.map_frameworks("uk_caf_4.0", "nist_csf_2.0")
+        mappings = scf_data.map_frameworks("emea_uk_caf_4.0", "nist_csf_2.0")
         assert len(mappings) > 20, (
             "Expected significant overlap between NCSC CAF and NIST CSF"
         )
 
     def test_caf_to_iso27001_mapping(self, scf_data):
         """Test mapping NCSC CAF to ISO 27001."""
-        mappings = scf_data.map_frameworks("uk_caf_4.0", "iso_27001_2022")
+        mappings = scf_data.map_frameworks("emea_uk_caf_4.0", "iso_27001_2022")
         has_target = [m for m in mappings if m["target_controls"]]
         assert len(has_target) > 5, (
             "Expected some overlap between NCSC CAF and ISO 27001"

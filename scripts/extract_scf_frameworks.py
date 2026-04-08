@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 """
-Extract all frameworks from SCF 2025.4 spreadsheet.
+Extract all frameworks from SCF spreadsheet (dynamic, version-agnostic).
 
 This script parses the official SCF Excel file and generates:
 1. scf-controls.json - All controls with complete framework mappings
 2. framework-to-scf.json - Reverse index from framework controls to SCF IDs
+3. framework-metadata.json - Framework lookup table with categories and stats
+
+The script auto-detects framework columns from the spreadsheet headers instead
+of hardcoding column indices, so it works across SCF version upgrades without
+code changes.
 
 Usage:
     poetry run python scripts/extract_scf_frameworks.py
@@ -18,495 +23,248 @@ from openpyxl import load_workbook
 # Paths
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR.parent
-SCF_XLSX = SCRIPT_DIR / "data" / "scf-2025.4.xlsx"
+SCF_XLSX = SCRIPT_DIR / "data" / "scf-2026.1.xlsx"
+SCF_SHEET = "SCF 2026.1"
 OUTPUT_DIR = PROJECT_ROOT / "src" / "security_controls_mcp" / "data"
 
-# Framework column mapping: column index -> (framework_id, display_name)
-# These are extracted from the SCF 2025.4 spreadsheet headers
-FRAMEWORK_COLUMNS = {
-    # SOC 2 / AICPA
-    24: ("soc_2_tsc", "AICPA TSC 2017:2022 (SOC 2)"),
+# --- Metadata column indices (0-based) ---
+# These are stable across SCF versions; verified against 2025.4 and 2026.1.
+COL_DOMAIN = 0          # SCF Domain
+COL_CONTROL_NAME = 1    # SCF Control
+COL_SCF_ID = 2          # SCF #
+COL_DESCRIPTION = 3     # Control Description
+COL_CADENCE = 4         # Conformity Validation Cadence
+COL_WEIGHT = 12         # Relative Control Weighting
+COL_PPTDF = 13          # PPTDF Applicability
 
-    # Privacy Frameworks
-    25: ("apec_privacy_2015", "APEC Privacy Framework 2015"),
-    36: ("gapp", "Generally Accepted Privacy Principles (GAPP)"),
-    93: ("oecd_privacy", "OECD Privacy Principles"),
+# --- Header patterns that mark non-framework columns ---
+# Columns matching these prefixes are metadata, risk/threat mappings, or
+# internal SCF fields -- not external frameworks. Checked against the raw
+# header text (which may contain newlines).
+NON_FRAMEWORK_PREFIXES = (
+    "SCF",               # SCF Domain, SCF Control, SCF #, SCF CORE, SCF Community, etc.
+    "Secure Controls",   # Full control description header
+    "Conformity",        # Validation cadence
+    "Evidence Request",  # ERL #
+    "Possible Solutions",# Business-size recommendations
+    "Relative Control",  # Weight
+    "PPTDF",             # Applicability
+    "NIST CSF\n",        # Function Grouping (metadata, not the NIST CSF framework mapping)
+    "SCRM Focus",        # SCRM tier columns
+    "SCR-CMM",           # Maturity model levels
+    "Minimum Security",  # MCR + DSR summary
+    "Identify\n",        # MCR / DSR identify columns
+    "Risk",              # Risk factor columns
+    "Threat",            # Threat catalog columns
+    "Control Threat",    # Control-level threat summary
+    "Errata",            # Errata column
+)
 
-    # German Standards
-    26: ("bsi_200_1", "BSI Standard 200-1"),
 
-    # CIS Controls
-    27: ("cis_csc_8.1", "CIS Critical Security Controls v8.1"),
-    28: ("cis_csc_8.1_ig1", "CIS CSC v8.1 Implementation Group 1"),
-    29: ("cis_csc_8.1_ig2", "CIS CSC v8.1 Implementation Group 2"),
-    30: ("cis_csc_8.1_ig3", "CIS CSC v8.1 Implementation Group 3"),
+def normalize_framework_id(header: str) -> str:
+    """Convert a spreadsheet header into a stable framework_id.
 
-    # Governance Frameworks
-    31: ("cobit_2019", "COBIT 2019"),
-    32: ("coso_2017", "COSO 2017"),
+    Rules:
+    - Collapse newlines and multiple spaces into single space
+    - Lowercase
+    - Replace spaces, dashes, slashes, colons with underscores
+    - Strip leading/trailing underscores
+    - Collapse multiple underscores
+    - Remove parentheses content where it's just noise, but keep
+      identifiers like (SOC 2), (GDPR), etc. intact
+    """
+    # Normalize whitespace
+    s = re.sub(r"[\n\r]+", " ", header)
+    s = re.sub(r"\s+", " ", s).strip()
 
-    # Cloud Security
-    33: ("csa_ccm_4", "CSA Cloud Controls Matrix v4"),
-    34: ("csa_iot_scf_2", "CSA IoT Security Controls Framework 2"),
+    # Lowercase
+    s = s.lower()
 
-    # ENISA
-    35: ("enisa_2.0", "ENISA 2.0"),
+    # Replace separators with underscores
+    s = re.sub(r"[\s\-/:\\]+", "_", s)
 
-    # GovRAMP (StateRAMP predecessor)
-    37: ("govramp_core", "GovRAMP Core"),
-    38: ("govramp_low", "GovRAMP Low"),
-    39: ("govramp_low_plus", "GovRAMP Low+"),
-    40: ("govramp_moderate", "GovRAMP Moderate"),
-    41: ("govramp_high", "GovRAMP High"),
+    # Remove stray punctuation but keep dots (version numbers) and parens
+    s = re.sub(r"[,;'\"&]+", "", s)
 
-    # IEC Standards (Industrial/Medical)
-    42: ("iec_tr_60601_4_5_2021", "IEC TR 60601-4-5:2021 (Medical IT)"),
-    43: ("iec_62443_4_2_2019", "IEC 62443-4-2:2019 (Industrial Security)"),
+    # Collapse multiple underscores
+    s = re.sub(r"_+", "_", s)
 
-    # Maritime
-    44: ("imo_maritime_cyber", "IMO Maritime Cyber Risk Management"),
+    # Strip leading/trailing underscores
+    s = s.strip("_")
 
-    # ISO Standards
-    45: ("iso_sae_21434_2021", "ISO/SAE 21434:2021 (Automotive Cybersecurity)"),
-    46: ("iso_22301_2019", "ISO/IEC 22301:2019 (Business Continuity)"),
-    47: ("iso_27001_2022", "ISO/IEC 27001:2022"),
-    48: ("iso_27002_2022", "ISO/IEC 27002:2022"),
-    49: ("iso_27017_2015", "ISO/IEC 27017:2015 (Cloud Security)"),
-    50: ("iso_27018_2014", "ISO/IEC 27018:2014 (Cloud Privacy)"),
-    51: ("iso_27701_2025", "ISO/IEC 27701:2025 (Privacy Extension)"),
-    52: ("iso_29100_2024", "ISO/IEC 29100:2024 (Privacy Framework)"),
-    53: ("iso_31000_2009", "ISO 31000:2009 (Risk Management)"),
-    54: ("iso_31010_2009", "ISO 31010:2009 (Risk Assessment)"),
-    55: ("iso_42001_2023", "ISO/IEC 42001:2023 (AI Management System)"),
+    return s
 
-    # MITRE
-    56: ("mitre_attack_10", "MITRE ATT&CK v10"),
 
-    # Media/Entertainment
-    57: ("mpa_csp_5.1", "MPA Content Security Program 5.1"),
+def build_display_name(header: str) -> str:
+    """Clean up a spreadsheet header into a human-readable display name.
 
-    # Insurance
-    58: ("naic_mdl_668", "NAIC Insurance Data Security Model Law (MDL-668)"),
+    Replaces newlines with spaces, collapses whitespace, strips.
+    """
+    s = re.sub(r"[\n\r]+", " ", header)
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
 
-    # NIST AI Frameworks
-    59: ("nist_ai_rmf_1.0", "NIST AI 100-1 (AI Risk Management Framework) 1.0"),
-    60: ("nist_ai_600_1", "NIST AI 600-1 (Generative AI Profile)"),
 
-    # NIST Privacy
-    61: ("nist_privacy_framework_1.0", "NIST Privacy Framework 1.0"),
+def is_framework_column(header: str) -> bool:
+    """Return True if the column header represents an external framework mapping.
 
-    # NIST 800 Series
-    62: ("nist_800_37_r2", "NIST SP 800-37 R2 (Risk Management Framework)"),
-    63: ("nist_800_39", "NIST SP 800-39 (Risk Management)"),
-    64: ("nist_800_53_r4", "NIST SP 800-53 R4"),
-    65: ("nist_800_53_r4_low", "NIST SP 800-53 R4 (Low)"),
-    66: ("nist_800_53_r4_moderate", "NIST SP 800-53 R4 (Moderate)"),
-    67: ("nist_800_53_r4_high", "NIST SP 800-53 R4 (High)"),
-    68: ("nist_800_53_r5", "NIST SP 800-53 R5"),
-    69: ("nist_800_53b_r5_privacy", "NIST SP 800-53B R5 (Privacy)"),
-    70: ("nist_800_53b_r5_low", "NIST SP 800-53B R5 (Low)"),
-    71: ("nist_800_53b_r5_moderate", "NIST SP 800-53B R5 (Moderate)"),
-    72: ("nist_800_53b_r5_high", "NIST SP 800-53B R5 (High)"),
-    73: ("nist_800_53_r5_noc", "NIST SP 800-53 R5 (NOC)"),
-    74: ("nist_800_63b", "NIST SP 800-63B (Digital Identity)"),
-    75: ("nist_800_82_r3_low", "NIST SP 800-82 R3 OT Overlay (Low)"),
-    76: ("nist_800_82_r3_moderate", "NIST SP 800-82 R3 OT Overlay (Moderate)"),
-    77: ("nist_800_82_r3_high", "NIST SP 800-82 R3 OT Overlay (High)"),
-    78: ("nist_800_160", "NIST SP 800-160 (Systems Security Engineering)"),
-    79: ("nist_800_161_r1", "NIST SP 800-161 R1 (Supply Chain)"),
-    80: ("nist_800_161_r1_baseline", "NIST SP 800-161 R1 C-SCRM Baseline"),
-    81: ("nist_800_161_r1_flowdown", "NIST SP 800-161 R1 Flow Down"),
-    82: ("nist_800_161_r1_level1", "NIST SP 800-161 R1 Level 1"),
-    83: ("nist_800_161_r1_level2", "NIST SP 800-161 R1 Level 2"),
-    84: ("nist_800_161_r1_level3", "NIST SP 800-161 R1 Level 3"),
-    85: ("nist_800_171_r2", "NIST SP 800-171 R2 (CUI)"),
-    86: ("nist_800_171a", "NIST SP 800-171A (Assessment)"),
-    87: ("nist_800_171_r3", "NIST SP 800-171 R3 (CUI)"),
-    88: ("nist_800_171a_r3", "NIST SP 800-171A R3 (Assessment)"),
-    89: ("nist_800_172", "NIST SP 800-172 (Enhanced CUI)"),
-    90: ("nist_800_207", "NIST SP 800-207 (Zero Trust)"),
-    91: ("nist_800_218", "NIST SP 800-218 (SSDF)"),
-    92: ("nist_csf_2.0", "NIST Cybersecurity Framework 2.0"),
+    Filters out metadata columns, SCF internal columns, and risk/threat columns.
+    """
+    if not header or not header.strip():
+        return False
 
-    # OWASP
-    94: ("owasp_top_10_2021", "OWASP Top 10 2021"),
+    raw = header.strip()
 
-    # PCI DSS
-    95: ("pci_dss_4.0.1", "PCI DSS v4.0.1"),
-    96: ("pci_dss_4.0.1_saq_a", "PCI DSS v4.0.1 SAQ A"),
-    97: ("pci_dss_4.0.1_saq_a_ep", "PCI DSS v4.0.1 SAQ A-EP"),
-    98: ("pci_dss_4.0.1_saq_b", "PCI DSS v4.0.1 SAQ B"),
-    99: ("pci_dss_4.0.1_saq_b_ip", "PCI DSS v4.0.1 SAQ B-IP"),
-    100: ("pci_dss_4.0.1_saq_c", "PCI DSS v4.0.1 SAQ C"),
-    101: ("pci_dss_4.0.1_saq_c_vt", "PCI DSS v4.0.1 SAQ C-VT"),
-    102: ("pci_dss_4.0.1_saq_d_merchant", "PCI DSS v4.0.1 SAQ D (Merchant)"),
-    103: ("pci_dss_4.0.1_saq_d_sp", "PCI DSS v4.0.1 SAQ D (Service Provider)"),
-    104: ("pci_dss_4.0.1_saq_p2pe", "PCI DSS v4.0.1 SAQ P2PE"),
+    for prefix in NON_FRAMEWORK_PREFIXES:
+        if raw.startswith(prefix):
+            return False
 
-    # Shared Assessments
-    105: ("shared_assessments_sig_2025", "Shared Assessments SIG 2025"),
+    return True
 
-    # Aerospace/Defense
-    106: ("sparta", "SPARTA (Space Attack Research)"),
 
-    # SWIFT
-    107: ("swift_cscf_2023", "SWIFT Customer Security Framework 2023"),
+def detect_framework_columns(ws) -> list[tuple[int, str, str]]:
+    """Auto-detect framework columns from the header row.
 
-    # Automotive
-    108: ("tisax_isa_6", "TISAX ISA 6 (Automotive)"),
-    109: ("ul_2900_1_2017", "UL 2900-1:2017 (Software Cybersecurity)"),
-    110: ("un_r155", "UN R155 (Vehicle Cybersecurity)"),
-    111: ("un_ece_wp29", "UN ECE WP.29 (Automotive)"),
+    Returns list of (column_index, framework_id, display_name).
+    """
+    frameworks = []
+    seen_ids = {}
 
-    # US Frameworks
-    112: ("us_c2m2_2.1", "US C2M2 2.1 (Capability Maturity)"),
-    113: ("us_cert_rmm_1.2", "US CERT RMM 1.2 (Resilience)"),
-    114: ("us_cisa_cpg_2022", "CISA Cross-Sector CPG 2022"),
-    115: ("cjis_5.9.3", "CJIS Security Policy v5.9.3"),
-    116: ("cmmc_2.0_level_1", "CMMC 2.0 Level 1"),
-    117: ("cmmc_2.0_level_1_aos", "CMMC 2.0 Level 1 AOs"),
-    118: ("cmmc_2.0_level_2", "CMMC 2.0 Level 2"),
-    119: ("cmmc_2.0_level_3", "CMMC 2.0 Level 3"),
-    120: ("cms_mars_e_2.0", "CMS MARS-E 2.0 (Healthcare Exchanges)"),
-    121: ("us_coppa", "US COPPA (Children's Privacy)"),
-    122: ("us_dpf", "US Data Privacy Framework"),
-    123: ("dod_zt_roadmap", "DoD Zero Trust Execution Roadmap"),
-    124: ("dod_ztra_2.0", "DoD Zero Trust Reference Architecture 2.0"),
-    125: ("dfars_252_204_70xx", "DFARS 252.204-70xx (Cybersecurity)"),
-    126: ("dhs_cisa_ssdaf", "DHS CISA SSDAF"),
-    127: ("dhs_cisa_tic_3.0", "DHS CISA TIC 3.0"),
-    128: ("dhs_ztcf", "DHS Zero Trust Capability Framework"),
-    129: ("eo_14028", "EO 14028 (Improving Cybersecurity)"),
-    130: ("us_facta", "US FACTA"),
-    131: ("far_52_204_21", "FAR 52.204-21 (Basic Safeguarding)"),
-    132: ("far_52_204_25", "FAR 52.204-25 (NDAA Section 889)"),
-    133: ("far_52_204_27", "FAR 52.204-27"),
-    134: ("fca_crm", "FCA CRM"),
-    135: ("fda_21_cfr_part_11", "FDA 21 CFR Part 11 (Electronic Records)"),
-    136: ("fedramp_r4", "FedRAMP R4"),
-    137: ("fedramp_r4_low", "FedRAMP R4 (Low)"),
-    138: ("fedramp_r4_moderate", "FedRAMP R4 (Moderate)"),
-    139: ("fedramp_r4_high", "FedRAMP R4 (High)"),
-    140: ("fedramp_r4_lisaas", "FedRAMP R4 (LI-SaaS)"),
-    141: ("fedramp_r5", "FedRAMP R5"),
-    142: ("fedramp_r5_low", "FedRAMP R5 (Low)"),
-    143: ("fedramp_r5_moderate", "FedRAMP R5 (Moderate)"),
-    144: ("fedramp_r5_high", "FedRAMP R5 (High)"),
-    145: ("fedramp_r5_lisaas", "FedRAMP R5 (LI-SaaS)"),
-    146: ("us_ferpa", "US FERPA (Education Privacy)"),
-    147: ("ffiec", "FFIEC Cybersecurity Assessment"),
-    148: ("us_finra", "US FINRA"),
-    149: ("us_fipps", "US FIPPs (Fair Information Practice)"),
-    150: ("ftc_act", "FTC Act"),
-    151: ("glba_cfr_314_2023", "GLBA CFR 314 (Dec 2023)"),
-    152: ("hhs_45_cfr_155_260", "HHS 45 CFR 155.260"),
-    153: ("hipaa_admin_2013", "HIPAA Administrative Simplification 2013"),
-    154: ("hipaa_security_rule", "HIPAA Security Rule / NIST SP 800-66 R2"),
-    155: ("hipaa_hicp_small", "HIPAA HICP Small Practice"),
-    156: ("hipaa_hicp_medium", "HIPAA HICP Medium Practice"),
-    157: ("hipaa_hicp_large", "HIPAA HICP Large Practice"),
-    158: ("irs_1075", "IRS Publication 1075"),
-    159: ("itar_part_120", "ITAR Part 120"),
-    160: ("nerc_cip_2024", "NERC CIP 2024"),
-    161: ("nispom_2020", "NISPOM 2020"),
-    162: ("us_nnpi", "US NNPI (Unclassified)"),
-    163: ("nstc_nspm_33", "NSTC NSPM-33"),
-    164: ("sec_cybersecurity_rule", "SEC Cybersecurity Rule"),
-    165: ("sox", "Sarbanes-Oxley Act (SOX)"),
-    166: ("ssa_eiesr_8.0", "SSA EIESR 8.0"),
-    167: ("tsa_dhs_1580_82_2022", "TSA/DHS 1580/82-2022-01"),
+    for row in ws.iter_rows(min_row=1, max_row=1, values_only=True):
+        for col_idx, cell_value in enumerate(row):
+            header = str(cell_value).strip() if cell_value else ""
+            if not is_framework_column(header):
+                continue
 
-    # US State Laws
-    168: ("us_ak_pipa", "Alaska PIPA"),
-    169: ("us_ca_sb327", "California SB327 (IoT)"),
-    170: ("us_ca_ccpa_2025", "California CCPA/CPRA 2025"),
-    171: ("us_ca_sb1386", "California SB1386"),
-    172: ("us_co_cpa", "Colorado Privacy Act"),
-    173: ("us_il_bipa", "Illinois BIPA (Biometric)"),
-    174: ("us_il_ipa", "Illinois IPA"),
-    175: ("us_il_pipa", "Illinois PIPA"),
-    176: ("us_ma_201_cmr_17", "Massachusetts 201 CMR 17.00"),
-    177: ("us_nv_noge_reg_5", "Nevada NOGE Reg 5"),
-    178: ("us_nv_sb220", "Nevada SB220"),
-    179: ("nydfs_500_2023", "NY DFS 23 NYCRR 500 (2023 Amendment)"),
-    180: ("us_ny_shield", "New York SHIELD Act"),
-    181: ("us_or_646a", "Oregon 646A"),
-    182: ("us_or_cpa", "Oregon Consumer Privacy Act"),
-    183: ("us_tn_tipa", "Tennessee TIPA"),
-    184: ("us_tx_bc521", "Texas BC521"),
-    185: ("us_tx_cdpa", "Texas CDPA"),
-    186: ("us_tx_dir_2.0", "Texas DIR Control Standards 2.0"),
-    187: ("us_tx_sb820", "Texas SB 820"),
-    188: ("us_tx_sb2610", "Texas SB 2610"),
-    189: ("tx_ramp_level_1", "TX-RAMP Level 1"),
-    190: ("tx_ramp_level_2", "TX-RAMP Level 2"),
-    191: ("us_va_cdpa_2025", "Virginia CDPA 2025"),
-    192: ("us_vt_act_171", "Vermont Act 171 of 2018"),
+            fw_id = normalize_framework_id(header)
+            display = build_display_name(header)
 
-    # EMEA - EU Regulations
-    193: ("eu_ai_act", "EU AI Act (Regulation 2024/1689)"),
-    194: ("eu_cyber_resilience_act", "EU Cyber Resilience Act"),
-    195: ("eu_cra_annexes", "EU Cyber Resilience Act Annexes"),
-    196: ("eu_eba_gl_2019_04", "EU EBA GL/2019/04"),
-    197: ("dora", "Digital Operational Resilience Act (DORA)"),
-    198: ("gdpr", "General Data Protection Regulation (GDPR)"),
-    199: ("nis2", "NIS2 Directive"),
-    200: ("nis2_annex", "NIS2 Directive Annex"),
-    201: ("psd2", "PSD2 (Payment Services Directive)"),
+            # Deduplicate: if two columns produce the same fw_id, append column index
+            if fw_id in seen_ids:
+                fw_id = f"{fw_id}_{col_idx}"
+            seen_ids[fw_id] = col_idx
 
-    # EMEA - National
-    202: ("austria", "Austria Cybersecurity"),
-    203: ("belgium", "Belgium Cybersecurity"),
-    204: ("germany", "Germany Cybersecurity"),
-    205: ("germany_bait", "Germany BAIT (Banking IT)"),
-    206: ("germany_c5_2020", "Germany C5:2020 (Cloud)"),
-    207: ("greece", "Greece Cybersecurity"),
-    208: ("hungary", "Hungary Cybersecurity"),
-    209: ("ireland", "Ireland Cybersecurity"),
-    210: ("israel_cdmo_1.0", "Israel CDMO 1.0"),
-    211: ("israel", "Israel Cybersecurity"),
-    212: ("italy", "Italy Cybersecurity"),
-    213: ("kenya_dpa_2019", "Kenya DPA 2019"),
-    214: ("netherlands", "Netherlands Cybersecurity"),
-    215: ("nigeria_dpr_2019", "Nigeria DPR 2019"),
-    216: ("norway", "Norway Cybersecurity"),
-    217: ("poland", "Poland Cybersecurity"),
-    218: ("qatar_pdppl", "Qatar PDPPL"),
-    219: ("russia", "Russia Cybersecurity"),
-    220: ("saudi_cscc_1_2019", "Saudi Arabia CSCC-1 2019"),
-    221: ("saudi_cgiot_1_2024", "Saudi Arabia IoT CGIoT-1 2024"),
-    222: ("saudi_ecc_1_2018", "Saudi Arabia ECC-1 2018"),
-    223: ("saudi_otcc_1_2022", "Saudi Arabia OTCC-1 2022"),
-    224: ("saudi_pdpl", "Saudi Arabia PDPL"),
-    225: ("saudi_sacs_002", "Saudi Arabia SACS-002"),
-    226: ("saudi_sama_csf_1.0", "Saudi Arabia SAMA CSF 1.0"),
-    227: ("serbia_87_2018", "Serbia 87/2018"),
-    228: ("south_africa", "South Africa (POPIA)"),
-    229: ("spain_boe_a_2022_7191", "Spain BOE-A-2022-7191"),
-    230: ("spain_1720_2007", "Spain 1720/2007"),
-    231: ("spain_311_2022", "Spain 311/2022"),
-    232: ("spain_ccn_stic_825", "Spain CCN-STIC 825"),
-    233: ("sweden", "Sweden Cybersecurity"),
-    234: ("switzerland", "Switzerland Cybersecurity"),
-    235: ("turkey", "Turkey Cybersecurity"),
-    236: ("uae_niaf", "UAE NIAF"),
-    237: ("uk_caf_4.0", "UK Cyber Assessment Framework 4.0"),
-    238: ("uk_cap_1850", "UK CAP 1850"),
-    239: ("uk_cyber_essentials", "UK Cyber Essentials"),
-    240: ("uk_defstan_05_138", "UK DEFSTAN 05-138"),
-    241: ("uk_dpa", "UK Data Protection Act"),
+            frameworks.append((col_idx, fw_id, display))
 
-    # APAC
-    242: ("australia_essential_8", "Australian Essential Eight"),
-    243: ("australia_privacy_act", "Australian Privacy Act"),
-    244: ("australia_privacy_principles", "Australian Privacy Principles"),
-    245: ("australia_ism_2024", "Australian ISM (June 2024)"),
-    246: ("australia_iot_cop", "Australia IoT Code of Practice"),
-    247: ("australia_cps_230", "Australia Prudential Standard CPS 230"),
-    248: ("australia_cps_234", "Australia Prudential Standard CPS 234"),
-    249: ("china_cybersecurity_law", "China Cybersecurity Law"),
-    250: ("china_data_security_law", "China Data Security Law"),
-    251: ("china_dnsip", "China DNSIP"),
-    252: ("china_privacy_law", "China Privacy Law (PIPL)"),
-    253: ("hong_kong", "Hong Kong Cybersecurity"),
-    254: ("india_dpdpa_2023", "India DPDPA 2023"),
-    255: ("india_itr", "India ITR"),
-    256: ("india_sebi_cscrf", "India SEBI CSCRF"),
-    257: ("japan_appi", "Japan APPI"),
-    258: ("japan_ismap", "Japan ISMAP"),
-    259: ("malaysia", "Malaysia Cybersecurity"),
-    260: ("nz_hisf_2022", "New Zealand HISF 2022"),
-    261: ("nz_hisf_suppliers_2023", "New Zealand HISF Suppliers 2023"),
-    262: ("nz_nzism_3.6", "New Zealand NZISM 3.6"),
-    263: ("nz_privacy_act_2020", "New Zealand Privacy Act 2020"),
-    264: ("philippines", "Philippines Cybersecurity"),
-    265: ("singapore", "Singapore Cybersecurity"),
-    266: ("singapore_cyber_hygiene", "Singapore Cyber Hygiene Practice"),
-    267: ("singapore_mas_trm_2021", "Singapore MAS TRM 2021"),
-    268: ("south_korea", "South Korea Cybersecurity"),
-    269: ("taiwan", "Taiwan Cybersecurity"),
+    return frameworks
 
-    # Americas (non-US)
-    270: ("argentina_ppl", "Argentina PPL"),
-    271: ("argentina_reg_132_2018", "Argentina Reg 132-2018"),
-    272: ("bahamas", "Bahamas Cybersecurity"),
-    273: ("bermuda_bmaccc", "Bermuda BMACCC"),
-    274: ("brazil_lgpd", "Brazil LGPD"),
-    275: ("canada_csag", "Canada CSAG"),
-    276: ("canada_osfi_b13", "Canada OSFI B-13"),
-    277: ("canada_itsp_10_171", "Canada ITSP-10-171"),
-    278: ("canada_pipeda", "Canada PIPEDA"),
-    279: ("chile", "Chile Cybersecurity"),
-    280: ("colombia", "Colombia Cybersecurity"),
-    281: ("costa_rica", "Costa Rica Cybersecurity"),
-    282: ("mexico", "Mexico Cybersecurity"),
-    283: ("peru", "Peru Cybersecurity"),
-    284: ("uruguay", "Uruguay Cybersecurity"),
-}
 
-# Framework categories for organization
-# Every framework MUST be in at least one category. Keep in sync with data_loader.py.
-FRAMEWORK_CATEGORIES = {
-    "ai_governance": [
-        "iso_42001_2023", "nist_ai_rmf_1.0", "nist_ai_600_1",
-        "eu_ai_act", "eu_cyber_resilience_act", "eu_cra_annexes",
-    ],
-    "iso_standards": [
-        "iso_27001_2022", "iso_27002_2022", "iso_27017_2015", "iso_27018_2014",
-        "iso_27701_2025", "iso_22301_2019", "iso_29100_2024", "iso_31000_2009",
-        "iso_31010_2009", "iso_sae_21434_2021", "iso_42001_2023",
-    ],
-    "nist_frameworks": [
-        "nist_csf_2.0", "nist_800_37_r2", "nist_800_39",
-        "nist_800_53_r4", "nist_800_53_r4_low", "nist_800_53_r4_moderate",
-        "nist_800_53_r4_high", "nist_800_53_r5", "nist_800_53b_r5_privacy",
-        "nist_800_53b_r5_low", "nist_800_53b_r5_moderate", "nist_800_53b_r5_high",
-        "nist_800_53_r5_noc", "nist_800_63b", "nist_800_160",
-        "nist_800_171_r2", "nist_800_171a", "nist_800_171_r3", "nist_800_171a_r3",
-        "nist_800_172", "nist_800_207", "nist_800_218",
-        "nist_privacy_framework_1.0", "nist_ai_rmf_1.0", "nist_ai_600_1",
-    ],
-    "cis_controls": [
-        "cis_csc_8.1", "cis_csc_8.1_ig1", "cis_csc_8.1_ig2", "cis_csc_8.1_ig3",
-    ],
-    "cloud_security": [
-        "iso_27017_2015", "iso_27018_2014", "csa_ccm_4", "csa_iot_scf_2",
-        "germany_c5_2020",
-    ],
-    "governance": ["cobit_2019", "coso_2017", "enisa_2.0"],
+# --- Framework categories ---
+# Assigns each framework_id to one or more browsing categories.
+# Categories use keyword matching on the framework_id to auto-assign,
+# with an explicit override map for edge cases. This keeps the mapping
+# maintainable across SCF version changes: new frameworks with recognizable
+# prefixes get categorized automatically.
+
+CATEGORY_RULES: dict[str, list[str]] = {
+    # Pattern-based: if framework_id contains any of these substrings, assign to category
+    "ai_governance": ["42001", "ai_rmf", "ai_600", "ai_act", "ai_enabled", "ai_model"],
+    "iso_standards": ["iso_"],
+    "nist_frameworks": ["nist_"],
+    "cis_controls": ["cis_csc", "cis_"],
+    "cloud_security": ["27017", "27018", "csa_ccm", "csa_iot", "c5_2020", "c5_"],
+    "governance": ["cobit", "coso", "cr_cmm"],
     "privacy": [
-        "gdpr", "iso_27701_2025", "iso_29100_2024", "nist_privacy_framework_1.0",
-        "nist_800_53b_r5_privacy", "apec_privacy_2015", "gapp", "oecd_privacy",
-        "us_dpf", "us_ca_ccpa_2025", "us_co_cpa", "us_va_cdpa_2025", "us_or_cpa",
-        "us_tn_tipa", "us_tx_cdpa", "us_coppa", "us_ferpa", "us_fipps",
-        "us_il_bipa", "us_il_ipa", "us_il_pipa",
-        "brazil_lgpd", "india_dpdpa_2023", "china_privacy_law",
-        "china_data_security_law", "japan_appi", "canada_pipeda",
-        "south_africa", "saudi_pdpl", "qatar_pdppl",
-        "kenya_dpa_2019", "nigeria_dpr_2019", "nz_privacy_act_2020",
-        "australia_privacy_act", "australia_privacy_principles",
-        "uk_dpa", "argentina_ppl",
-    ],
-    "us_federal": [
-        "nist_csf_2.0", "nist_800_53_r5", "nist_800_53b_r5_low",
-        "nist_800_53b_r5_moderate", "nist_800_53b_r5_high", "nist_800_53_r5_noc",
-        "nist_800_53_r4", "nist_800_53_r4_low", "nist_800_53_r4_moderate",
-        "nist_800_53_r4_high", "nist_800_171_r2", "nist_800_171a",
-        "nist_800_171_r3", "nist_800_171a_r3", "nist_800_172",
-        "cjis_5.9.3", "irs_1075", "dfars_252_204_70xx",
-        "far_52_204_21", "far_52_204_25", "far_52_204_27",
-        "itar_part_120", "nispom_2020", "us_nnpi", "nstc_nspm_33",
-        "eo_14028", "dhs_cisa_ssdaf", "dhs_cisa_tic_3.0", "us_cisa_cpg_2022",
-        "us_c2m2_2.1", "us_cert_rmm_1.2", "tsa_dhs_1580_82_2022",
-        "ssa_eiesr_8.0", "fda_21_cfr_part_11", "hhs_45_cfr_155_260",
-    ],
-    "fedramp": [
-        "fedramp_r4", "fedramp_r4_low", "fedramp_r4_moderate",
-        "fedramp_r4_high", "fedramp_r4_lisaas",
-        "fedramp_r5", "fedramp_r5_low", "fedramp_r5_moderate",
-        "fedramp_r5_high", "fedramp_r5_lisaas",
-    ],
-    "govramp": [
-        "govramp_core", "govramp_low", "govramp_low_plus",
-        "govramp_moderate", "govramp_high",
-    ],
-    "cmmc": [
-        "cmmc_2.0_level_1", "cmmc_2.0_level_1_aos",
-        "cmmc_2.0_level_2", "cmmc_2.0_level_3",
-    ],
-    "zero_trust": [
-        "nist_800_207", "dod_zt_roadmap", "dod_ztra_2.0", "dhs_ztcf",
-    ],
-    "us_state_laws": [
-        "us_ca_ccpa_2025", "us_ca_sb327", "us_ca_sb1386",
-        "nydfs_500_2023", "us_ny_shield", "us_co_cpa", "us_va_cdpa_2025",
-        "us_or_cpa", "us_or_646a", "us_tn_tipa",
-        "us_tx_cdpa", "us_tx_dir_2.0", "us_tx_bc521", "us_tx_sb820", "us_tx_sb2610",
-        "tx_ramp_level_1", "tx_ramp_level_2",
-        "us_ma_201_cmr_17", "us_il_bipa", "us_il_ipa", "us_il_pipa",
-        "us_nv_noge_reg_5", "us_nv_sb220", "us_ak_pipa", "us_vt_act_171",
+        "gdpr", "27701", "29100", "privacy", "apec_", "gapp", "oecd_",
+        "dpf", "ccpa", "cpa", "cdpa", "coppa", "ferpa", "fipps",
+        "bipa", "ipa", "pipa", "pdpl", "pdppl", "dpa_", "dpr_",
+        "lgpd", "dpdpa", "pipl", "appi", "pipeda", "popia",
     ],
     "financial": [
-        "soc_2_tsc", "pci_dss_4.0.1",
-        "pci_dss_4.0.1_saq_a", "pci_dss_4.0.1_saq_a_ep",
-        "pci_dss_4.0.1_saq_b", "pci_dss_4.0.1_saq_b_ip",
-        "pci_dss_4.0.1_saq_c", "pci_dss_4.0.1_saq_c_vt",
-        "pci_dss_4.0.1_saq_d_merchant", "pci_dss_4.0.1_saq_d_sp",
-        "pci_dss_4.0.1_saq_p2pe",
-        "sox", "glba_cfr_314_2023", "ffiec", "us_finra",
-        "sec_cybersecurity_rule", "us_facta", "ftc_act", "naic_mdl_668",
-        "fca_crm", "dora", "psd2", "eu_eba_gl_2019_04", "swift_cscf_2023",
-        "shared_assessments_sig_2025", "singapore_mas_trm_2021",
-        "saudi_sama_csf_1.0", "canada_osfi_b13",
-        "australia_cps_230", "australia_cps_234", "india_sebi_cscrf",
-        "germany_bait",
+        "soc_2", "tsc", "pci_dss", "sox", "glba", "ffiec", "finra",
+        "sec_cybersecurity", "facta", "ftc_act", "naic", "fca_crm",
+        "dora", "psd2", "eba_", "swift", "shared_assessments",
+        "mas_trm", "sama_csf", "osfi", "cps_230", "cps_234",
+        "sebi_cscrf", "bait",
     ],
     "healthcare": [
-        "hipaa_security_rule", "hipaa_admin_2013",
-        "hipaa_hicp_small", "hipaa_hicp_medium", "hipaa_hicp_large",
-        "cms_mars_e_2.0", "hhs_45_cfr_155_260", "fda_21_cfr_part_11",
-        "iec_tr_60601_4_5_2021",
+        "hipaa", "cms_mars", "hhs_", "fda_", "60601",
+        "800_66",
     ],
     "industrial_ot": [
-        "iec_62443_4_2_2019", "nerc_cip_2024",
-        "nist_800_82_r3_low", "nist_800_82_r3_moderate", "nist_800_82_r3_high",
-        "imo_maritime_cyber", "tsa_dhs_1580_82_2022",
+        "62443", "nerc_cip", "800_82", "maritime", "tsa_dhs",
     ],
     "automotive": [
-        "iso_sae_21434_2021", "tisax_isa_6", "un_r155", "un_ece_wp29",
-        "ul_2900_1_2017",
+        "21434", "tisax", "un_r155", "un_ece", "ul_2900",
     ],
     "supply_chain": [
-        "nist_800_161_r1", "nist_800_161_r1_baseline", "nist_800_161_r1_flowdown",
-        "nist_800_161_r1_level1", "nist_800_161_r1_level2", "nist_800_161_r1_level3",
-        "nist_800_218", "dfars_252_204_70xx",
+        "800_161", "800_218", "dfars",
     ],
-    "threat_intel_appsec": ["mitre_attack_10", "owasp_top_10_2021", "sparta"],
-    "uk_cybersecurity": [
-        "uk_caf_4.0", "uk_cyber_essentials", "uk_dpa",
-        "uk_defstan_05_138", "uk_cap_1850", "fca_crm",
+    "threat_intel_appsec": ["mitre", "owasp", "sparta"],
+    "zero_trust": ["zero_trust", "zt_", "ztra", "ztcf", "800_207"],
+    "fedramp": ["fedramp"],
+    "govramp": ["govramp"],
+    "cmmc": ["cmmc"],
+    "us_federal": [
+        "cjis", "irs_", "nispom", "nnpi", "eo_14028",
+        "dhs_cisa", "c2m2", "cert_rmm", "cisa_cpg",
+        "far_52", "itar", "nstc_", "ssa_eiesr",
+    ],
+    "us_state_laws": [
+        "us_ak", "us_ca", "us_co", "us_il", "us_ma",
+        "us_nv", "us_ny", "us_or", "us_tn", "us_tx",
+        "us_va", "us_vt", "nydfs", "tx_ramp",
     ],
     "eu_regulations": [
-        "gdpr", "dora", "nis2", "nis2_annex", "psd2",
-        "eu_ai_act", "eu_cyber_resilience_act", "eu_cra_annexes",
-        "eu_eba_gl_2019_04", "enisa_2.0",
+        "eu_ai", "eu_cyber", "eu_eba", "dora", "gdpr",
+        "nis2", "psd2", "enisa",
     ],
     "europe_national": [
-        "uk_caf_4.0", "uk_cyber_essentials", "uk_dpa", "uk_defstan_05_138",
-        "uk_cap_1850", "germany", "germany_bait", "germany_c5_2020", "bsi_200_1",
-        "austria", "belgium", "ireland", "italy", "greece", "hungary",
-        "netherlands", "norway", "poland", "sweden",
-        "spain_boe_a_2022_7191", "spain_1720_2007", "spain_311_2022",
-        "spain_ccn_stic_825", "switzerland", "turkey", "russia",
-        "serbia_87_2018", "fca_crm",
+        "emea_austria", "emea_belgium", "emea_germany", "germany",
+        "emea_greece", "emea_hungary", "emea_ireland", "emea_italy",
+        "emea_netherlands", "netherlands", "emea_norway", "norway",
+        "emea_poland", "poland", "emea_sweden", "sweden",
+        "emea_spain", "spain", "emea_switzerland", "switzerland",
+        "emea_turkey", "turkey", "emea_russia", "russia",
+        "emea_serbia", "serbia", "emea_uk", "uk_caf", "uk_cap",
+        "uk_cyber", "uk_defstan", "uk_dpa", "fca_crm", "bsi_",
     ],
     "middle_east_africa": [
-        "israel", "israel_cdmo_1.0", "saudi_sama_csf_1.0", "saudi_cscc_1_2019",
-        "saudi_ecc_1_2018", "saudi_otcc_1_2022", "saudi_cgiot_1_2024",
-        "saudi_pdpl", "saudi_sacs_002", "uae_niaf", "qatar_pdppl",
-        "south_africa", "kenya_dpa_2019", "nigeria_dpr_2019",
+        "israel", "saudi", "uae_", "qatar", "south_africa",
+        "kenya", "nigeria", "emea_south_africa",
     ],
     "asia_pacific": [
-        "australia_essential_8", "australia_ism_2024", "australia_privacy_act",
-        "australia_privacy_principles", "australia_iot_cop",
-        "australia_cps_230", "australia_cps_234",
-        "singapore", "singapore_cyber_hygiene", "singapore_mas_trm_2021",
-        "japan_appi", "japan_ismap",
-        "china_cybersecurity_law", "china_data_security_law",
-        "china_privacy_law", "china_dnsip", "hong_kong",
-        "india_dpdpa_2023", "india_itr", "india_sebi_cscrf",
-        "south_korea", "taiwan", "malaysia", "philippines",
-        "nz_hisf_2022", "nz_hisf_suppliers_2023", "nz_nzism_3.6",
-        "nz_privacy_act_2020",
+        "apac_", "australia", "singapore", "japan", "china",
+        "hong_kong", "india", "south_korea", "taiwan",
+        "malaysia", "philippines", "new_zealand", "nz_",
     ],
     "americas": [
-        "canada_pipeda", "canada_csag", "canada_osfi_b13", "canada_itsp_10_171",
-        "brazil_lgpd", "argentina_ppl", "argentina_reg_132_2018",
-        "mexico", "chile", "colombia", "peru", "costa_rica", "uruguay",
-        "bahamas", "bermuda_bmaccc",
+        "americas_", "argentina", "bahamas", "bermuda",
+        "brazil", "canada", "chile", "colombia", "mexico",
+        "peru", "costa_rica", "uruguay",
     ],
-    "media_entertainment": ["mpa_csp_5.1"],
+    "media_entertainment": ["mpa_"],
 }
+
+# Explicit overrides: framework_id -> list of categories to ADD
+CATEGORY_OVERRIDES: dict[str, list[str]] = {
+    # Frameworks that need manual assignment because their ID doesn't match patterns
+}
+
+
+def assign_categories(framework_ids: list[str]) -> dict[str, list[str]]:
+    """Build category -> [framework_id] mapping using pattern rules + overrides."""
+    categories: dict[str, list[str]] = {cat: [] for cat in CATEGORY_RULES}
+
+    for fw_id in framework_ids:
+        assigned = set()
+        for cat, patterns in CATEGORY_RULES.items():
+            for pattern in patterns:
+                if pattern in fw_id:
+                    assigned.add(cat)
+                    break
+
+        # Apply explicit overrides
+        if fw_id in CATEGORY_OVERRIDES:
+            for cat in CATEGORY_OVERRIDES[fw_id]:
+                assigned.add(cat)
+
+        for cat in assigned:
+            if cat in categories:
+                categories[cat].append(fw_id)
+
+    # Remove empty categories
+    return {cat: sorted(fws) for cat, fws in categories.items() if fws}
 
 
 def parse_cell_value(value) -> list[str]:
@@ -533,36 +291,47 @@ def parse_cell_value(value) -> list[str]:
     return controls
 
 
-def extract_controls(ws) -> list[dict]:
+def extract_controls(ws, framework_columns: list[tuple[int, str, str]]) -> list[dict]:
     """Extract all controls from the worksheet."""
     controls = []
+    row_count = 0
+
+    # Build column index lookup
+    fw_col_map = {col_idx: (fw_id, display) for col_idx, fw_id, display in framework_columns}
 
     print("Extracting controls...")
-    row_count = 0
 
     for row in ws.iter_rows(min_row=2, values_only=True):
         # Skip empty rows
-        if not row[2]:  # SCF # column
+        if not row[COL_SCF_ID]:
             continue
 
-        scf_id = str(row[2]).strip()
+        scf_id = str(row[COL_SCF_ID]).strip()
         if not scf_id or scf_id == "SCF #":
             continue
 
         # Extract core fields
+        weight_raw = row[COL_WEIGHT] if COL_WEIGHT < len(row) else None
+        weight = 5  # default
+        if weight_raw is not None:
+            try:
+                weight = int(weight_raw)
+            except (ValueError, TypeError):
+                weight = 5
+
         control = {
             "id": scf_id,
-            "domain": str(row[0]).strip() if row[0] else "",
-            "name": str(row[3]).strip() if row[3] else "",
-            "description": str(row[3]).strip() if row[3] else "",  # Same as name in SCF
-            "weight": int(row[12]) if row[12] and str(row[12]).isdigit() else 5,
-            "pptdf": str(row[13]).strip() if row[13] else "",
-            "validation_cadence": str(row[4]).strip() if row[4] else "Annual",
+            "domain": str(row[COL_DOMAIN]).strip() if row[COL_DOMAIN] else "",
+            "name": str(row[COL_DESCRIPTION]).strip() if row[COL_DESCRIPTION] else "",
+            "description": str(row[COL_DESCRIPTION]).strip() if row[COL_DESCRIPTION] else "",
+            "weight": weight,
+            "pptdf": str(row[COL_PPTDF]).strip() if COL_PPTDF < len(row) and row[COL_PPTDF] else "",
+            "validation_cadence": str(row[COL_CADENCE]).strip() if row[COL_CADENCE] else "Annual",
             "framework_mappings": {}
         }
 
         # Extract all framework mappings
-        for col_idx, (fw_id, fw_name) in FRAMEWORK_COLUMNS.items():
+        for col_idx, (fw_id, _display) in fw_col_map.items():
             try:
                 cell_value = row[col_idx] if col_idx < len(row) else None
                 mappings = parse_cell_value(cell_value)
@@ -580,13 +349,12 @@ def extract_controls(ws) -> list[dict]:
     return controls
 
 
-def build_reverse_index(controls: list[dict]) -> dict[str, dict[str, list[str]]]:
+def build_reverse_index(
+    controls: list[dict],
+    framework_ids: list[str],
+) -> dict[str, dict[str, list[str]]]:
     """Build reverse index from framework controls to SCF IDs."""
-    reverse_index = {}
-
-    for fw_id in FRAMEWORK_COLUMNS.values():
-        fw_key = fw_id[0]
-        reverse_index[fw_key] = {}
+    reverse_index: dict[str, dict[str, list[str]]] = {fw_id: {} for fw_id in framework_ids}
 
     for control in controls:
         scf_id = control["id"]
@@ -600,50 +368,76 @@ def build_reverse_index(controls: list[dict]) -> dict[str, dict[str, list[str]]]
     return reverse_index
 
 
-def get_framework_stats(controls: list[dict]) -> dict[str, int]:
+def get_framework_stats(
+    controls: list[dict],
+    framework_ids: list[str],
+) -> dict[str, int]:
     """Calculate control counts per framework."""
     stats = {}
-    for fw_id in FRAMEWORK_COLUMNS.values():
-        fw_key = fw_id[0]
-        count = sum(1 for c in controls if c["framework_mappings"].get(fw_key))
-        stats[fw_key] = count
+    for fw_id in framework_ids:
+        count = sum(1 for c in controls if c["framework_mappings"].get(fw_id))
+        stats[fw_id] = count
     return stats
 
 
 def main():
     print(f"Loading SCF spreadsheet: {SCF_XLSX}")
+    print(f"Sheet: {SCF_SHEET}")
     wb = load_workbook(SCF_XLSX, data_only=True)
-    ws = wb["SCF 2025.4"]
+    ws = wb[SCF_SHEET]
+
+    # Auto-detect framework columns
+    print("Detecting framework columns...")
+    framework_columns = detect_framework_columns(ws)
+    framework_ids = [fw_id for _, fw_id, _ in framework_columns]
+    print(f"  Found {len(framework_columns)} framework columns "
+          f"(cols {framework_columns[0][0]}-{framework_columns[-1][0]})")
 
     # Extract controls
-    controls = extract_controls(ws)
+    controls = extract_controls(ws, framework_columns)
     wb.close()
 
     # Build reverse index
     print("Building reverse index...")
-    reverse_index = build_reverse_index(controls)
+    reverse_index = build_reverse_index(controls, framework_ids)
 
     # Calculate stats
-    stats = get_framework_stats(controls)
+    stats = get_framework_stats(controls, framework_ids)
+
+    # Build categories
+    print("Assigning framework categories...")
+    categories = assign_categories(framework_ids)
+    categorized = set()
+    for fws in categories.values():
+        categorized.update(fws)
+    uncategorized = [fw for fw in framework_ids if fw not in categorized]
+    if uncategorized:
+        print(f"  WARNING: {len(uncategorized)} uncategorized frameworks:")
+        for fw in uncategorized:
+            display = next(d for _, fid, d in framework_columns if fid == fw)
+            print(f"    - {fw} ({display})")
+    print(f"  {len(categories)} categories, {len(categorized)} frameworks categorized")
 
     # Output statistics
-    print("\n=== FRAMEWORK STATISTICS ===")
-    print(f"Total frameworks: {len(FRAMEWORK_COLUMNS)}")
+    print(f"\n=== FRAMEWORK STATISTICS ===")
+    print(f"Total frameworks: {len(framework_columns)}")
     print(f"Total controls: {len(controls)}")
 
     # Sort by control count
     sorted_stats = sorted(stats.items(), key=lambda x: x[1], reverse=True)
     print("\nTop 20 frameworks by control count:")
     for fw_id, count in sorted_stats[:20]:
-        print(f"  {fw_id}: {count} controls")
+        display = next(d for _, fid, d in framework_columns if fid == fw_id)
+        print(f"  {display}: {count} controls")
 
-    # Tier 0 stats
+    # Tier 0 stats (AI governance)
     print("\n=== TIER 0 (AI GOVERNANCE) ===")
-    tier0 = ["iso_42001_2023", "nist_ai_rmf_1.0", "nist_ai_600_1", "eu_ai_act"]
-    for fw_id in tier0:
-        count = stats.get(fw_id, 0)
-        fw_name = next((v[1] for v in FRAMEWORK_COLUMNS.values() if v[0] == fw_id), fw_id)
-        print(f"  {fw_name}: {count} controls")
+    tier0_patterns = ["42001", "ai_rmf", "ai_600", "ai_act"]
+    for fw_id in framework_ids:
+        if any(p in fw_id for p in tier0_patterns):
+            count = stats.get(fw_id, 0)
+            display = next(d for _, fid, d in framework_columns if fid == fw_id)
+            print(f"  {display}: {count} controls")
 
     # Save outputs
     print(f"\nSaving to {OUTPUT_DIR}...")
@@ -660,11 +454,12 @@ def main():
         json.dump(reverse_index, f, indent=2, ensure_ascii=False)
     print(f"  Saved {reverse_file}")
 
-    # Save framework metadata for data_loader.py
+    # Save framework metadata
     metadata_file = SCRIPT_DIR / "data" / "framework-metadata.json"
+    fw_lookup = {fw_id: {"id": fw_id, "name": display} for _, fw_id, display in framework_columns}
     metadata = {
-        "frameworks": {v[0]: {"id": v[0], "name": v[1]} for v in FRAMEWORK_COLUMNS.values()},
-        "categories": FRAMEWORK_CATEGORIES,
+        "frameworks": fw_lookup,
+        "categories": categories,
         "statistics": stats,
     }
     with open(metadata_file, "w", encoding="utf-8") as f:

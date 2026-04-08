@@ -1,7 +1,7 @@
 {
   "_description": "Golden tests for Security Controls MCP. Each test defines a tool call and the expected output pattern. These serve as regression tests to ensure data accuracy across releases.",
-  "_version": "1.0.0",
-  "_last_updated": "2026-02-17",
+  "_version": "2.0.0",
+  "_last_updated": "2026-04-08",
   "tests": [
     {
       "id": "golden-01",
@@ -19,7 +19,7 @@
       "tool": "get_control",
       "arguments": {"control_id": "GOV-01", "include_mappings": true},
       "expected": {
-        "contains": ["5.1", "ISO/IEC 27001:2022", "Framework Mappings"]
+        "contains": ["5.1", "ISO 27001 2022", "Framework Mappings"]
       }
     },
     {
@@ -48,7 +48,7 @@
       "tool": "get_framework_controls",
       "arguments": {"framework": "iso_27001_2022"},
       "expected": {
-        "contains": ["ISO/IEC 27001:2022", "Total Controls"]
+        "contains": ["ISO 27001 2022", "Total Controls"]
       }
     },
     {
@@ -57,7 +57,7 @@
       "tool": "map_frameworks",
       "arguments": {"source_framework": "iso_27001_2022", "target_framework": "nist_csf_2.0"},
       "expected": {
-        "contains": ["Mapping:", "ISO/IEC 27001:2022", "NIST Cybersecurity Framework"],
+        "contains": ["Mapping:", "ISO 27001 2022", "NIST CSF 2.0"],
         "not_contains": ["No mappings found"]
       }
     },
@@ -76,7 +76,7 @@
       "tool": "version_info",
       "arguments": {},
       "expected": {
-        "contains": ["1451", "262", "SCF 2025.4"]
+        "contains": ["1468", "249", "SCF 2026.1"]
       }
     },
     {
@@ -85,7 +85,7 @@
       "tool": "list_frameworks",
       "arguments": {"category": "ai_governance"},
       "expected": {
-        "contains": ["iso_42001_2023", "nist_ai_rmf_1.0", "eu_ai_act"]
+        "contains": ["iso_42001_2023", "nist_ai_100_1_(ai_rmf)_1.0", "emea_eu_ai_act"]
       }
     },
     {
@@ -102,9 +102,9 @@
       "id": "golden-11",
       "description": "DORA framework has controls mapped",
       "tool": "get_framework_controls",
-      "arguments": {"framework": "dora"},
+      "arguments": {"framework": "emea_eu_dora"},
       "expected": {
-        "contains": ["Digital Operational Resilience Act", "Total Controls"]
+        "contains": ["EMEA EU DORA", "Total Controls"]
       }
     },
     {
@@ -113,7 +113,7 @@
       "tool": "about",
       "arguments": {},
       "expected": {
-        "contains": ["Security Controls MCP", "Ansvar Compliance Suite", "2025.4", "read-only"]
+        "contains": ["Security Controls MCP", "Ansvar Compliance Suite", "2026.1", "read-only"]
       }
     },
     {
@@ -132,7 +132,7 @@
       "tool": "map_frameworks",
       "arguments": {"source_framework": "pci_dss_4.0.1", "target_framework": "nist_800_53_r5"},
       "expected": {
-        "contains": ["Mapping:", "PCI DSS", "NIST SP 800-53"],
+        "contains": ["Mapping:", "PCI DSS", "NIST 800-53"],
         "not_contains": ["No mappings found"]
       }
     },

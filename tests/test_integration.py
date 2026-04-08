@@ -39,7 +39,7 @@ class TestToolCalls:
     async def test_search_controls_with_framework_filter(self):
         """Test search with framework filter."""
         result = await call_tool(
-            "search_controls", {"query": "access control", "frameworks": ["dora"], "limit": 3}
+            "search_controls", {"query": "access control", "frameworks": ["emea_eu_dora"], "limit": 3}
         )
         assert len(result) >= 1
         # Should either find results or say no results
@@ -50,17 +50,17 @@ class TestToolCalls:
         """Test list_frameworks shows categories."""
         result = await call_tool("list_frameworks", {})
         assert len(result) == 1
-        assert "262" in result[0].text
+        assert "249" in result[0].text
         assert "categories" in result[0].text.lower()
-        assert "dora" in result[0].text.lower()
+        assert "dora" in result[0].text.lower()  # emea_eu_dora contains "dora"
 
     @pytest.mark.asyncio
     async def test_list_frameworks_with_category(self):
         """Test list_frameworks filtered by category."""
-        result = await call_tool("list_frameworks", {"category": "uk_cybersecurity"})
+        result = await call_tool("list_frameworks", {"category": "europe_national"})
         assert len(result) == 1
-        assert "uk_cyber_essentials" in result[0].text
-        assert "uk_caf_4.0" in result[0].text
+        assert "emea_uk_cyber_essentials" in result[0].text
+        assert "emea_uk_caf_4.0" in result[0].text
 
     @pytest.mark.asyncio
     async def test_list_frameworks_invalid_category(self):
@@ -73,9 +73,9 @@ class TestToolCalls:
     @pytest.mark.asyncio
     async def test_get_framework_controls(self):
         """Test get_framework_controls for DORA."""
-        result = await call_tool("get_framework_controls", {"framework": "dora"})
+        result = await call_tool("get_framework_controls", {"framework": "emea_eu_dora"})
         assert len(result) >= 1
-        assert "103" in result[0].text or "Total Controls" in result[0].text
+        assert "102" in result[0].text or "Total Controls" in result[0].text
 
     @pytest.mark.asyncio
     async def test_get_framework_controls_invalid(self):
@@ -91,7 +91,7 @@ class TestToolCalls:
             "map_frameworks",
             {
                 "source_framework": "iso_27001_2022",
-                "target_framework": "dora",
+                "target_framework": "emea_eu_dora",
                 "source_control": "5.1",
             },
         )
@@ -102,7 +102,7 @@ class TestToolCalls:
     async def test_map_frameworks_invalid_source(self):
         """Test map_frameworks with invalid source framework."""
         result = await call_tool(
-            "map_frameworks", {"source_framework": "fake_framework", "target_framework": "dora"}
+            "map_frameworks", {"source_framework": "fake_framework", "target_framework": "emea_eu_dora"}
         )
         assert len(result) == 1
         assert "not found" in result[0].text
@@ -114,7 +114,7 @@ class TestToolCalls:
             "map_frameworks",
             {
                 "source_framework": "iso_27001_2022",
-                "target_framework": "dora",
+                "target_framework": "emea_eu_dora",
                 "source_control": "A.5.15",
             },
         )

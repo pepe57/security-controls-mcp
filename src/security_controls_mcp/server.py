@@ -186,7 +186,7 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="list_frameworks",
             description=(
-                "List all 262 supported security frameworks, optionally filtered by "
+                "List all 249 supported security frameworks, optionally filtered by "
                 "category. Without a category filter, returns all frameworks grouped "
                 "by category (~3000 tokens). With a category filter, returns only that "
                 "category's frameworks (~200-500 tokens). Use this to discover valid "
@@ -422,7 +422,7 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
         )[:10]
 
         text = f"**Security Controls MCP Server v{SERVER_VERSION}**\n\n"
-        text += "**Database:** SCF 2025.4\n"
+        text += "**Database:** SCF 2026.1\n"
         text += f"**Controls:** {len(scf_data.controls)} unique controls\n"
         text += f"**Frameworks:** {len(scf_data.frameworks)} supported\n\n"
         text += "**Top 10 Frameworks by Coverage:**\n"
@@ -458,7 +458,7 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                 "built": DATA_BUILT,
                 "jurisdiction": "International",
                 "content_basis": (
-                    "Secure Controls Framework (SCF) 2025.4 control catalog with "
+                    "Secure Controls Framework (SCF) 2026.1 control catalog with "
                     "cross-framework mappings, plus bundled public framework profiles "
                     "derived from official publications. Proprietary standard text is "
                     "only available from user-imported purchased copies."
@@ -468,9 +468,9 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                     "frameworks": len(scf_data.frameworks),
                 },
                 "freshness": {
-                    "last_checked": "2026-02-17",
+                    "last_checked": "2026-04-08",
                     "check_method": "Manual SCF release monitoring",
-                    "scf_version": "2025.4",
+                    "scf_version": "2026.1",
                 },
             },
             "provenance": {

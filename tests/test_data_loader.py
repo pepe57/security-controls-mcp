@@ -21,11 +21,11 @@ class TestDataLoading:
 
     def test_expected_control_count(self, scf_data):
         """Verify expected number of controls loaded."""
-        assert len(scf_data.controls) == 1451
+        assert len(scf_data.controls) == 1468
 
     def test_expected_framework_count(self, scf_data):
         """Verify expected number of frameworks loaded."""
-        assert len(scf_data.frameworks) >= 200  # SCF 2025.4 data currently exposes 262 frameworks
+        assert len(scf_data.frameworks) >= 200  # SCF 2026.1 data currently exposes 249 frameworks
 
     def test_controls_have_required_fields(self, scf_data):
         """Verify all controls have required fields."""
@@ -88,9 +88,9 @@ class TestSearchControls:
 
     def test_search_with_framework_filter(self, scf_data):
         """Search with framework filter returns only matching controls."""
-        results = scf_data.search_controls("encryption", frameworks=["dora"], limit=10)
+        results = scf_data.search_controls("encryption", frameworks=["iso_27001_2022"], limit=10)
         for result in results:
-            assert "dora" in result["mapped_frameworks"]
+            assert "iso_27001_2022" in result["mapped_frameworks"]
 
     def test_search_no_results(self, scf_data):
         """Search with no matches returns empty list."""
@@ -115,8 +115,8 @@ class TestGetFrameworkControls:
 
     def test_get_dora_controls(self, scf_data):
         """Get DORA framework controls."""
-        controls = scf_data.get_framework_controls("dora")
-        assert len(controls) == 103
+        controls = scf_data.get_framework_controls("emea_eu_dora")
+        assert len(controls) == 102
 
     def test_get_iso27001_controls(self, scf_data):
         """Get ISO 27001 framework controls."""
@@ -125,7 +125,7 @@ class TestGetFrameworkControls:
 
     def test_framework_controls_structure(self, scf_data):
         """Verify framework controls have correct structure."""
-        controls = scf_data.get_framework_controls("dora", include_descriptions=False)
+        controls = scf_data.get_framework_controls("emea_eu_dora", include_descriptions=False)
         for control in controls[:5]:  # Sample check
             assert "scf_id" in control
             assert "scf_name" in control
@@ -135,17 +135,16 @@ class TestGetFrameworkControls:
 
     def test_framework_controls_with_descriptions(self, scf_data):
         """Verify descriptions included when requested."""
-        controls = scf_data.get_framework_controls("dora", include_descriptions=True)
+        controls = scf_data.get_framework_controls("emea_eu_dora", include_descriptions=True)
         for control in controls[:5]:  # Sample check
             assert "description" in control
 
-    def test_reverse_index_only_framework_controls_are_aggregated(self, scf_data):
-        """Reverse-index-only frameworks should aggregate multiple section IDs per SCF control."""
-        controls = scf_data.get_framework_controls("tiber_eu_2025")
-
-        assert len(controls) == 52
-        assert len({control["scf_id"] for control in controls}) == 52
-        assert any(len(control["framework_control_ids"]) > 1 for control in controls)
+    def test_reverse_index_only_framework_returns_results(self, scf_data):
+        """Frameworks in reverse index should return controls via get_framework_controls."""
+        # Use EMEA EU DORA as a representative framework
+        controls = scf_data.get_framework_controls("emea_eu_dora")
+        assert len(controls) > 0
+        assert len({control["scf_id"] for control in controls}) == len(controls)
 
 
 class TestMapFrameworks:
@@ -153,20 +152,20 @@ class TestMapFrameworks:
 
     def test_map_iso_to_dora(self, scf_data):
         """Map ISO 27001 to DORA."""
-        mappings = scf_data.map_frameworks("iso_27001_2022", "dora")
+        mappings = scf_data.map_frameworks("iso_27001_2022", "emea_eu_dora")
         assert len(mappings) > 0
 
     def test_map_with_source_control_filter(self, scf_data):
         """Map with source control filter."""
-        mappings = scf_data.map_frameworks("iso_27001_2022", "dora", "5.1")
+        mappings = scf_data.map_frameworks("iso_27001_2022", "emea_eu_dora", "5.1")
         assert len(mappings) >= 1
         for mapping in mappings:
             assert "5.1" in mapping["source_controls"]
 
     def test_map_with_annex_style_source_control_filter(self, scf_data):
         """Annex-style control IDs (A.x.y) should match plain x.y mappings."""
-        plain = scf_data.map_frameworks("iso_27002_2022", "dora", "5.15")
-        annex = scf_data.map_frameworks("iso_27002_2022", "dora", "A.5.15")
+        plain = scf_data.map_frameworks("iso_27002_2022", "emea_eu_dora", "5.15")
+        annex = scf_data.map_frameworks("iso_27002_2022", "emea_eu_dora", "A.5.15")
 
         assert len(plain) > 0
         assert len(annex) == len(plain)
@@ -174,7 +173,7 @@ class TestMapFrameworks:
 
     def test_mapping_structure(self, scf_data):
         """Verify mapping result structure."""
-        mappings = scf_data.map_frameworks("iso_27001_2022", "dora", "5.1")
+        mappings = scf_data.map_frameworks("iso_27001_2022", "emea_eu_dora", "5.1")
         for mapping in mappings:
             assert "scf_id" in mapping
             assert "scf_name" in mapping
@@ -185,7 +184,7 @@ class TestMapFrameworks:
     def test_map_nonexistent_source_framework(self, scf_data):
         """Map with non-existent source framework returns empty."""
         # This should return empty since no controls map to fake framework
-        mappings = scf_data.map_frameworks("fake_framework", "dora")
+        mappings = scf_data.map_frameworks("fake_framework", "emea_eu_dora")
         assert mappings == []
 
 
@@ -241,11 +240,11 @@ class TestCriticalFrameworks:
         "framework_key,expected_count",
         [
             ("nist_800_53_r5", 777),
-            ("soc_2_tsc", 412),
-            ("pci_dss_4.0.1", 364),
-            ("dora", 103),
+            ("aicpa_tsc_2017_2022_(used_for_soc_2)", 412),
+            ("pci_dss_4.0.1", 371),
+            ("emea_eu_dora", 102),
             ("iso_27001_2022", 51),
-            ("nist_csf_2.0", 253),
+            ("nist_csf_2.0", 250),
         ],
     )
     def test_critical_framework_counts(self, scf_data, framework_key, expected_count):

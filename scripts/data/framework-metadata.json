@@ -1,60 +1,60 @@
 {
   "frameworks": {
-    "soc_2_tsc": {
-      "id": "soc_2_tsc",
-      "name": "AICPA TSC 2017:2022 (SOC 2)"
+    "aicpa_privacy_management_framework_(pmf)": {
+      "id": "aicpa_privacy_management_framework_(pmf)",
+      "name": "AICPA Privacy Management Framework (PMF)"
     },
-    "apec_privacy_2015": {
-      "id": "apec_privacy_2015",
+    "aicpa_tsc_2017_2022_(used_for_soc_2)": {
+      "id": "aicpa_tsc_2017_2022_(used_for_soc_2)",
+      "name": "AICPA TSC 2017:2022 (used for SOC 2)"
+    },
+    "apec_privacy_framework_2015": {
+      "id": "apec_privacy_framework_2015",
       "name": "APEC Privacy Framework 2015"
     },
-    "gapp": {
-      "id": "gapp",
-      "name": "Generally Accepted Privacy Principles (GAPP)"
-    },
-    "oecd_privacy": {
-      "id": "oecd_privacy",
-      "name": "OECD Privacy Principles"
-    },
-    "bsi_200_1": {
-      "id": "bsi_200_1",
+    "bsi_standard_200_1": {
+      "id": "bsi_standard_200_1",
       "name": "BSI Standard 200-1"
     },
     "cis_csc_8.1": {
       "id": "cis_csc_8.1",
-      "name": "CIS Critical Security Controls v8.1"
+      "name": "CIS CSC 8.1"
     },
     "cis_csc_8.1_ig1": {
       "id": "cis_csc_8.1_ig1",
-      "name": "CIS CSC v8.1 Implementation Group 1"
+      "name": "CIS CSC 8.1 IG1"
     },
     "cis_csc_8.1_ig2": {
       "id": "cis_csc_8.1_ig2",
-      "name": "CIS CSC v8.1 Implementation Group 2"
+      "name": "CIS CSC 8.1 IG2"
     },
     "cis_csc_8.1_ig3": {
       "id": "cis_csc_8.1_ig3",
-      "name": "CIS CSC v8.1 Implementation Group 3"
+      "name": "CIS CSC 8.1 IG3"
     },
     "cobit_2019": {
       "id": "cobit_2019",
       "name": "COBIT 2019"
     },
-    "coso_2017": {
-      "id": "coso_2017",
-      "name": "COSO 2017"
+    "coso_2013": {
+      "id": "coso_2013",
+      "name": "COSO 2013"
     },
-    "csa_ccm_4": {
-      "id": "csa_ccm_4",
-      "name": "CSA Cloud Controls Matrix v4"
+    "csa_ccm_4.1.0": {
+      "id": "csa_ccm_4.1.0",
+      "name": "CSA CCM 4.1.0"
     },
     "csa_iot_scf_2": {
       "id": "csa_iot_scf_2",
-      "name": "CSA IoT Security Controls Framework 2"
+      "name": "CSA IoT SCF 2"
     },
-    "enisa_2.0": {
-      "id": "enisa_2.0",
-      "name": "ENISA 2.0"
+    "cr_cmm_2026": {
+      "id": "cr_cmm_2026",
+      "name": "CR CMM 2026"
+    },
+    "govramp": {
+      "id": "govramp",
+      "name": "GovRAMP"
     },
     "govramp_core": {
       "id": "govramp_core",
@@ -64,8 +64,8 @@
       "id": "govramp_low",
       "name": "GovRAMP Low"
     },
-    "govramp_low_plus": {
-      "id": "govramp_low_plus",
+    "govramp_low+": {
+      "id": "govramp_low+",
       "name": "GovRAMP Low+"
     },
     "govramp_moderate": {
@@ -78,79 +78,91 @@
     },
     "iec_tr_60601_4_5_2021": {
       "id": "iec_tr_60601_4_5_2021",
-      "name": "IEC TR 60601-4-5:2021 (Medical IT)"
+      "name": "IEC TR 60601-4-5 2021"
+    },
+    "iec_62443_2_1_2024": {
+      "id": "iec_62443_2_1_2024",
+      "name": "IEC 62443-2-1 2024"
+    },
+    "iec_62443_3_3_2013": {
+      "id": "iec_62443_3_3_2013",
+      "name": "IEC 62443-3-3 2013"
+    },
+    "iec_62443_4_1_2018": {
+      "id": "iec_62443_4_1_2018",
+      "name": "IEC 62443-4-1 2018"
     },
     "iec_62443_4_2_2019": {
       "id": "iec_62443_4_2_2019",
-      "name": "IEC 62443-4-2:2019 (Industrial Security)"
+      "name": "IEC 62443-4-2 2019"
     },
-    "imo_maritime_cyber": {
-      "id": "imo_maritime_cyber",
+    "imo_maritime_cyber_risk_management": {
+      "id": "imo_maritime_cyber_risk_management",
       "name": "IMO Maritime Cyber Risk Management"
     },
     "iso_sae_21434_2021": {
       "id": "iso_sae_21434_2021",
-      "name": "ISO/SAE 21434:2021 (Automotive Cybersecurity)"
+      "name": "ISO/SAE 21434 2021"
     },
     "iso_22301_2019": {
       "id": "iso_22301_2019",
-      "name": "ISO/IEC 22301:2019 (Business Continuity)"
+      "name": "ISO 22301 2019"
     },
     "iso_27001_2022": {
       "id": "iso_27001_2022",
-      "name": "ISO/IEC 27001:2022"
+      "name": "ISO 27001 2022"
     },
     "iso_27002_2022": {
       "id": "iso_27002_2022",
-      "name": "ISO/IEC 27002:2022"
+      "name": "ISO 27002 2022"
     },
     "iso_27017_2015": {
       "id": "iso_27017_2015",
-      "name": "ISO/IEC 27017:2015 (Cloud Security)"
+      "name": "ISO 27017 2015"
     },
-    "iso_27018_2014": {
-      "id": "iso_27018_2014",
-      "name": "ISO/IEC 27018:2014 (Cloud Privacy)"
+    "iso_27018_2025": {
+      "id": "iso_27018_2025",
+      "name": "ISO 27018 2025"
     },
     "iso_27701_2025": {
       "id": "iso_27701_2025",
-      "name": "ISO/IEC 27701:2025 (Privacy Extension)"
+      "name": "ISO 27701 2025"
     },
     "iso_29100_2024": {
       "id": "iso_29100_2024",
-      "name": "ISO/IEC 29100:2024 (Privacy Framework)"
+      "name": "ISO 29100 2024"
     },
-    "iso_31000_2009": {
-      "id": "iso_31000_2009",
-      "name": "ISO 31000:2009 (Risk Management)"
+    "iso_31000_2018": {
+      "id": "iso_31000_2018",
+      "name": "ISO 31000 2018"
     },
     "iso_31010_2009": {
       "id": "iso_31010_2009",
-      "name": "ISO 31010:2009 (Risk Assessment)"
+      "name": "ISO 31010 2009"
     },
     "iso_42001_2023": {
       "id": "iso_42001_2023",
-      "name": "ISO/IEC 42001:2023 (AI Management System)"
+      "name": "ISO 42001 2023"
     },
-    "mitre_attack_10": {
-      "id": "mitre_attack_10",
-      "name": "MITRE ATT&CK v10"
+    "mitre_attck_16": {
+      "id": "mitre_attck_16",
+      "name": "MITRE ATT&CK 16"
     },
-    "mpa_csp_5.1": {
-      "id": "mpa_csp_5.1",
-      "name": "MPA Content Security Program 5.1"
+    "mpa_content_security_program_5.3.1": {
+      "id": "mpa_content_security_program_5.3.1",
+      "name": "MPA Content Security Program 5.3.1"
     },
-    "naic_mdl_668": {
-      "id": "naic_mdl_668",
+    "naic_insurance_data_security_model_law_(mdl_668)": {
+      "id": "naic_insurance_data_security_model_law_(mdl_668)",
       "name": "NAIC Insurance Data Security Model Law (MDL-668)"
     },
-    "nist_ai_rmf_1.0": {
-      "id": "nist_ai_rmf_1.0",
-      "name": "NIST AI 100-1 (AI Risk Management Framework) 1.0"
+    "nist_ai_100_1_(ai_rmf)_1.0": {
+      "id": "nist_ai_100_1_(ai_rmf)_1.0",
+      "name": "NIST AI 100-1 (AI RMF) 1.0"
     },
     "nist_ai_600_1": {
       "id": "nist_ai_600_1",
-      "name": "NIST AI 600-1 (Generative AI Profile)"
+      "name": "NIST AI 600-1"
     },
     "nist_privacy_framework_1.0": {
       "id": "nist_privacy_framework_1.0",
@@ -158,171 +170,163 @@
     },
     "nist_800_37_r2": {
       "id": "nist_800_37_r2",
-      "name": "NIST SP 800-37 R2 (Risk Management Framework)"
+      "name": "NIST 800-37 R2"
     },
     "nist_800_39": {
       "id": "nist_800_39",
-      "name": "NIST SP 800-39 (Risk Management)"
+      "name": "NIST 800-39"
     },
     "nist_800_53_r4": {
       "id": "nist_800_53_r4",
-      "name": "NIST SP 800-53 R4"
-    },
-    "nist_800_53_r4_low": {
-      "id": "nist_800_53_r4_low",
-      "name": "NIST SP 800-53 R4 (Low)"
-    },
-    "nist_800_53_r4_moderate": {
-      "id": "nist_800_53_r4_moderate",
-      "name": "NIST SP 800-53 R4 (Moderate)"
-    },
-    "nist_800_53_r4_high": {
-      "id": "nist_800_53_r4_high",
-      "name": "NIST SP 800-53 R4 (High)"
+      "name": "NIST 800-53 R4"
     },
     "nist_800_53_r5": {
       "id": "nist_800_53_r5",
-      "name": "NIST SP 800-53 R5"
+      "name": "NIST 800-53 R5"
     },
-    "nist_800_53b_r5_privacy": {
-      "id": "nist_800_53b_r5_privacy",
-      "name": "NIST SP 800-53B R5 (Privacy)"
+    "nist_800_53b_r5_(privacy)": {
+      "id": "nist_800_53b_r5_(privacy)",
+      "name": "NIST 800-53B R5 (privacy)"
     },
-    "nist_800_53b_r5_low": {
-      "id": "nist_800_53b_r5_low",
-      "name": "NIST SP 800-53B R5 (Low)"
+    "nist_800_53b_r5_(low)": {
+      "id": "nist_800_53b_r5_(low)",
+      "name": "NIST 800-53B R5 (low)"
     },
-    "nist_800_53b_r5_moderate": {
-      "id": "nist_800_53b_r5_moderate",
-      "name": "NIST SP 800-53B R5 (Moderate)"
+    "nist_800_53b_r5_(moderate)": {
+      "id": "nist_800_53b_r5_(moderate)",
+      "name": "NIST 800-53B R5 (moderate)"
     },
-    "nist_800_53b_r5_high": {
-      "id": "nist_800_53b_r5_high",
-      "name": "NIST SP 800-53B R5 (High)"
+    "nist_800_53b_r5_(high)": {
+      "id": "nist_800_53b_r5_(high)",
+      "name": "NIST 800-53B R5 (high)"
     },
-    "nist_800_53_r5_noc": {
-      "id": "nist_800_53_r5_noc",
-      "name": "NIST SP 800-53 R5 (NOC)"
+    "nist_sp_800_66_r2": {
+      "id": "nist_sp_800_66_r2",
+      "name": "NIST SP 800-66 R2"
     },
-    "nist_800_63b": {
-      "id": "nist_800_63b",
-      "name": "NIST SP 800-63B (Digital Identity)"
+    "nist_800_82_r3": {
+      "id": "nist_800_82_r3",
+      "name": "NIST 800-82 R3"
     },
-    "nist_800_82_r3_low": {
-      "id": "nist_800_82_r3_low",
-      "name": "NIST SP 800-82 R3 OT Overlay (Low)"
+    "nist_800_82_r3_low_ot_overlay": {
+      "id": "nist_800_82_r3_low_ot_overlay",
+      "name": "NIST 800-82 R3 LOW OT Overlay"
     },
-    "nist_800_82_r3_moderate": {
-      "id": "nist_800_82_r3_moderate",
-      "name": "NIST SP 800-82 R3 OT Overlay (Moderate)"
+    "nist_800_82_r3_moderate_ot_overlay": {
+      "id": "nist_800_82_r3_moderate_ot_overlay",
+      "name": "NIST 800-82 R3 MODERATE OT Overlay"
     },
-    "nist_800_82_r3_high": {
-      "id": "nist_800_82_r3_high",
-      "name": "NIST SP 800-82 R3 OT Overlay (High)"
+    "nist_800_82_r3_high_ot_overlay": {
+      "id": "nist_800_82_r3_high_ot_overlay",
+      "name": "NIST 800-82 R3 HIGH OT Overlay"
     },
-    "nist_800_160": {
-      "id": "nist_800_160",
-      "name": "NIST SP 800-160 (Systems Security Engineering)"
+    "nist_800_160_vol2_r1": {
+      "id": "nist_800_160_vol2_r1",
+      "name": "NIST 800-160 Vol2 R1"
     },
     "nist_800_161_r1": {
       "id": "nist_800_161_r1",
-      "name": "NIST SP 800-161 R1 (Supply Chain)"
+      "name": "NIST 800-161 R1"
     },
-    "nist_800_161_r1_baseline": {
-      "id": "nist_800_161_r1_baseline",
-      "name": "NIST SP 800-161 R1 C-SCRM Baseline"
+    "nist_800_161_r1_c_scrm_baseline": {
+      "id": "nist_800_161_r1_c_scrm_baseline",
+      "name": "NIST 800-161 R1 C-SCRM Baseline"
     },
-    "nist_800_161_r1_flowdown": {
-      "id": "nist_800_161_r1_flowdown",
-      "name": "NIST SP 800-161 R1 Flow Down"
+    "nist_800_161_r1_flow_down": {
+      "id": "nist_800_161_r1_flow_down",
+      "name": "NIST 800-161 R1 Flow Down"
     },
-    "nist_800_161_r1_level1": {
-      "id": "nist_800_161_r1_level1",
-      "name": "NIST SP 800-161 R1 Level 1"
+    "nist_800_161_r1_level_1": {
+      "id": "nist_800_161_r1_level_1",
+      "name": "NIST 800-161 R1 Level 1"
     },
-    "nist_800_161_r1_level2": {
-      "id": "nist_800_161_r1_level2",
-      "name": "NIST SP 800-161 R1 Level 2"
+    "nist_800_161_r1_level_2": {
+      "id": "nist_800_161_r1_level_2",
+      "name": "NIST 800-161 R1 Level 2"
     },
-    "nist_800_161_r1_level3": {
-      "id": "nist_800_161_r1_level3",
-      "name": "NIST SP 800-161 R1 Level 3"
+    "nist_800_161_r1_level_3": {
+      "id": "nist_800_161_r1_level_3",
+      "name": "NIST 800-161 R1 Level 3"
     },
     "nist_800_171_r2": {
       "id": "nist_800_171_r2",
-      "name": "NIST SP 800-171 R2 (CUI)"
-    },
-    "nist_800_171a": {
-      "id": "nist_800_171a",
-      "name": "NIST SP 800-171A (Assessment)"
+      "name": "NIST 800-171 R2"
     },
     "nist_800_171_r3": {
       "id": "nist_800_171_r3",
-      "name": "NIST SP 800-171 R3 (CUI)"
+      "name": "NIST 800-171 R3"
+    },
+    "nist_800_171a": {
+      "id": "nist_800_171a",
+      "name": "NIST 800-171A"
     },
     "nist_800_171a_r3": {
       "id": "nist_800_171a_r3",
-      "name": "NIST SP 800-171A R3 (Assessment)"
+      "name": "NIST 800-171A R3"
     },
     "nist_800_172": {
       "id": "nist_800_172",
-      "name": "NIST SP 800-172 (Enhanced CUI)"
+      "name": "NIST 800-172"
     },
     "nist_800_207": {
       "id": "nist_800_207",
-      "name": "NIST SP 800-207 (Zero Trust)"
+      "name": "NIST 800-207"
     },
     "nist_800_218": {
       "id": "nist_800_218",
-      "name": "NIST SP 800-218 (SSDF)"
+      "name": "NIST 800-218"
     },
     "nist_csf_2.0": {
       "id": "nist_csf_2.0",
-      "name": "NIST Cybersecurity Framework 2.0"
+      "name": "NIST CSF 2.0"
     },
-    "owasp_top_10_2021": {
-      "id": "owasp_top_10_2021",
-      "name": "OWASP Top 10 2021"
+    "oecd_privacy_principles": {
+      "id": "oecd_privacy_principles",
+      "name": "OECD Privacy Principles"
+    },
+    "owasp_top_10_2025": {
+      "id": "owasp_top_10_2025",
+      "name": "OWASP Top 10 2025"
     },
     "pci_dss_4.0.1": {
       "id": "pci_dss_4.0.1",
-      "name": "PCI DSS v4.0.1"
+      "name": "PCI DSS 4.0.1"
     },
     "pci_dss_4.0.1_saq_a": {
       "id": "pci_dss_4.0.1_saq_a",
-      "name": "PCI DSS v4.0.1 SAQ A"
+      "name": "PCI DSS 4.0.1 SAQ A"
     },
     "pci_dss_4.0.1_saq_a_ep": {
       "id": "pci_dss_4.0.1_saq_a_ep",
-      "name": "PCI DSS v4.0.1 SAQ A-EP"
+      "name": "PCI DSS 4.0.1 SAQ A-EP"
     },
     "pci_dss_4.0.1_saq_b": {
       "id": "pci_dss_4.0.1_saq_b",
-      "name": "PCI DSS v4.0.1 SAQ B"
+      "name": "PCI DSS 4.0.1 SAQ B"
     },
     "pci_dss_4.0.1_saq_b_ip": {
       "id": "pci_dss_4.0.1_saq_b_ip",
-      "name": "PCI DSS v4.0.1 SAQ B-IP"
+      "name": "PCI DSS 4.0.1 SAQ B-IP"
     },
     "pci_dss_4.0.1_saq_c": {
       "id": "pci_dss_4.0.1_saq_c",
-      "name": "PCI DSS v4.0.1 SAQ C"
+      "name": "PCI DSS 4.0.1 SAQ C"
     },
     "pci_dss_4.0.1_saq_c_vt": {
       "id": "pci_dss_4.0.1_saq_c_vt",
-      "name": "PCI DSS v4.0.1 SAQ C-VT"
+      "name": "PCI DSS 4.0.1 SAQ C-VT"
     },
     "pci_dss_4.0.1_saq_d_merchant": {
       "id": "pci_dss_4.0.1_saq_d_merchant",
-      "name": "PCI DSS v4.0.1 SAQ D (Merchant)"
+      "name": "PCI DSS 4.0.1 SAQ D Merchant"
     },
-    "pci_dss_4.0.1_saq_d_sp": {
-      "id": "pci_dss_4.0.1_saq_d_sp",
-      "name": "PCI DSS v4.0.1 SAQ D (Service Provider)"
+    "pci_dss_4.0.1_saq_d_service_provider": {
+      "id": "pci_dss_4.0.1_saq_d_service_provider",
+      "name": "PCI DSS 4.0.1 SAQ D Service Provider"
     },
     "pci_dss_4.0.1_saq_p2pe": {
       "id": "pci_dss_4.0.1_saq_p2pe",
-      "name": "PCI DSS v4.0.1 SAQ P2PE"
+      "name": "PCI DSS 4.0.1 SAQ P2PE"
     },
     "shared_assessments_sig_2025": {
       "id": "shared_assessments_sig_2025",
@@ -330,171 +334,139 @@
     },
     "sparta": {
       "id": "sparta",
-      "name": "SPARTA (Space Attack Research)"
+      "name": "SPARTA"
     },
-    "swift_cscf_2023": {
-      "id": "swift_cscf_2023",
-      "name": "SWIFT Customer Security Framework 2023"
+    "swift_csf_2025": {
+      "id": "swift_csf_2025",
+      "name": "SWIFT CSF 2025"
     },
-    "tisax_isa_6": {
-      "id": "tisax_isa_6",
-      "name": "TISAX ISA 6 (Automotive)"
+    "tisax_isa_6.0.3": {
+      "id": "tisax_isa_6.0.3",
+      "name": "TISAX ISA 6.0.3"
     },
     "ul_2900_1_2017": {
       "id": "ul_2900_1_2017",
-      "name": "UL 2900-1:2017 (Software Cybersecurity)"
+      "name": "UL 2900-1 2017"
+    },
+    "ul_2900_2_2_2016": {
+      "id": "ul_2900_2_2_2016",
+      "name": "UL 2900-2-2 2016"
     },
     "un_r155": {
       "id": "un_r155",
-      "name": "UN R155 (Vehicle Cybersecurity)"
+      "name": "UN R155"
     },
-    "un_ece_wp29": {
-      "id": "un_ece_wp29",
-      "name": "UN ECE WP.29 (Automotive)"
-    },
-    "us_c2m2_2.1": {
-      "id": "us_c2m2_2.1",
-      "name": "US C2M2 2.1 (Capability Maturity)"
+    "un_ece_wp.29": {
+      "id": "un_ece_wp.29",
+      "name": "UN ECE WP.29"
     },
     "us_cert_rmm_1.2": {
       "id": "us_cert_rmm_1.2",
-      "name": "US CERT RMM 1.2 (Resilience)"
-    },
-    "us_cisa_cpg_2022": {
-      "id": "us_cisa_cpg_2022",
-      "name": "CISA Cross-Sector CPG 2022"
-    },
-    "cjis_5.9.3": {
-      "id": "cjis_5.9.3",
-      "name": "CJIS Security Policy v5.9.3"
-    },
-    "cmmc_2.0_level_1": {
-      "id": "cmmc_2.0_level_1",
-      "name": "CMMC 2.0 Level 1"
-    },
-    "cmmc_2.0_level_1_aos": {
-      "id": "cmmc_2.0_level_1_aos",
-      "name": "CMMC 2.0 Level 1 AOs"
-    },
-    "cmmc_2.0_level_2": {
-      "id": "cmmc_2.0_level_2",
-      "name": "CMMC 2.0 Level 2"
-    },
-    "cmmc_2.0_level_3": {
-      "id": "cmmc_2.0_level_3",
-      "name": "CMMC 2.0 Level 3"
-    },
-    "cms_mars_e_2.0": {
-      "id": "cms_mars_e_2.0",
-      "name": "CMS MARS-E 2.0 (Healthcare Exchanges)"
+      "name": "US CERT RMM 1.2"
     },
     "us_coppa": {
       "id": "us_coppa",
-      "name": "US COPPA (Children's Privacy)"
+      "name": "US COPPA"
     },
-    "us_dpf": {
-      "id": "us_dpf",
-      "name": "US Data Privacy Framework"
+    "us_dhs_cisa_ssdaf": {
+      "id": "us_dhs_cisa_ssdaf",
+      "name": "US DHS CISA SSDAF"
     },
-    "dod_zt_roadmap": {
-      "id": "dod_zt_roadmap",
-      "name": "DoD Zero Trust Execution Roadmap"
+    "us_dhs_cisa_tic_3.0": {
+      "id": "us_dhs_cisa_tic_3.0",
+      "name": "US DHS CISA TIC 3.0"
     },
-    "dod_ztra_2.0": {
-      "id": "dod_ztra_2.0",
-      "name": "DoD Zero Trust Reference Architecture 2.0"
+    "us_cisa_cpg_2022": {
+      "id": "us_cisa_cpg_2022",
+      "name": "US CISA CPG 2022"
     },
-    "dfars_252_204_70xx": {
-      "id": "dfars_252_204_70xx",
-      "name": "DFARS 252.204-70xx (Cybersecurity)"
+    "us_cjis_security_policy_6.0": {
+      "id": "us_cjis_security_policy_6.0",
+      "name": "US CJIS Security Policy 6.0"
     },
-    "dhs_cisa_ssdaf": {
-      "id": "dhs_cisa_ssdaf",
-      "name": "DHS CISA SSDAF"
+    "us_c2m2_2.1": {
+      "id": "us_c2m2_2.1",
+      "name": "US C2M2 2.1"
     },
-    "dhs_cisa_tic_3.0": {
-      "id": "dhs_cisa_tic_3.0",
-      "name": "DHS CISA TIC 3.0"
+    "us_cmmc_2.0_level_1": {
+      "id": "us_cmmc_2.0_level_1",
+      "name": "US CMMC 2.0 Level 1"
     },
-    "dhs_ztcf": {
-      "id": "dhs_ztcf",
-      "name": "DHS Zero Trust Capability Framework"
+    "us_cmmc_2.0_level_1_aos": {
+      "id": "us_cmmc_2.0_level_1_aos",
+      "name": "US CMMC 2.0 Level 1 AOs"
     },
-    "eo_14028": {
-      "id": "eo_14028",
-      "name": "EO 14028 (Improving Cybersecurity)"
+    "us_cmmc_2.0_level_2": {
+      "id": "us_cmmc_2.0_level_2",
+      "name": "US CMMC 2.0 Level 2"
     },
-    "us_facta": {
-      "id": "us_facta",
-      "name": "US FACTA"
+    "us_cmmc_2.0_level_3": {
+      "id": "us_cmmc_2.0_level_3",
+      "name": "US CMMC 2.0 Level 3"
     },
-    "far_52_204_21": {
-      "id": "far_52_204_21",
-      "name": "FAR 52.204-21 (Basic Safeguarding)"
+    "us_data_privacy_framework_(dpf)": {
+      "id": "us_data_privacy_framework_(dpf)",
+      "name": "US Data Privacy Framework (DPF)"
     },
-    "far_52_204_25": {
-      "id": "far_52_204_25",
-      "name": "FAR 52.204-25 (NDAA Section 889)"
+    "us_dod_zero_trust_execution_roadmap": {
+      "id": "us_dod_zero_trust_execution_roadmap",
+      "name": "US DoD Zero Trust Execution Roadmap"
     },
-    "far_52_204_27": {
-      "id": "far_52_204_27",
-      "name": "FAR 52.204-27"
+    "us_dod_zero_trust_reference_architecture_2.0": {
+      "id": "us_dod_zero_trust_reference_architecture_2.0",
+      "name": "US DoD Zero Trust Reference Architecture 2.0"
     },
-    "fca_crm": {
-      "id": "fca_crm",
-      "name": "FCA CRM"
+    "us_dfars_cybersecurity_252.204_7012": {
+      "id": "us_dfars_cybersecurity_252.204_7012",
+      "name": "US DFARS Cybersecurity 252.204-7012"
     },
-    "fda_21_cfr_part_11": {
-      "id": "fda_21_cfr_part_11",
-      "name": "FDA 21 CFR Part 11 (Electronic Records)"
+    "us_eo_14028": {
+      "id": "us_eo_14028",
+      "name": "US EO 14028"
     },
-    "fedramp_r4": {
-      "id": "fedramp_r4",
-      "name": "FedRAMP R4"
+    "us_facta_fcra": {
+      "id": "us_facta_fcra",
+      "name": "US FACTA & FCRA"
     },
-    "fedramp_r4_low": {
-      "id": "fedramp_r4_low",
-      "name": "FedRAMP R4 (Low)"
+    "us_far_52.204_21": {
+      "id": "us_far_52.204_21",
+      "name": "US FAR 52.204-21"
     },
-    "fedramp_r4_moderate": {
-      "id": "fedramp_r4_moderate",
-      "name": "FedRAMP R4 (Moderate)"
+    "us_far_52.204_25_(ndaa_section_889)": {
+      "id": "us_far_52.204_25_(ndaa_section_889)",
+      "name": "US FAR 52.204-25 (NDAA Section 889)"
     },
-    "fedramp_r4_high": {
-      "id": "fedramp_r4_high",
-      "name": "FedRAMP R4 (High)"
+    "us_far_52.204_27": {
+      "id": "us_far_52.204_27",
+      "name": "US FAR 52.204-27"
     },
-    "fedramp_r4_lisaas": {
-      "id": "fedramp_r4_lisaas",
-      "name": "FedRAMP R4 (LI-SaaS)"
+    "us_fca_crm": {
+      "id": "us_fca_crm",
+      "name": "US FCA CRM"
     },
-    "fedramp_r5": {
-      "id": "fedramp_r5",
-      "name": "FedRAMP R5"
+    "us_fda_21_cfr_part_11": {
+      "id": "us_fda_21_cfr_part_11",
+      "name": "US FDA 21 CFR Part 11"
     },
-    "fedramp_r5_low": {
-      "id": "fedramp_r5_low",
-      "name": "FedRAMP R5 (Low)"
+    "us_fedramp_r5_(low)": {
+      "id": "us_fedramp_r5_(low)",
+      "name": "US FedRAMP R5 (low)"
     },
-    "fedramp_r5_moderate": {
-      "id": "fedramp_r5_moderate",
-      "name": "FedRAMP R5 (Moderate)"
+    "us_fedramp_r5_(moderate)": {
+      "id": "us_fedramp_r5_(moderate)",
+      "name": "US FedRAMP R5 (moderate)"
     },
-    "fedramp_r5_high": {
-      "id": "fedramp_r5_high",
-      "name": "FedRAMP R5 (High)"
+    "us_fedramp_r5_(high)": {
+      "id": "us_fedramp_r5_(high)",
+      "name": "US FedRAMP R5 (high)"
     },
-    "fedramp_r5_lisaas": {
-      "id": "fedramp_r5_lisaas",
-      "name": "FedRAMP R5 (LI-SaaS)"
+    "us_fedramp_r5_(li_saas)": {
+      "id": "us_fedramp_r5_(li_saas)",
+      "name": "US FedRAMP R5 (LI-SaaS)"
     },
     "us_ferpa": {
       "id": "us_ferpa",
-      "name": "US FERPA (Education Privacy)"
-    },
-    "ffiec": {
-      "id": "ffiec",
-      "name": "FFIEC Cybersecurity Assessment"
+      "name": "US FERPA"
     },
     "us_finra": {
       "id": "us_finra",
@@ -502,884 +474,1142 @@
     },
     "us_fipps": {
       "id": "us_fipps",
-      "name": "US FIPPs (Fair Information Practice)"
+      "name": "US FIPPS"
     },
-    "ftc_act": {
-      "id": "ftc_act",
-      "name": "FTC Act"
+    "us_ftc_act": {
+      "id": "us_ftc_act",
+      "name": "US FTC Act"
     },
-    "glba_cfr_314_2023": {
-      "id": "glba_cfr_314_2023",
-      "name": "GLBA CFR 314 (Dec 2023)"
+    "us_glba_cfr_314_2023": {
+      "id": "us_glba_cfr_314_2023",
+      "name": "US GLBA CFR 314 2023"
     },
-    "hhs_45_cfr_155_260": {
-      "id": "hhs_45_cfr_155_260",
-      "name": "HHS 45 CFR 155.260"
+    "us_hhs_45_cfr_155.260": {
+      "id": "us_hhs_45_cfr_155.260",
+      "name": "US HHS 45 CFR 155.260"
     },
-    "hipaa_admin_2013": {
-      "id": "hipaa_admin_2013",
-      "name": "HIPAA Administrative Simplification 2013"
+    "us_hipaa_administrative_simplification_2013": {
+      "id": "us_hipaa_administrative_simplification_2013",
+      "name": "US HIPAA Administrative Simplification 2013"
     },
-    "hipaa_security_rule": {
-      "id": "hipaa_security_rule",
-      "name": "HIPAA Security Rule / NIST SP 800-66 R2"
+    "us_hipaa_security_rule_nist_sp_800_66_r2": {
+      "id": "us_hipaa_security_rule_nist_sp_800_66_r2",
+      "name": "US HIPAA Security Rule / NIST SP 800-66 R2"
     },
-    "hipaa_hicp_small": {
-      "id": "hipaa_hicp_small",
-      "name": "HIPAA HICP Small Practice"
+    "us_irs_1075": {
+      "id": "us_irs_1075",
+      "name": "US IRS 1075"
     },
-    "hipaa_hicp_medium": {
-      "id": "hipaa_hicp_medium",
-      "name": "HIPAA HICP Medium Practice"
+    "us_cms_mars_e_2.0": {
+      "id": "us_cms_mars_e_2.0",
+      "name": "US CMS MARS-E 2.0"
     },
-    "hipaa_hicp_large": {
-      "id": "hipaa_hicp_large",
-      "name": "HIPAA HICP Large Practice"
+    "us_nerc_cip_2024": {
+      "id": "us_nerc_cip_2024",
+      "name": "US NERC CIP 2024"
     },
-    "irs_1075": {
-      "id": "irs_1075",
-      "name": "IRS Publication 1075"
+    "us_nispom_2020": {
+      "id": "us_nispom_2020",
+      "name": "US NISPOM 2020"
     },
-    "itar_part_120": {
-      "id": "itar_part_120",
-      "name": "ITAR Part 120"
+    "us_nnpi_(unclass)": {
+      "id": "us_nnpi_(unclass)",
+      "name": "US NNPI (unclass)"
     },
-    "nerc_cip_2024": {
-      "id": "nerc_cip_2024",
-      "name": "NERC CIP 2024"
+    "us_sec_cybersecurity_rule": {
+      "id": "us_sec_cybersecurity_rule",
+      "name": "US SEC Cybersecurity Rule"
     },
-    "nispom_2020": {
-      "id": "nispom_2020",
-      "name": "NISPOM 2020"
+    "us_sox": {
+      "id": "us_sox",
+      "name": "US SOX"
     },
-    "us_nnpi": {
-      "id": "us_nnpi",
-      "name": "US NNPI (Unclassified)"
-    },
-    "nstc_nspm_33": {
-      "id": "nstc_nspm_33",
-      "name": "NSTC NSPM-33"
-    },
-    "sec_cybersecurity_rule": {
-      "id": "sec_cybersecurity_rule",
-      "name": "SEC Cybersecurity Rule"
-    },
-    "sox": {
-      "id": "sox",
-      "name": "Sarbanes-Oxley Act (SOX)"
-    },
-    "ssa_eiesr_8.0": {
-      "id": "ssa_eiesr_8.0",
-      "name": "SSA EIESR 8.0"
-    },
-    "tsa_dhs_1580_82_2022": {
-      "id": "tsa_dhs_1580_82_2022",
-      "name": "TSA/DHS 1580/82-2022-01"
+    "us_tsa_dhs_1580_82_2022_01": {
+      "id": "us_tsa_dhs_1580_82_2022_01",
+      "name": "US TSA / DHS 1580/82-2022-01"
     },
     "us_ak_pipa": {
       "id": "us_ak_pipa",
-      "name": "Alaska PIPA"
+      "name": "US - AK PIPA"
     },
     "us_ca_sb327": {
       "id": "us_ca_sb327",
-      "name": "California SB327 (IoT)"
+      "name": "US - CA SB327"
     },
     "us_ca_ccpa_2025": {
       "id": "us_ca_ccpa_2025",
-      "name": "California CCPA/CPRA 2025"
+      "name": "US - CA CCPA 2025"
     },
     "us_ca_sb1386": {
       "id": "us_ca_sb1386",
-      "name": "California SB1386"
+      "name": "US - CA SB1386"
     },
-    "us_co_cpa": {
-      "id": "us_co_cpa",
-      "name": "Colorado Privacy Act"
+    "us_co_colorado_privacy_act": {
+      "id": "us_co_colorado_privacy_act",
+      "name": "US - CO Colorado Privacy Act"
     },
     "us_il_bipa": {
       "id": "us_il_bipa",
-      "name": "Illinois BIPA (Biometric)"
+      "name": "US - IL BIPA"
     },
     "us_il_ipa": {
       "id": "us_il_ipa",
-      "name": "Illinois IPA"
+      "name": "US - IL IPA"
     },
     "us_il_pipa": {
       "id": "us_il_pipa",
-      "name": "Illinois PIPA"
+      "name": "US - IL PIPA"
     },
-    "us_ma_201_cmr_17": {
-      "id": "us_ma_201_cmr_17",
-      "name": "Massachusetts 201 CMR 17.00"
+    "us_ma_201_cmr_17.00": {
+      "id": "us_ma_201_cmr_17.00",
+      "name": "US - MA 201 CMR 17.00"
+    },
+    "us_nv_privacy_law_2023": {
+      "id": "us_nv_privacy_law_2023",
+      "name": "US - NV Privacy Law 2023"
     },
     "us_nv_noge_reg_5": {
       "id": "us_nv_noge_reg_5",
-      "name": "Nevada NOGE Reg 5"
+      "name": "US - NV NOGE Reg 5"
     },
     "us_nv_sb220": {
       "id": "us_nv_sb220",
-      "name": "Nevada SB220"
+      "name": "US - NV SB220"
     },
-    "nydfs_500_2023": {
-      "id": "nydfs_500_2023",
-      "name": "NY DFS 23 NYCRR 500 (2023 Amendment)"
+    "us_ny_dfs_23_nycrr500_2023_amd_2": {
+      "id": "us_ny_dfs_23_nycrr500_2023_amd_2",
+      "name": "US - NY DFS 23 NYCRR500 2023 Amd 2"
     },
-    "us_ny_shield": {
-      "id": "us_ny_shield",
-      "name": "New York SHIELD Act"
+    "us_ny_shield_act_s5575b": {
+      "id": "us_ny_shield_act_s5575b",
+      "name": "US - NY SHIELD Act S5575B"
     },
     "us_or_646a": {
       "id": "us_or_646a",
-      "name": "Oregon 646A"
+      "name": "US - OR 646A"
     },
     "us_or_cpa": {
       "id": "us_or_cpa",
-      "name": "Oregon Consumer Privacy Act"
+      "name": "US - OR CPA"
     },
     "us_tn_tipa": {
       "id": "us_tn_tipa",
-      "name": "Tennessee TIPA"
+      "name": "US - TN TIPA"
     },
     "us_tx_bc521": {
       "id": "us_tx_bc521",
-      "name": "Texas BC521"
+      "name": "US - TX BC521"
     },
     "us_tx_cdpa": {
       "id": "us_tx_cdpa",
-      "name": "Texas CDPA"
-    },
-    "us_tx_dir_2.0": {
-      "id": "us_tx_dir_2.0",
-      "name": "Texas DIR Control Standards 2.0"
-    },
-    "us_tx_sb820": {
-      "id": "us_tx_sb820",
-      "name": "Texas SB 820"
-    },
-    "us_tx_sb2610": {
-      "id": "us_tx_sb2610",
-      "name": "Texas SB 2610"
-    },
-    "tx_ramp_level_1": {
-      "id": "tx_ramp_level_1",
-      "name": "TX-RAMP Level 1"
-    },
-    "tx_ramp_level_2": {
-      "id": "tx_ramp_level_2",
-      "name": "TX-RAMP Level 2"
-    },
-    "us_va_cdpa_2025": {
-      "id": "us_va_cdpa_2025",
-      "name": "Virginia CDPA 2025"
-    },
-    "us_vt_act_171": {
-      "id": "us_vt_act_171",
-      "name": "Vermont Act 171 of 2018"
-    },
-    "eu_ai_act": {
-      "id": "eu_ai_act",
-      "name": "EU AI Act (Regulation 2024/1689)"
-    },
-    "eu_cyber_resilience_act": {
-      "id": "eu_cyber_resilience_act",
-      "name": "EU Cyber Resilience Act"
-    },
-    "eu_cra_annexes": {
-      "id": "eu_cra_annexes",
-      "name": "EU Cyber Resilience Act Annexes"
-    },
-    "eu_eba_gl_2019_04": {
-      "id": "eu_eba_gl_2019_04",
-      "name": "EU EBA GL/2019/04"
-    },
-    "dora": {
-      "id": "dora",
-      "name": "Digital Operational Resilience Act (DORA)"
-    },
-    "gdpr": {
-      "id": "gdpr",
-      "name": "General Data Protection Regulation (GDPR)"
-    },
-    "nis2": {
-      "id": "nis2",
-      "name": "NIS2 Directive"
-    },
-    "nis2_annex": {
-      "id": "nis2_annex",
-      "name": "NIS2 Directive Annex"
-    },
-    "psd2": {
-      "id": "psd2",
-      "name": "PSD2 (Payment Services Directive)"
-    },
-    "austria": {
-      "id": "austria",
-      "name": "Austria Cybersecurity"
-    },
-    "belgium": {
-      "id": "belgium",
-      "name": "Belgium Cybersecurity"
-    },
-    "germany": {
-      "id": "germany",
-      "name": "Germany Cybersecurity"
-    },
-    "germany_bait": {
-      "id": "germany_bait",
-      "name": "Germany BAIT (Banking IT)"
-    },
-    "germany_c5_2020": {
-      "id": "germany_c5_2020",
-      "name": "Germany C5:2020 (Cloud)"
-    },
-    "greece": {
-      "id": "greece",
-      "name": "Greece Cybersecurity"
-    },
-    "hungary": {
-      "id": "hungary",
-      "name": "Hungary Cybersecurity"
-    },
-    "ireland": {
-      "id": "ireland",
-      "name": "Ireland Cybersecurity"
-    },
-    "israel_cdmo_1.0": {
-      "id": "israel_cdmo_1.0",
-      "name": "Israel CDMO 1.0"
-    },
-    "israel": {
-      "id": "israel",
-      "name": "Israel Cybersecurity"
-    },
-    "italy": {
-      "id": "italy",
-      "name": "Italy Cybersecurity"
-    },
-    "kenya_dpa_2019": {
-      "id": "kenya_dpa_2019",
-      "name": "Kenya DPA 2019"
-    },
-    "netherlands": {
-      "id": "netherlands",
-      "name": "Netherlands Cybersecurity"
-    },
-    "nigeria_dpr_2019": {
-      "id": "nigeria_dpr_2019",
-      "name": "Nigeria DPR 2019"
-    },
-    "norway": {
-      "id": "norway",
-      "name": "Norway Cybersecurity"
-    },
-    "poland": {
-      "id": "poland",
-      "name": "Poland Cybersecurity"
-    },
-    "qatar_pdppl": {
-      "id": "qatar_pdppl",
-      "name": "Qatar PDPPL"
-    },
-    "russia": {
-      "id": "russia",
-      "name": "Russia Cybersecurity"
-    },
-    "saudi_cscc_1_2019": {
-      "id": "saudi_cscc_1_2019",
-      "name": "Saudi Arabia CSCC-1 2019"
-    },
-    "saudi_cgiot_1_2024": {
-      "id": "saudi_cgiot_1_2024",
-      "name": "Saudi Arabia IoT CGIoT-1 2024"
-    },
-    "saudi_ecc_1_2018": {
-      "id": "saudi_ecc_1_2018",
-      "name": "Saudi Arabia ECC-1 2018"
-    },
-    "saudi_otcc_1_2022": {
-      "id": "saudi_otcc_1_2022",
-      "name": "Saudi Arabia OTCC-1 2022"
-    },
-    "saudi_pdpl": {
-      "id": "saudi_pdpl",
-      "name": "Saudi Arabia PDPL"
-    },
-    "saudi_sacs_002": {
-      "id": "saudi_sacs_002",
-      "name": "Saudi Arabia SACS-002"
-    },
-    "saudi_sama_csf_1.0": {
-      "id": "saudi_sama_csf_1.0",
-      "name": "Saudi Arabia SAMA CSF 1.0"
-    },
-    "serbia_87_2018": {
-      "id": "serbia_87_2018",
-      "name": "Serbia 87/2018"
-    },
-    "south_africa": {
-      "id": "south_africa",
-      "name": "South Africa (POPIA)"
-    },
-    "spain_boe_a_2022_7191": {
-      "id": "spain_boe_a_2022_7191",
-      "name": "Spain BOE-A-2022-7191"
-    },
-    "spain_1720_2007": {
-      "id": "spain_1720_2007",
-      "name": "Spain 1720/2007"
-    },
-    "spain_311_2022": {
-      "id": "spain_311_2022",
-      "name": "Spain 311/2022"
-    },
-    "spain_ccn_stic_825": {
-      "id": "spain_ccn_stic_825",
-      "name": "Spain CCN-STIC 825"
-    },
-    "sweden": {
-      "id": "sweden",
-      "name": "Sweden Cybersecurity"
-    },
-    "switzerland": {
-      "id": "switzerland",
-      "name": "Switzerland Cybersecurity"
-    },
-    "turkey": {
-      "id": "turkey",
-      "name": "Turkey Cybersecurity"
-    },
-    "uae_niaf": {
-      "id": "uae_niaf",
-      "name": "UAE NIAF"
-    },
-    "uk_caf_4.0": {
-      "id": "uk_caf_4.0",
-      "name": "UK Cyber Assessment Framework 4.0"
-    },
-    "uk_cap_1850": {
-      "id": "uk_cap_1850",
-      "name": "UK CAP 1850"
-    },
-    "uk_cyber_essentials": {
-      "id": "uk_cyber_essentials",
-      "name": "UK Cyber Essentials"
-    },
-    "uk_defstan_05_138": {
-      "id": "uk_defstan_05_138",
-      "name": "UK DEFSTAN 05-138"
-    },
-    "uk_dpa": {
-      "id": "uk_dpa",
-      "name": "UK Data Protection Act"
-    },
-    "australia_essential_8": {
-      "id": "australia_essential_8",
-      "name": "Australian Essential Eight"
-    },
-    "australia_privacy_act": {
-      "id": "australia_privacy_act",
-      "name": "Australian Privacy Act"
-    },
-    "australia_privacy_principles": {
-      "id": "australia_privacy_principles",
-      "name": "Australian Privacy Principles"
-    },
-    "australia_ism_2024": {
-      "id": "australia_ism_2024",
-      "name": "Australian ISM (June 2024)"
-    },
-    "australia_iot_cop": {
-      "id": "australia_iot_cop",
-      "name": "Australia IoT Code of Practice"
-    },
-    "australia_cps_230": {
-      "id": "australia_cps_230",
-      "name": "Australia Prudential Standard CPS 230"
-    },
-    "australia_cps_234": {
-      "id": "australia_cps_234",
-      "name": "Australia Prudential Standard CPS 234"
-    },
-    "china_cybersecurity_law": {
-      "id": "china_cybersecurity_law",
-      "name": "China Cybersecurity Law"
-    },
-    "china_data_security_law": {
-      "id": "china_data_security_law",
-      "name": "China Data Security Law"
-    },
-    "china_dnsip": {
-      "id": "china_dnsip",
-      "name": "China DNSIP"
-    },
-    "china_privacy_law": {
-      "id": "china_privacy_law",
-      "name": "China Privacy Law (PIPL)"
-    },
-    "hong_kong": {
-      "id": "hong_kong",
-      "name": "Hong Kong Cybersecurity"
-    },
-    "india_dpdpa_2023": {
-      "id": "india_dpdpa_2023",
-      "name": "India DPDPA 2023"
-    },
-    "india_itr": {
-      "id": "india_itr",
-      "name": "India ITR"
-    },
-    "india_sebi_cscrf": {
-      "id": "india_sebi_cscrf",
-      "name": "India SEBI CSCRF"
-    },
-    "japan_appi": {
-      "id": "japan_appi",
-      "name": "Japan APPI"
-    },
-    "japan_ismap": {
-      "id": "japan_ismap",
-      "name": "Japan ISMAP"
-    },
-    "malaysia": {
-      "id": "malaysia",
-      "name": "Malaysia Cybersecurity"
-    },
-    "nz_hisf_2022": {
-      "id": "nz_hisf_2022",
-      "name": "New Zealand HISF 2022"
-    },
-    "nz_hisf_suppliers_2023": {
-      "id": "nz_hisf_suppliers_2023",
-      "name": "New Zealand HISF Suppliers 2023"
-    },
-    "nz_nzism_3.6": {
-      "id": "nz_nzism_3.6",
-      "name": "New Zealand NZISM 3.6"
-    },
-    "nz_privacy_act_2020": {
-      "id": "nz_privacy_act_2020",
-      "name": "New Zealand Privacy Act 2020"
-    },
-    "philippines": {
-      "id": "philippines",
-      "name": "Philippines Cybersecurity"
-    },
-    "singapore": {
-      "id": "singapore",
-      "name": "Singapore Cybersecurity"
-    },
-    "singapore_cyber_hygiene": {
-      "id": "singapore_cyber_hygiene",
-      "name": "Singapore Cyber Hygiene Practice"
-    },
-    "singapore_mas_trm_2021": {
-      "id": "singapore_mas_trm_2021",
-      "name": "Singapore MAS TRM 2021"
-    },
-    "south_korea": {
-      "id": "south_korea",
-      "name": "South Korea Cybersecurity"
-    },
-    "taiwan": {
-      "id": "taiwan",
-      "name": "Taiwan Cybersecurity"
-    },
-    "argentina_ppl": {
-      "id": "argentina_ppl",
-      "name": "Argentina PPL"
-    },
-    "argentina_reg_132_2018": {
-      "id": "argentina_reg_132_2018",
-      "name": "Argentina Reg 132-2018"
-    },
-    "bahamas": {
-      "id": "bahamas",
-      "name": "Bahamas Cybersecurity"
-    },
-    "bermuda_bmaccc": {
-      "id": "bermuda_bmaccc",
-      "name": "Bermuda BMACCC"
-    },
-    "brazil_lgpd": {
-      "id": "brazil_lgpd",
-      "name": "Brazil LGPD"
-    },
-    "canada_csag": {
-      "id": "canada_csag",
-      "name": "Canada CSAG"
-    },
-    "canada_osfi_b13": {
-      "id": "canada_osfi_b13",
-      "name": "Canada OSFI B-13"
-    },
-    "canada_itsp_10_171": {
-      "id": "canada_itsp_10_171",
-      "name": "Canada ITSP-10-171"
-    },
-    "canada_pipeda": {
-      "id": "canada_pipeda",
-      "name": "Canada PIPEDA"
-    },
-    "chile": {
-      "id": "chile",
-      "name": "Chile Cybersecurity"
-    },
-    "colombia": {
-      "id": "colombia",
-      "name": "Colombia Cybersecurity"
-    },
-    "costa_rica": {
-      "id": "costa_rica",
-      "name": "Costa Rica Cybersecurity"
-    },
-    "mexico": {
-      "id": "mexico",
-      "name": "Mexico Cybersecurity"
-    },
-    "peru": {
-      "id": "peru",
-      "name": "Peru Cybersecurity"
-    },
-    "uruguay": {
-      "id": "uruguay",
-      "name": "Uruguay Cybersecurity"
-    },
-    "tiber_eu_2025": {
-      "id": "tiber_eu_2025",
-      "name": "TIBER-EU Framework 2025"
+      "name": "US - TX CDPA"
+    },
+    "us_tx_dir_control_standards_2.2": {
+      "id": "us_tx_dir_control_standards_2.2",
+      "name": "US - TX DIR Control Standards 2.2"
+    },
+    "us_tx_sb_820": {
+      "id": "us_tx_sb_820",
+      "name": "US - TX SB 820"
+    },
+    "us_tx_sb_2610": {
+      "id": "us_tx_sb_2610",
+      "name": "US - TX SB 2610"
+    },
+    "us_tx_tx_ramp_level_1": {
+      "id": "us_tx_tx_ramp_level_1",
+      "name": "US - TX TX-RAMP Level 1"
+    },
+    "us_tx_tx_ramp_level_2": {
+      "id": "us_tx_tx_ramp_level_2",
+      "name": "US - TX TX-RAMP Level 2"
+    },
+    "us_va_cdpa_2023": {
+      "id": "us_va_cdpa_2023",
+      "name": "US - VA CDPA 2023"
+    },
+    "us_vt_act_171_of_2018": {
+      "id": "us_vt_act_171_of_2018",
+      "name": "US - VT Act 171 of 2018"
+    },
+    "emea_eu_ai_act": {
+      "id": "emea_eu_ai_act",
+      "name": "EMEA EU AI Act"
+    },
+    "emea_eu_cyber_resiliency_act": {
+      "id": "emea_eu_cyber_resiliency_act",
+      "name": "EMEA EU Cyber Resiliency Act"
+    },
+    "emea_eu_cyber_resiliency_act_annexes": {
+      "id": "emea_eu_cyber_resiliency_act_annexes",
+      "name": "EMEA EU Cyber Resiliency Act Annexes"
+    },
+    "emea_eu_eba_gl_2019_04": {
+      "id": "emea_eu_eba_gl_2019_04",
+      "name": "EMEA EU EBA GL/2019/04"
+    },
+    "emea_eu_dora": {
+      "id": "emea_eu_dora",
+      "name": "EMEA EU DORA"
+    },
+    "emea_eu_gdpr": {
+      "id": "emea_eu_gdpr",
+      "name": "EMEA EU GDPR"
+    },
+    "emea_eu_nis2": {
+      "id": "emea_eu_nis2",
+      "name": "EMEA EU NIS2"
+    },
+    "emea_eu_nis2_annex": {
+      "id": "emea_eu_nis2_annex",
+      "name": "EMEA EU NIS2 Annex"
+    },
+    "emea_eu_psd2": {
+      "id": "emea_eu_psd2",
+      "name": "EMEA EU PSD2"
+    },
+    "emea_austria": {
+      "id": "emea_austria",
+      "name": "EMEA Austria"
+    },
+    "emea_belgium": {
+      "id": "emea_belgium",
+      "name": "EMEA Belgium"
+    },
+    "emea_germany": {
+      "id": "emea_germany",
+      "name": "EMEA Germany"
+    },
+    "emea_germany_banking_supervisory_requirements_for_it_(bait)": {
+      "id": "emea_germany_banking_supervisory_requirements_for_it_(bait)",
+      "name": "EMEA Germany Banking Supervisory Requirements for IT (BAIT)"
+    },
+    "emea_germany_c5_2020": {
+      "id": "emea_germany_c5_2020",
+      "name": "EMEA Germany C5 2020"
+    },
+    "emea_greece": {
+      "id": "emea_greece",
+      "name": "EMEA Greece"
+    },
+    "emea_hungary": {
+      "id": "emea_hungary",
+      "name": "EMEA Hungary"
+    },
+    "emea_ireland": {
+      "id": "emea_ireland",
+      "name": "EMEA Ireland"
+    },
+    "emea_israel_cdmo_1.0": {
+      "id": "emea_israel_cdmo_1.0",
+      "name": "EMEA Israel CDMO 1.0"
+    },
+    "emea_israel": {
+      "id": "emea_israel",
+      "name": "EMEA Israel"
+    },
+    "emea_italy": {
+      "id": "emea_italy",
+      "name": "EMEA Italy"
+    },
+    "emea_kenya_dpa_2019": {
+      "id": "emea_kenya_dpa_2019",
+      "name": "EMEA Kenya DPA 2019"
+    },
+    "emea_nigeria_dpr_2019": {
+      "id": "emea_nigeria_dpr_2019",
+      "name": "EMEA Nigeria DPR 2019"
+    },
+    "emea_norway": {
+      "id": "emea_norway",
+      "name": "EMEA Norway"
+    },
+    "emea_poland": {
+      "id": "emea_poland",
+      "name": "EMEA Poland"
+    },
+    "emea_qatar_pdppl": {
+      "id": "emea_qatar_pdppl",
+      "name": "EMEA Qatar PDPPL"
+    },
+    "emea_russia": {
+      "id": "emea_russia",
+      "name": "EMEA Russia"
+    },
+    "emea_saudi_arabia_cscc_1_2019": {
+      "id": "emea_saudi_arabia_cscc_1_2019",
+      "name": "EMEA Saudi Arabia CSCC-1 2019"
+    },
+    "emea_saudi_arabia_iot_cgiot_1_2024": {
+      "id": "emea_saudi_arabia_iot_cgiot_1_2024",
+      "name": "EMEA Saudi Arabia IoT CGIoT-1 2024"
+    },
+    "emea_saudi_arabia_ecc_1_2018": {
+      "id": "emea_saudi_arabia_ecc_1_2018",
+      "name": "EMEA Saudi Arabia ECC-1 2018"
+    },
+    "emea_saudi_arabia_otcc_1_2022": {
+      "id": "emea_saudi_arabia_otcc_1_2022",
+      "name": "EMEA Saudi Arabia OTCC-1 2022"
+    },
+    "emea_saudi_arabia_pdpl": {
+      "id": "emea_saudi_arabia_pdpl",
+      "name": "EMEA Saudi Arabia PDPL"
+    },
+    "emea_saudi_arabia_sacs_002": {
+      "id": "emea_saudi_arabia_sacs_002",
+      "name": "EMEA Saudi Arabia SACS-002"
+    },
+    "emea_saudi_arabia_sama_csf_1.0": {
+      "id": "emea_saudi_arabia_sama_csf_1.0",
+      "name": "EMEA Saudi Arabia SAMA CSF 1.0"
+    },
+    "emea_serbia_87_2018": {
+      "id": "emea_serbia_87_2018",
+      "name": "EMEA Serbia 87/2018"
+    },
+    "emea_south_africa": {
+      "id": "emea_south_africa",
+      "name": "EMEA South Africa"
+    },
+    "emea_spain_boe_a_2022_7191": {
+      "id": "emea_spain_boe_a_2022_7191",
+      "name": "EMEA Spain BOE-A-2022-7191"
+    },
+    "emea_spain_1720_2007": {
+      "id": "emea_spain_1720_2007",
+      "name": "EMEA Spain 1720/2007"
+    },
+    "emea_spain_311_2022": {
+      "id": "emea_spain_311_2022",
+      "name": "EMEA Spain 311/2022"
+    },
+    "emea_spain_ccn_stic_825": {
+      "id": "emea_spain_ccn_stic_825",
+      "name": "EMEA Spain CCN-STIC 825"
+    },
+    "emea_switzerland": {
+      "id": "emea_switzerland",
+      "name": "EMEA Switzerland"
+    },
+    "emea_turkey": {
+      "id": "emea_turkey",
+      "name": "EMEA Turkey"
+    },
+    "emea_uae_niaf": {
+      "id": "emea_uae_niaf",
+      "name": "EMEA UAE NIAF"
+    },
+    "emea_uk_caf_4.0": {
+      "id": "emea_uk_caf_4.0",
+      "name": "EMEA UK CAF 4.0"
+    },
+    "emea_uk_cap_1850": {
+      "id": "emea_uk_cap_1850",
+      "name": "EMEA UK CAP 1850"
+    },
+    "emea_uk_cyber_essentials": {
+      "id": "emea_uk_cyber_essentials",
+      "name": "EMEA UK Cyber Essentials"
+    },
+    "emea_uk_defstan_05_138": {
+      "id": "emea_uk_defstan_05_138",
+      "name": "EMEA UK DEFSTAN 05-138"
+    },
+    "emea_uk_defstan_05_138_l0": {
+      "id": "emea_uk_defstan_05_138_l0",
+      "name": "EMEA UK DEFSTAN 05-138 - L0"
+    },
+    "emea_uk_defstan_05_138_l1": {
+      "id": "emea_uk_defstan_05_138_l1",
+      "name": "EMEA UK DEFSTAN 05-138 - L1"
+    },
+    "emea_uk_defstan_05_138_l2": {
+      "id": "emea_uk_defstan_05_138_l2",
+      "name": "EMEA UK DEFSTAN 05-138 - L2"
+    },
+    "emea_uk_defstan_05_138_l3": {
+      "id": "emea_uk_defstan_05_138_l3",
+      "name": "EMEA UK DEFSTAN 05-138 - L3"
+    },
+    "emea_uk_dpa": {
+      "id": "emea_uk_dpa",
+      "name": "EMEA UK DPA"
+    },
+    "apac_australia_essential_8": {
+      "id": "apac_australia_essential_8",
+      "name": "APAC Australia Essential 8"
+    },
+    "apac_australia_privacy_act": {
+      "id": "apac_australia_privacy_act",
+      "name": "APAC Australia Privacy Act"
+    },
+    "apac_australian_privacy_principles": {
+      "id": "apac_australian_privacy_principles",
+      "name": "APAC Australian Privacy Principles"
+    },
+    "apac_australia_ism_june_2024": {
+      "id": "apac_australia_ism_june_2024",
+      "name": "APAC Australia ISM June 2024"
+    },
+    "apac_australia_iot_code_of_practice": {
+      "id": "apac_australia_iot_code_of_practice",
+      "name": "APAC Australia IoT Code of Practice"
+    },
+    "apac_australia_prudential_standard_cps230": {
+      "id": "apac_australia_prudential_standard_cps230",
+      "name": "APAC Australia Prudential Standard CPS230"
+    },
+    "apac_australia_prudential_standard_cps234": {
+      "id": "apac_australia_prudential_standard_cps234",
+      "name": "APAC Australia Prudential Standard CPS234"
+    },
+    "apac_china_cybersecurity_law": {
+      "id": "apac_china_cybersecurity_law",
+      "name": "APAC China Cybersecurity Law"
+    },
+    "apac_china_data_security_law": {
+      "id": "apac_china_data_security_law",
+      "name": "APAC China Data Security Law"
+    },
+    "apac_china_dnsip": {
+      "id": "apac_china_dnsip",
+      "name": "APAC China DNSIP"
+    },
+    "apac_china_privacy_law": {
+      "id": "apac_china_privacy_law",
+      "name": "APAC China Privacy Law"
+    },
+    "apac_hong_kong": {
+      "id": "apac_hong_kong",
+      "name": "APAC Hong Kong"
+    },
+    "apac_india_dpdpa_2023": {
+      "id": "apac_india_dpdpa_2023",
+      "name": "APAC India DPDPA 2023"
+    },
+    "apac_india_itr": {
+      "id": "apac_india_itr",
+      "name": "APAC India ITR"
+    },
+    "apac_india_sebi_cscrf": {
+      "id": "apac_india_sebi_cscrf",
+      "name": "APAC India SEBI CSCRF"
+    },
+    "apac_japan_appi": {
+      "id": "apac_japan_appi",
+      "name": "APAC Japan APPI"
+    },
+    "apac_japan_ismap": {
+      "id": "apac_japan_ismap",
+      "name": "APAC Japan ISMAP"
+    },
+    "apac_malaysia": {
+      "id": "apac_malaysia",
+      "name": "APAC Malaysia"
+    },
+    "apac_new_zealand_hisf_mlhsp_2023": {
+      "id": "apac_new_zealand_hisf_mlhsp_2023",
+      "name": "APAC New Zealand HISF MLHSP 2023"
+    },
+    "apac_new_zealand_hisf_microsmall_2023": {
+      "id": "apac_new_zealand_hisf_microsmall_2023",
+      "name": "APAC New Zealand HISF Microsmall 2023"
+    },
+    "apac_new_zealand_hisf_suppliers_2023": {
+      "id": "apac_new_zealand_hisf_suppliers_2023",
+      "name": "APAC New Zealand HISF Suppliers 2023"
+    },
+    "apac_new_zealand_nzism_3.6": {
+      "id": "apac_new_zealand_nzism_3.6",
+      "name": "APAC New Zealand NZISM 3.6"
+    },
+    "apac_new_zealand_privacy_act_of_2020": {
+      "id": "apac_new_zealand_privacy_act_of_2020",
+      "name": "APAC New Zealand Privacy Act of 2020"
+    },
+    "apac_philippines": {
+      "id": "apac_philippines",
+      "name": "APAC Philippines"
+    },
+    "apac_singapore": {
+      "id": "apac_singapore",
+      "name": "APAC Singapore"
+    },
+    "apac_singapore_cyber_hygiene_practice": {
+      "id": "apac_singapore_cyber_hygiene_practice",
+      "name": "APAC Singapore Cyber Hygiene Practice"
+    },
+    "apac_singapore_mas_trm_2021": {
+      "id": "apac_singapore_mas_trm_2021",
+      "name": "APAC Singapore MAS TRM 2021"
+    },
+    "apac_south_korea": {
+      "id": "apac_south_korea",
+      "name": "APAC South Korea"
+    },
+    "apac_taiwan": {
+      "id": "apac_taiwan",
+      "name": "APAC Taiwan"
+    },
+    "americas_argentina_reg_132_2018": {
+      "id": "americas_argentina_reg_132_2018",
+      "name": "Americas Argentina Reg 132-2018"
+    },
+    "americas_bahamas": {
+      "id": "americas_bahamas",
+      "name": "Americas Bahamas"
+    },
+    "americas_bermuda_bmaccc": {
+      "id": "americas_bermuda_bmaccc",
+      "name": "Americas Bermuda BMACCC"
+    },
+    "americas_brazil_lgpd": {
+      "id": "americas_brazil_lgpd",
+      "name": "Americas Brazil LGPD"
+    },
+    "americas_canada_csag": {
+      "id": "americas_canada_csag",
+      "name": "Americas Canada CSAG"
+    },
+    "americas_canada_osfi_b_13": {
+      "id": "americas_canada_osfi_b_13",
+      "name": "Americas Canada OSFI B-13"
+    },
+    "americas_canada_itsp_10_171": {
+      "id": "americas_canada_itsp_10_171",
+      "name": "Americas Canada ITSP-10-171"
+    },
+    "americas_canada_pipeda": {
+      "id": "americas_canada_pipeda",
+      "name": "Americas Canada PIPEDA"
+    },
+    "americas_chile": {
+      "id": "americas_chile",
+      "name": "Americas Chile"
+    },
+    "americas_colombia": {
+      "id": "americas_colombia",
+      "name": "Americas Colombia"
+    },
+    "americas_mexico": {
+      "id": "americas_mexico",
+      "name": "Americas Mexico"
     }
   },
   "categories": {
     "ai_governance": [
+      "emea_eu_ai_act",
       "iso_42001_2023",
-      "nist_ai_rmf_1.0",
+      "nist_ai_100_1_(ai_rmf)_1.0",
+      "nist_ai_600_1"
+    ],
+    "iso_standards": [
+      "iso_22301_2019",
+      "iso_27001_2022",
+      "iso_27002_2022",
+      "iso_27017_2015",
+      "iso_27018_2025",
+      "iso_27701_2025",
+      "iso_29100_2024",
+      "iso_31000_2018",
+      "iso_31010_2009",
+      "iso_42001_2023",
+      "iso_sae_21434_2021"
+    ],
+    "nist_frameworks": [
+      "nist_800_160_vol2_r1",
+      "nist_800_161_r1",
+      "nist_800_161_r1_c_scrm_baseline",
+      "nist_800_161_r1_flow_down",
+      "nist_800_161_r1_level_1",
+      "nist_800_161_r1_level_2",
+      "nist_800_161_r1_level_3",
+      "nist_800_171_r2",
+      "nist_800_171_r3",
+      "nist_800_171a",
+      "nist_800_171a_r3",
+      "nist_800_172",
+      "nist_800_207",
+      "nist_800_218",
+      "nist_800_37_r2",
+      "nist_800_39",
+      "nist_800_53_r4",
+      "nist_800_53_r5",
+      "nist_800_53b_r5_(high)",
+      "nist_800_53b_r5_(low)",
+      "nist_800_53b_r5_(moderate)",
+      "nist_800_53b_r5_(privacy)",
+      "nist_800_82_r3",
+      "nist_800_82_r3_high_ot_overlay",
+      "nist_800_82_r3_low_ot_overlay",
+      "nist_800_82_r3_moderate_ot_overlay",
+      "nist_ai_100_1_(ai_rmf)_1.0",
       "nist_ai_600_1",
-      "eu_ai_act"
+      "nist_csf_2.0",
+      "nist_privacy_framework_1.0",
+      "nist_sp_800_66_r2",
+      "us_hipaa_security_rule_nist_sp_800_66_r2"
+    ],
+    "cis_controls": [
+      "cis_csc_8.1",
+      "cis_csc_8.1_ig1",
+      "cis_csc_8.1_ig2",
+      "cis_csc_8.1_ig3"
     ],
     "cloud_security": [
-      "iso_27017_2015",
-      "iso_27018_2014",
-      "csa_ccm_4",
+      "csa_ccm_4.1.0",
       "csa_iot_scf_2",
-      "germany_c5_2020"
+      "emea_germany_c5_2020",
+      "iso_27017_2015",
+      "iso_27018_2025"
+    ],
+    "governance": [
+      "cobit_2019",
+      "coso_2013",
+      "cr_cmm_2026"
     ],
     "privacy": [
-      "gdpr",
+      "aicpa_privacy_management_framework_(pmf)",
+      "aicpa_tsc_2017_2022_(used_for_soc_2)",
+      "americas_brazil_lgpd",
+      "americas_canada_pipeda",
+      "apac_australia_privacy_act",
+      "apac_australian_privacy_principles",
+      "apac_china_privacy_law",
+      "apac_india_dpdpa_2023",
+      "apac_japan_appi",
+      "apac_new_zealand_privacy_act_of_2020",
+      "apec_privacy_framework_2015",
+      "emea_eu_gdpr",
+      "emea_kenya_dpa_2019",
+      "emea_nigeria_dpr_2019",
+      "emea_qatar_pdppl",
+      "emea_saudi_arabia_pdpl",
       "iso_27701_2025",
+      "iso_29100_2024",
+      "nist_800_53b_r5_(privacy)",
       "nist_privacy_framework_1.0",
-      "gapp",
-      "apec_privacy_2015",
-      "oecd_privacy",
-      "us_dpf",
-      "brazil_lgpd",
+      "oecd_privacy_principles",
+      "us_ak_pipa",
       "us_ca_ccpa_2025",
-      "india_dpdpa_2023",
-      "china_privacy_law"
-    ],
-    "us_federal": [
-      "nist_csf_2.0",
-      "nist_800_53_r5",
-      "fedramp_r5_moderate",
-      "fedramp_r5_high",
-      "cmmc_2.0_level_2",
-      "cjis_5.9.3"
+      "us_co_colorado_privacy_act",
+      "us_coppa",
+      "us_data_privacy_framework_(dpf)",
+      "us_ferpa",
+      "us_fipps",
+      "us_hipaa_administrative_simplification_2013",
+      "us_hipaa_security_rule_nist_sp_800_66_r2",
+      "us_il_bipa",
+      "us_il_ipa",
+      "us_il_pipa",
+      "us_nv_privacy_law_2023",
+      "us_or_cpa",
+      "us_tn_tipa",
+      "us_tx_cdpa",
+      "us_va_cdpa_2023"
     ],
     "financial": [
+      "aicpa_tsc_2017_2022_(used_for_soc_2)",
+      "americas_canada_osfi_b_13",
+      "apac_india_sebi_cscrf",
+      "apac_singapore_mas_trm_2021",
+      "emea_eu_dora",
+      "emea_eu_eba_gl_2019_04",
+      "emea_eu_psd2",
+      "emea_germany_banking_supervisory_requirements_for_it_(bait)",
+      "emea_saudi_arabia_sama_csf_1.0",
+      "naic_insurance_data_security_model_law_(mdl_668)",
       "pci_dss_4.0.1",
-      "sox",
-      "glba_cfr_314_2023",
-      "ffiec",
-      "dora",
-      "psd2",
-      "tiber_eu_2025"
+      "pci_dss_4.0.1_saq_a",
+      "pci_dss_4.0.1_saq_a_ep",
+      "pci_dss_4.0.1_saq_b",
+      "pci_dss_4.0.1_saq_b_ip",
+      "pci_dss_4.0.1_saq_c",
+      "pci_dss_4.0.1_saq_c_vt",
+      "pci_dss_4.0.1_saq_d_merchant",
+      "pci_dss_4.0.1_saq_d_service_provider",
+      "pci_dss_4.0.1_saq_p2pe",
+      "shared_assessments_sig_2025",
+      "swift_csf_2025",
+      "us_facta_fcra",
+      "us_fca_crm",
+      "us_finra",
+      "us_ftc_act",
+      "us_glba_cfr_314_2023",
+      "us_sec_cybersecurity_rule",
+      "us_sox"
     ],
     "healthcare": [
-      "hipaa_security_rule",
-      "hipaa_hicp_small",
-      "hipaa_hicp_medium",
-      "hipaa_hicp_large",
-      "cms_mars_e_2.0"
+      "iec_tr_60601_4_5_2021",
+      "nist_sp_800_66_r2",
+      "us_cms_mars_e_2.0",
+      "us_fda_21_cfr_part_11",
+      "us_hhs_45_cfr_155.260",
+      "us_hipaa_administrative_simplification_2013",
+      "us_hipaa_security_rule_nist_sp_800_66_r2"
     ],
     "industrial_ot": [
+      "iec_62443_2_1_2024",
+      "iec_62443_3_3_2013",
+      "iec_62443_4_1_2018",
       "iec_62443_4_2_2019",
-      "nerc_cip_2024",
-      "nist_800_82_r3_moderate",
-      "nist_800_82_r3_high"
+      "imo_maritime_cyber_risk_management",
+      "nist_800_82_r3",
+      "nist_800_82_r3_high_ot_overlay",
+      "nist_800_82_r3_low_ot_overlay",
+      "nist_800_82_r3_moderate_ot_overlay",
+      "us_nerc_cip_2024",
+      "us_tsa_dhs_1580_82_2022_01"
     ],
     "automotive": [
       "iso_sae_21434_2021",
-      "tisax_isa_6",
-      "un_r155",
-      "un_ece_wp29"
+      "tisax_isa_6.0.3",
+      "ul_2900_1_2017",
+      "ul_2900_2_2_2016",
+      "un_ece_wp.29",
+      "un_r155"
     ],
     "supply_chain": [
       "nist_800_161_r1",
-      "nist_800_161_r1_baseline",
-      "dfars_252_204_70xx"
+      "nist_800_161_r1_c_scrm_baseline",
+      "nist_800_161_r1_flow_down",
+      "nist_800_161_r1_level_1",
+      "nist_800_161_r1_level_2",
+      "nist_800_161_r1_level_3",
+      "nist_800_218",
+      "us_dfars_cybersecurity_252.204_7012"
+    ],
+    "threat_intel_appsec": [
+      "mitre_attck_16",
+      "owasp_top_10_2025",
+      "sparta"
+    ],
+    "zero_trust": [
+      "nist_800_207",
+      "us_dod_zero_trust_execution_roadmap",
+      "us_dod_zero_trust_reference_architecture_2.0"
+    ],
+    "fedramp": [
+      "us_fedramp_r5_(high)",
+      "us_fedramp_r5_(li_saas)",
+      "us_fedramp_r5_(low)",
+      "us_fedramp_r5_(moderate)"
+    ],
+    "govramp": [
+      "govramp",
+      "govramp_core",
+      "govramp_high",
+      "govramp_low",
+      "govramp_low+",
+      "govramp_moderate"
+    ],
+    "cmmc": [
+      "us_cmmc_2.0_level_1",
+      "us_cmmc_2.0_level_1_aos",
+      "us_cmmc_2.0_level_2",
+      "us_cmmc_2.0_level_3"
+    ],
+    "us_federal": [
+      "us_c2m2_2.1",
+      "us_cert_rmm_1.2",
+      "us_cisa_cpg_2022",
+      "us_cjis_security_policy_6.0",
+      "us_dhs_cisa_ssdaf",
+      "us_dhs_cisa_tic_3.0",
+      "us_eo_14028",
+      "us_far_52.204_21",
+      "us_far_52.204_25_(ndaa_section_889)",
+      "us_far_52.204_27",
+      "us_irs_1075",
+      "us_nispom_2020",
+      "us_nnpi_(unclass)"
+    ],
+    "us_state_laws": [
+      "us_ak_pipa",
+      "us_ca_ccpa_2025",
+      "us_ca_sb1386",
+      "us_ca_sb327",
+      "us_co_colorado_privacy_act",
+      "us_coppa",
+      "us_il_bipa",
+      "us_il_ipa",
+      "us_il_pipa",
+      "us_ma_201_cmr_17.00",
+      "us_nv_noge_reg_5",
+      "us_nv_privacy_law_2023",
+      "us_nv_sb220",
+      "us_ny_dfs_23_nycrr500_2023_amd_2",
+      "us_ny_shield_act_s5575b",
+      "us_or_646a",
+      "us_or_cpa",
+      "us_tn_tipa",
+      "us_tx_bc521",
+      "us_tx_cdpa",
+      "us_tx_dir_control_standards_2.2",
+      "us_tx_sb_2610",
+      "us_tx_sb_820",
+      "us_tx_tx_ramp_level_1",
+      "us_tx_tx_ramp_level_2",
+      "us_va_cdpa_2023",
+      "us_vt_act_171_of_2018"
+    ],
+    "eu_regulations": [
+      "emea_eu_ai_act",
+      "emea_eu_cyber_resiliency_act",
+      "emea_eu_cyber_resiliency_act_annexes",
+      "emea_eu_dora",
+      "emea_eu_eba_gl_2019_04",
+      "emea_eu_gdpr",
+      "emea_eu_nis2",
+      "emea_eu_nis2_annex",
+      "emea_eu_psd2"
+    ],
+    "europe_national": [
+      "bsi_standard_200_1",
+      "emea_austria",
+      "emea_belgium",
+      "emea_germany",
+      "emea_germany_banking_supervisory_requirements_for_it_(bait)",
+      "emea_germany_c5_2020",
+      "emea_greece",
+      "emea_hungary",
+      "emea_ireland",
+      "emea_italy",
+      "emea_norway",
+      "emea_poland",
+      "emea_russia",
+      "emea_serbia_87_2018",
+      "emea_spain_1720_2007",
+      "emea_spain_311_2022",
+      "emea_spain_boe_a_2022_7191",
+      "emea_spain_ccn_stic_825",
+      "emea_switzerland",
+      "emea_turkey",
+      "emea_uk_caf_4.0",
+      "emea_uk_cap_1850",
+      "emea_uk_cyber_essentials",
+      "emea_uk_defstan_05_138",
+      "emea_uk_defstan_05_138_l0",
+      "emea_uk_defstan_05_138_l1",
+      "emea_uk_defstan_05_138_l2",
+      "emea_uk_defstan_05_138_l3",
+      "emea_uk_dpa",
+      "us_fca_crm"
+    ],
+    "middle_east_africa": [
+      "emea_israel",
+      "emea_israel_cdmo_1.0",
+      "emea_kenya_dpa_2019",
+      "emea_nigeria_dpr_2019",
+      "emea_qatar_pdppl",
+      "emea_saudi_arabia_cscc_1_2019",
+      "emea_saudi_arabia_ecc_1_2018",
+      "emea_saudi_arabia_iot_cgiot_1_2024",
+      "emea_saudi_arabia_otcc_1_2022",
+      "emea_saudi_arabia_pdpl",
+      "emea_saudi_arabia_sacs_002",
+      "emea_saudi_arabia_sama_csf_1.0",
+      "emea_south_africa",
+      "emea_uae_niaf"
+    ],
+    "asia_pacific": [
+      "apac_australia_essential_8",
+      "apac_australia_iot_code_of_practice",
+      "apac_australia_ism_june_2024",
+      "apac_australia_privacy_act",
+      "apac_australia_prudential_standard_cps230",
+      "apac_australia_prudential_standard_cps234",
+      "apac_australian_privacy_principles",
+      "apac_china_cybersecurity_law",
+      "apac_china_data_security_law",
+      "apac_china_dnsip",
+      "apac_china_privacy_law",
+      "apac_hong_kong",
+      "apac_india_dpdpa_2023",
+      "apac_india_itr",
+      "apac_india_sebi_cscrf",
+      "apac_japan_appi",
+      "apac_japan_ismap",
+      "apac_malaysia",
+      "apac_new_zealand_hisf_microsmall_2023",
+      "apac_new_zealand_hisf_mlhsp_2023",
+      "apac_new_zealand_hisf_suppliers_2023",
+      "apac_new_zealand_nzism_3.6",
+      "apac_new_zealand_privacy_act_of_2020",
+      "apac_philippines",
+      "apac_singapore",
+      "apac_singapore_cyber_hygiene_practice",
+      "apac_singapore_mas_trm_2021",
+      "apac_south_korea",
+      "apac_taiwan"
+    ],
+    "americas": [
+      "americas_argentina_reg_132_2018",
+      "americas_bahamas",
+      "americas_bermuda_bmaccc",
+      "americas_brazil_lgpd",
+      "americas_canada_csag",
+      "americas_canada_itsp_10_171",
+      "americas_canada_osfi_b_13",
+      "americas_canada_pipeda",
+      "americas_chile",
+      "americas_colombia",
+      "americas_mexico"
+    ],
+    "media_entertainment": [
+      "mpa_content_security_program_5.3.1"
     ]
   },
   "statistics": {
-    "soc_2_tsc": 412,
-    "apec_privacy_2015": 14,
-    "gapp": 50,
-    "oecd_privacy": 14,
-    "bsi_200_1": 25,
+    "aicpa_privacy_management_framework_(pmf)": 109,
+    "aicpa_tsc_2017_2022_(used_for_soc_2)": 412,
+    "apec_privacy_framework_2015": 14,
+    "bsi_standard_200_1": 35,
     "cis_csc_8.1": 234,
-    "cis_csc_8.1_ig1": 91,
-    "cis_csc_8.1_ig2": 187,
-    "cis_csc_8.1_ig3": 206,
-    "cobit_2019": 149,
-    "coso_2017": 103,
-    "csa_ccm_4": 334,
-    "csa_iot_scf_2": 261,
-    "enisa_2.0": 61,
+    "cis_csc_8.1_ig1": 104,
+    "cis_csc_8.1_ig2": 208,
+    "cis_csc_8.1_ig3": 230,
+    "cobit_2019": 190,
+    "coso_2013": 104,
+    "csa_ccm_4.1.0": 291,
+    "csa_iot_scf_2": 253,
+    "cr_cmm_2026": 46,
+    "govramp": 441,
     "govramp_core": 86,
     "govramp_low": 166,
-    "govramp_low_plus": 230,
+    "govramp_low+": 230,
     "govramp_moderate": 347,
     "govramp_high": 441,
     "iec_tr_60601_4_5_2021": 26,
-    "iec_62443_4_2_2019": 129,
-    "imo_maritime_cyber": 75,
-    "iso_sae_21434_2021": 102,
-    "iso_22301_2019": 31,
+    "iec_62443_2_1_2024": 112,
+    "iec_62443_3_3_2013": 80,
+    "iec_62443_4_1_2018": 25,
+    "iec_62443_4_2_2019": 89,
+    "imo_maritime_cyber_risk_management": 75,
+    "iso_sae_21434_2021": 51,
+    "iso_22301_2019": 36,
     "iso_27001_2022": 51,
     "iso_27002_2022": 316,
-    "iso_27017_2015": 215,
-    "iso_27018_2014": 17,
+    "iso_27017_2015": 224,
+    "iso_27018_2025": 322,
     "iso_27701_2025": 59,
     "iso_29100_2024": 43,
-    "iso_31000_2009": 18,
-    "iso_31010_2009": 29,
+    "iso_31000_2018": 53,
+    "iso_31010_2009": 31,
     "iso_42001_2023": 149,
-    "mitre_attack_10": 128,
-    "mpa_csp_5.1": 230,
-    "naic_mdl_668": 58,
-    "nist_ai_rmf_1.0": 158,
+    "mitre_attck_16": 108,
+    "mpa_content_security_program_5.3.1": 232,
+    "naic_insurance_data_security_model_law_(mdl_668)": 58,
+    "nist_ai_100_1_(ai_rmf)_1.0": 158,
     "nist_ai_600_1": 139,
-    "nist_privacy_framework_1.0": 187,
-    "nist_800_37_r2": 37,
-    "nist_800_39": 21,
-    "nist_800_53_r4": 652,
-    "nist_800_53_r4_low": 151,
-    "nist_800_53_r4_moderate": 286,
-    "nist_800_53_r4_high": 361,
+    "nist_privacy_framework_1.0": 152,
+    "nist_800_37_r2": 45,
+    "nist_800_39": 17,
+    "nist_800_53_r4": 653,
     "nist_800_53_r5": 777,
-    "nist_800_53b_r5_privacy": 117,
-    "nist_800_53b_r5_low": 199,
-    "nist_800_53b_r5_moderate": 343,
-    "nist_800_53b_r5_high": 421,
-    "nist_800_53_r5_noc": 392,
-    "nist_800_63b": 5,
-    "nist_800_82_r3_low": 208,
-    "nist_800_82_r3_moderate": 357,
-    "nist_800_82_r3_high": 437,
-    "nist_800_160": 44,
+    "nist_800_53b_r5_(privacy)": 346,
+    "nist_800_53b_r5_(low)": 202,
+    "nist_800_53b_r5_(moderate)": 157,
+    "nist_800_53b_r5_(high)": 89,
+    "nist_sp_800_66_r2": 112,
+    "nist_800_82_r3": 777,
+    "nist_800_82_r3_low_ot_overlay": 251,
+    "nist_800_82_r3_moderate_ot_overlay": 390,
+    "nist_800_82_r3_high_ot_overlay": 467,
+    "nist_800_160_vol2_r1": 204,
     "nist_800_161_r1": 341,
-    "nist_800_161_r1_baseline": 126,
-    "nist_800_161_r1_flowdown": 94,
-    "nist_800_161_r1_level1": 86,
-    "nist_800_161_r1_level2": 261,
-    "nist_800_161_r1_level3": 271,
-    "nist_800_171_r2": 252,
-    "nist_800_171a": 136,
-    "nist_800_171_r3": 408,
-    "nist_800_171a_r3": 217,
+    "nist_800_161_r1_c_scrm_baseline": 132,
+    "nist_800_161_r1_flow_down": 107,
+    "nist_800_161_r1_level_1": 95,
+    "nist_800_161_r1_level_2": 273,
+    "nist_800_161_r1_level_3": 284,
+    "nist_800_171_r2": 251,
+    "nist_800_171_r3": 407,
+    "nist_800_171a": 134,
+    "nist_800_171a_r3": 215,
     "nist_800_172": 74,
-    "nist_800_207": 95,
-    "nist_800_218": 58,
-    "nist_csf_2.0": 253,
-    "owasp_top_10_2021": 131,
-    "pci_dss_4.0.1": 364,
-    "pci_dss_4.0.1_saq_a": 70,
+    "nist_800_207": 93,
+    "nist_800_218": 59,
+    "nist_csf_2.0": 250,
+    "oecd_privacy_principles": 14,
+    "owasp_top_10_2025": 139,
+    "pci_dss_4.0.1": 371,
+    "pci_dss_4.0.1_saq_a": 71,
     "pci_dss_4.0.1_saq_a_ep": 239,
     "pci_dss_4.0.1_saq_b": 58,
     "pci_dss_4.0.1_saq_b_ip": 121,
-    "pci_dss_4.0.1_saq_c": 229,
+    "pci_dss_4.0.1_saq_c": 227,
     "pci_dss_4.0.1_saq_c_vt": 115,
-    "pci_dss_4.0.1_saq_d_merchant": 323,
-    "pci_dss_4.0.1_saq_d_sp": 341,
+    "pci_dss_4.0.1_saq_d_merchant": 322,
+    "pci_dss_4.0.1_saq_d_service_provider": 339,
     "pci_dss_4.0.1_saq_p2pe": 47,
-    "shared_assessments_sig_2025": 127,
-    "sparta": 81,
-    "swift_cscf_2023": 127,
-    "tisax_isa_6": 155,
-    "ul_2900_1_2017": 64,
-    "un_r155": 44,
-    "un_ece_wp29": 44,
-    "us_c2m2_2.1": 219,
-    "us_cert_rmm_1.2": 292,
-    "us_cisa_cpg_2022": 127,
-    "cjis_5.9.3": 223,
-    "cmmc_2.0_level_1": 52,
-    "cmmc_2.0_level_1_aos": 14,
-    "cmmc_2.0_level_2": 198,
-    "cmmc_2.0_level_3": 222,
-    "cms_mars_e_2.0": 375,
-    "us_coppa": 6,
-    "us_dpf": 31,
-    "dod_zt_roadmap": 117,
-    "dod_ztra_2.0": 37,
-    "dfars_252_204_70xx": 27,
-    "dhs_cisa_ssdaf": 43,
-    "dhs_cisa_tic_3.0": 150,
-    "dhs_ztcf": 202,
-    "eo_14028": 44,
-    "us_facta": 2,
-    "far_52_204_21": 54,
-    "far_52_204_25": 1,
-    "far_52_204_27": 5,
-    "fca_crm": 81,
-    "fda_21_cfr_part_11": 48,
-    "fedramp_r4": 432,
-    "fedramp_r4_low": 150,
-    "fedramp_r4_moderate": 342,
-    "fedramp_r4_high": 431,
-    "fedramp_r4_lisaas": 150,
-    "fedramp_r5": 423,
-    "fedramp_r5_low": 176,
-    "fedramp_r5_moderate": 343,
-    "fedramp_r5_high": 423,
-    "fedramp_r5_lisaas": 175,
-    "us_ferpa": 16,
-    "ffiec": 72,
-    "us_finra": 4,
+    "shared_assessments_sig_2025": 128,
+    "sparta": 79,
+    "swift_csf_2025": 164,
+    "tisax_isa_6.0.3": 154,
+    "ul_2900_1_2017": 23,
+    "ul_2900_2_2_2016": 20,
+    "un_r155": 57,
+    "un_ece_wp.29": 57,
+    "us_cert_rmm_1.2": 85,
+    "us_coppa": 10,
+    "us_dhs_cisa_ssdaf": 41,
+    "us_dhs_cisa_tic_3.0": 148,
+    "us_cisa_cpg_2022": 126,
+    "us_cjis_security_policy_6.0": 365,
+    "us_c2m2_2.1": 224,
+    "us_cmmc_2.0_level_1": 52,
+    "us_cmmc_2.0_level_1_aos": 16,
+    "us_cmmc_2.0_level_2": 198,
+    "us_cmmc_2.0_level_3": 55,
+    "us_data_privacy_framework_(dpf)": 31,
+    "us_dod_zero_trust_execution_roadmap": 117,
+    "us_dod_zero_trust_reference_architecture_2.0": 39,
+    "us_dfars_cybersecurity_252.204_7012": 19,
+    "us_eo_14028": 43,
+    "us_facta_fcra": 3,
+    "us_far_52.204_21": 59,
+    "us_far_52.204_25_(ndaa_section_889)": 2,
+    "us_far_52.204_27": 3,
+    "us_fca_crm": 81,
+    "us_fda_21_cfr_part_11": 62,
+    "us_fedramp_r5_(low)": 383,
+    "us_fedramp_r5_(moderate)": 491,
+    "us_fedramp_r5_(high)": 561,
+    "us_fedramp_r5_(li_saas)": 383,
+    "us_ferpa": 5,
+    "us_finra": 17,
     "us_fipps": 30,
-    "ftc_act": 3,
-    "glba_cfr_314_2023": 72,
-    "hhs_45_cfr_155_260": 36,
-    "hipaa_admin_2013": 171,
-    "hipaa_security_rule": 136,
-    "hipaa_hicp_small": 83,
-    "hipaa_hicp_medium": 138,
-    "hipaa_hicp_large": 233,
-    "irs_1075": 445,
-    "itar_part_120": 23,
-    "nerc_cip_2024": 122,
-    "nispom_2020": 179,
-    "us_nnpi": 122,
-    "nstc_nspm_33": 47,
-    "sec_cybersecurity_rule": 39,
-    "sox": 2,
-    "ssa_eiesr_8.0": 109,
-    "tsa_dhs_1580_82_2022": 69,
-    "us_ak_pipa": 17,
-    "us_ca_sb327": 8,
+    "us_ftc_act": 16,
+    "us_glba_cfr_314_2023": 70,
+    "us_hhs_45_cfr_155.260": 36,
+    "us_hipaa_administrative_simplification_2013": 170,
+    "us_hipaa_security_rule_nist_sp_800_66_r2": 136,
+    "us_irs_1075": 442,
+    "us_cms_mars_e_2.0": 391,
+    "us_nerc_cip_2024": 122,
+    "us_nispom_2020": 35,
+    "us_nnpi_(unclass)": 32,
+    "us_sec_cybersecurity_rule": 40,
+    "us_sox": 4,
+    "us_tsa_dhs_1580_82_2022_01": 60,
+    "us_ak_pipa": 5,
+    "us_ca_sb327": 3,
     "us_ca_ccpa_2025": 258,
-    "us_ca_sb1386": 1,
-    "us_co_cpa": 53,
-    "us_il_bipa": 11,
-    "us_il_ipa": 5,
+    "us_ca_sb1386": 4,
+    "us_co_colorado_privacy_act": 23,
+    "us_il_bipa": 6,
+    "us_il_ipa": 12,
     "us_il_pipa": 10,
-    "us_ma_201_cmr_17": 44,
+    "us_ma_201_cmr_17.00": 53,
+    "us_nv_privacy_law_2023": 29,
     "us_nv_noge_reg_5": 20,
-    "us_nv_sb220": 7,
-    "nydfs_500_2023": 157,
-    "us_ny_shield": 28,
-    "us_or_646a": 41,
+    "us_nv_sb220": 3,
+    "us_ny_dfs_23_nycrr500_2023_amd_2": 156,
+    "us_ny_shield_act_s5575b": 28,
+    "us_or_646a": 24,
     "us_or_cpa": 34,
-    "us_tn_tipa": 30,
-    "us_tx_bc521": 13,
+    "us_tn_tipa": 29,
+    "us_tx_bc521": 5,
     "us_tx_cdpa": 28,
-    "us_tx_dir_2.0": 208,
-    "us_tx_sb820": 7,
-    "us_tx_sb2610": 6,
-    "tx_ramp_level_1": 144,
-    "tx_ramp_level_2": 331,
-    "us_va_cdpa_2025": 44,
-    "us_vt_act_171": 59,
-    "eu_ai_act": 119,
-    "eu_cyber_resilience_act": 18,
-    "eu_cra_annexes": 23,
-    "eu_eba_gl_2019_04": 148,
-    "dora": 103,
-    "gdpr": 42,
-    "nis2": 68,
-    "nis2_annex": 224,
-    "psd2": 30,
-    "austria": 63,
-    "belgium": 59,
-    "germany": 18,
-    "germany_bait": 91,
-    "germany_c5_2020": 239,
-    "greece": 17,
-    "hungary": 27,
-    "ireland": 25,
-    "israel_cdmo_1.0": 393,
-    "israel": 22,
-    "italy": 28,
-    "kenya_dpa_2019": 41,
-    "netherlands": 27,
-    "nigeria_dpr_2019": 25,
-    "norway": 23,
-    "poland": 29,
-    "qatar_pdppl": 56,
-    "russia": 28,
-    "saudi_cscc_1_2019": 152,
-    "saudi_cgiot_1_2024": 119,
-    "saudi_ecc_1_2018": 190,
-    "saudi_otcc_1_2022": 198,
-    "saudi_pdpl": 36,
-    "saudi_sacs_002": 185,
-    "saudi_sama_csf_1.0": 50,
-    "serbia_87_2018": 56,
-    "south_africa": 101,
-    "spain_boe_a_2022_7191": 73,
-    "spain_1720_2007": 17,
-    "spain_311_2022": 73,
-    "spain_ccn_stic_825": 99,
-    "sweden": 25,
-    "switzerland": 16,
-    "turkey": 17,
-    "uae_niaf": 20,
-    "uk_caf_4.0": 67,
-    "uk_cap_1850": 43,
-    "uk_cyber_essentials": 26,
-    "uk_defstan_05_138": 214,
-    "uk_dpa": 10,
-    "australia_essential_8": 37,
-    "australia_privacy_act": 23,
-    "australia_privacy_principles": 26,
-    "australia_ism_2024": 336,
-    "australia_iot_cop": 15,
-    "australia_cps_230": 41,
-    "australia_cps_234": 52,
-    "china_cybersecurity_law": 27,
-    "china_data_security_law": 15,
-    "china_dnsip": 10,
-    "china_privacy_law": 79,
-    "hong_kong": 14,
-    "india_dpdpa_2023": 41,
-    "india_itr": 12,
-    "india_sebi_cscrf": 170,
-    "japan_appi": 58,
-    "japan_ismap": 248,
-    "malaysia": 25,
-    "nz_hisf_2022": 123,
-    "nz_hisf_suppliers_2023": 102,
-    "nz_nzism_3.6": 291,
-    "nz_privacy_act_2020": 20,
-    "philippines": 30,
-    "singapore": 30,
-    "singapore_cyber_hygiene": 21,
-    "singapore_mas_trm_2021": 214,
-    "south_korea": 37,
-    "taiwan": 23,
-    "argentina_ppl": 30,
-    "argentina_reg_132_2018": 25,
-    "bahamas": 18,
-    "bermuda_bmaccc": 61,
-    "brazil_lgpd": 33,
-    "canada_csag": 141,
-    "canada_osfi_b13": 151,
-    "canada_itsp_10_171": 408,
-    "canada_pipeda": 28,
-    "chile": 22,
-    "colombia": 29,
-    "costa_rica": 17,
-    "mexico": 23,
-    "peru": 19,
-    "uruguay": 32,
-    "tiber_eu_2025": 41
+    "us_tx_dir_control_standards_2.2": 238,
+    "us_tx_sb_820": 4,
+    "us_tx_sb_2610": 6,
+    "us_tx_tx_ramp_level_1": 173,
+    "us_tx_tx_ramp_level_2": 285,
+    "us_va_cdpa_2023": 44,
+    "us_vt_act_171_of_2018": 35,
+    "emea_eu_ai_act": 119,
+    "emea_eu_cyber_resiliency_act": 18,
+    "emea_eu_cyber_resiliency_act_annexes": 23,
+    "emea_eu_eba_gl_2019_04": 148,
+    "emea_eu_dora": 102,
+    "emea_eu_gdpr": 42,
+    "emea_eu_nis2": 68,
+    "emea_eu_nis2_annex": 223,
+    "emea_eu_psd2": 30,
+    "emea_austria": 63,
+    "emea_belgium": 59,
+    "emea_germany": 18,
+    "emea_germany_banking_supervisory_requirements_for_it_(bait)": 91,
+    "emea_germany_c5_2020": 239,
+    "emea_greece": 17,
+    "emea_hungary": 27,
+    "emea_ireland": 25,
+    "emea_israel_cdmo_1.0": 393,
+    "emea_israel": 22,
+    "emea_italy": 28,
+    "emea_kenya_dpa_2019": 41,
+    "emea_nigeria_dpr_2019": 25,
+    "emea_norway": 23,
+    "emea_poland": 29,
+    "emea_qatar_pdppl": 56,
+    "emea_russia": 28,
+    "emea_saudi_arabia_cscc_1_2019": 152,
+    "emea_saudi_arabia_iot_cgiot_1_2024": 118,
+    "emea_saudi_arabia_ecc_1_2018": 190,
+    "emea_saudi_arabia_otcc_1_2022": 198,
+    "emea_saudi_arabia_pdpl": 36,
+    "emea_saudi_arabia_sacs_002": 185,
+    "emea_saudi_arabia_sama_csf_1.0": 50,
+    "emea_serbia_87_2018": 56,
+    "emea_south_africa": 101,
+    "emea_spain_boe_a_2022_7191": 72,
+    "emea_spain_1720_2007": 17,
+    "emea_spain_311_2022": 73,
+    "emea_spain_ccn_stic_825": 99,
+    "emea_switzerland": 16,
+    "emea_turkey": 17,
+    "emea_uae_niaf": 20,
+    "emea_uk_caf_4.0": 66,
+    "emea_uk_cap_1850": 43,
+    "emea_uk_cyber_essentials": 26,
+    "emea_uk_defstan_05_138": 213,
+    "emea_uk_defstan_05_138_l0": 2,
+    "emea_uk_defstan_05_138_l1": 159,
+    "emea_uk_defstan_05_138_l2": 206,
+    "emea_uk_defstan_05_138_l3": 212,
+    "emea_uk_dpa": 10,
+    "apac_australia_essential_8": 37,
+    "apac_australia_privacy_act": 23,
+    "apac_australian_privacy_principles": 26,
+    "apac_australia_ism_june_2024": 336,
+    "apac_australia_iot_code_of_practice": 15,
+    "apac_australia_prudential_standard_cps230": 41,
+    "apac_australia_prudential_standard_cps234": 52,
+    "apac_china_cybersecurity_law": 27,
+    "apac_china_data_security_law": 15,
+    "apac_china_dnsip": 10,
+    "apac_china_privacy_law": 79,
+    "apac_hong_kong": 14,
+    "apac_india_dpdpa_2023": 41,
+    "apac_india_itr": 12,
+    "apac_india_sebi_cscrf": 170,
+    "apac_japan_appi": 58,
+    "apac_japan_ismap": 249,
+    "apac_malaysia": 25,
+    "apac_new_zealand_hisf_mlhsp_2023": 102,
+    "apac_new_zealand_hisf_microsmall_2023": 32,
+    "apac_new_zealand_hisf_suppliers_2023": 101,
+    "apac_new_zealand_nzism_3.6": 291,
+    "apac_new_zealand_privacy_act_of_2020": 20,
+    "apac_philippines": 30,
+    "apac_singapore": 30,
+    "apac_singapore_cyber_hygiene_practice": 21,
+    "apac_singapore_mas_trm_2021": 214,
+    "apac_south_korea": 37,
+    "apac_taiwan": 23,
+    "americas_argentina_reg_132_2018": 25,
+    "americas_bahamas": 18,
+    "americas_bermuda_bmaccc": 61,
+    "americas_brazil_lgpd": 33,
+    "americas_canada_csag": 141,
+    "americas_canada_osfi_b_13": 150,
+    "americas_canada_itsp_10_171": 407,
+    "americas_canada_pipeda": 28,
+    "americas_chile": 22,
+    "americas_colombia": 29,
+    "americas_mexico": 23
   }
 }
