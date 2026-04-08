@@ -770,7 +770,11 @@ class SCFData:
             all_categorized.update(cat_fws)
 
         for fw_key in self.framework_to_scf:
-            if fw_key not in self.frameworks and fw_key in framework_names and fw_key in all_categorized:
+            if (
+                fw_key not in self.frameworks
+                and fw_key in framework_names
+                and fw_key in all_categorized
+            ):
                 reverse = self.framework_to_scf[fw_key]
                 unique_scf_ids = set()
                 for scf_ids in reverse.values():
@@ -822,7 +826,9 @@ class SCFData:
             is_primary = len(terms) == 1 or is_exact_phrase or len(matched_terms) == len(terms)
 
             # Get mapped frameworks for response
-            mapped_frameworks = [fw for fw, mappings in ctrl["framework_mappings"].items() if mappings]
+            mapped_frameworks = [
+                fw for fw, mappings in ctrl["framework_mappings"].items() if mappings
+            ]
 
             # Prefer phrase snippet, otherwise first matched term.
             snippet_term = query_lower if is_exact_phrase else matched_terms[0]
@@ -842,9 +848,7 @@ class SCFData:
                 "control_id": ctrl["id"],
                 "name": ctrl["name"],
                 "snippet": snippet,
-                "relevance": (
-                    1.0 if is_exact_phrase else len(matched_terms) / max(len(terms), 1)
-                ),
+                "relevance": (1.0 if is_exact_phrase else len(matched_terms) / max(len(terms), 1)),
                 "mapped_frameworks": mapped_frameworks,
             }
 

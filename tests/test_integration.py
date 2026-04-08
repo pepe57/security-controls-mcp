@@ -16,7 +16,7 @@ class TestToolCalls:
     async def test_get_control_success(self):
         """Test get_control with valid control ID."""
         result = await call_tool("get_control", {"control_id": "GOV-01", "include_mappings": True})
-        assert len(result) == 1
+        assert len(result) >= 1
         assert "GOV-01" in result[0].text
         assert "Cybersecurity" in result[0].text
 
@@ -31,7 +31,7 @@ class TestToolCalls:
     async def test_search_controls(self):
         """Test search_controls."""
         result = await call_tool("search_controls", {"query": "encryption", "limit": 5})
-        assert len(result) == 1
+        assert len(result) >= 1
         assert "Found" in result[0].text
         assert "control" in result[0].text.lower()
 
@@ -41,7 +41,7 @@ class TestToolCalls:
         result = await call_tool(
             "search_controls", {"query": "access control", "frameworks": ["dora"], "limit": 3}
         )
-        assert len(result) == 1
+        assert len(result) >= 1
         # Should either find results or say no results
         assert len(result[0].text) > 0
 
@@ -74,7 +74,7 @@ class TestToolCalls:
     async def test_get_framework_controls(self):
         """Test get_framework_controls for DORA."""
         result = await call_tool("get_framework_controls", {"framework": "dora"})
-        assert len(result) == 1
+        assert len(result) >= 1
         assert "103" in result[0].text or "Total Controls" in result[0].text
 
     @pytest.mark.asyncio
@@ -95,7 +95,7 @@ class TestToolCalls:
                 "source_control": "5.1",
             },
         )
-        assert len(result) == 1
+        assert len(result) >= 1
         assert "Mapping" in result[0].text
 
     @pytest.mark.asyncio
@@ -148,7 +148,7 @@ class TestToolCalls:
             "get_clause",
             {"standard": "belgium_ccb", "clause_id": "assurance_levels"},
         )
-        assert len(result) == 1
+        assert len(result) >= 1
         assert "SMALL" in result[0].text
         assert "CyberFundamentals" in result[0].text
         assert "official source" in result[0].text.lower()

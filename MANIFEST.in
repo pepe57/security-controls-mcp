@@ -3,13 +3,17 @@ include *.md
 include *.toml
 include *.json
 include *.yaml
+include *.yml
+include *.txt
 include *.lock
+include *.premium
 include LICENSE
 include .gitleaks.toml
 include .pre-commit-config.yaml
 include Dockerfile
+include Dockerfile.premium
 include server.json
-include poetry.lock
+include sources.yml
 
 # Include docs directory
 recursive-include docs *.md
@@ -24,8 +28,13 @@ recursive-include scripts *.py
 recursive-include scripts *.json
 recursive-include scripts *.xlsx
 
-# Exclude compiled Python files
+# Include API and fixtures
+recursive-include api *.py
+recursive-include fixtures *.json
+
+# Exclude compiled Python files and stale backups
 global-exclude __pycache__
 global-exclude *.py[cod]
 global-exclude *.so
 global-exclude .DS_Store
+global-exclude *-e

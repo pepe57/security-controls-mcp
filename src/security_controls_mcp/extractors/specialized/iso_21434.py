@@ -4,7 +4,7 @@ import io
 import logging
 import re
 import time
-from typing import List, Tuple, Dict, Any, Optional
+from typing import Dict, List, Tuple
 
 from ..base import BaseExtractor, Control, ExtractionResult, VersionDetection
 from ..registry import register_extractor
@@ -74,7 +74,7 @@ class ISO21434Extractor(BaseExtractor):
         # Fallback: try to extract text directly
         if not text:
             try:
-                text = pdf_bytes.decode('utf-8', errors='ignore')
+                text = pdf_bytes.decode("utf-8", errors="ignore")
             except Exception as e:
                 logger.debug(f"Error during text extraction: {e}")
                 return ("unknown", VersionDetection.UNKNOWN, evidence)
@@ -115,15 +115,13 @@ class ISO21434Extractor(BaseExtractor):
                 for page_num, page in enumerate(pdf.pages):
                     page_text = page.extract_text()
                     if page_text:
-                        page_controls = self._parse_clauses_from_text(
-                            page_text, page_num + 1
-                        )
+                        page_controls = self._parse_clauses_from_text(page_text, page_num + 1)
                         controls.extend(page_controls)
 
         except ImportError:
             logger.debug("pdfplumber not available for 2021 extraction")
             # Fallback to basic extraction
-            text = pdf_bytes.decode('utf-8', errors='ignore')
+            text = pdf_bytes.decode("utf-8", errors="ignore")
             controls = self._parse_clauses_from_text(text, 1)
 
         except Exception as e:
@@ -131,9 +129,7 @@ class ISO21434Extractor(BaseExtractor):
 
         return controls
 
-    def _parse_clauses_from_text(
-        self, text: str, page_num: int
-    ) -> List[Control]:
+    def _parse_clauses_from_text(self, text: str, page_num: int) -> List[Control]:
         """Parse ISO 21434 clauses from text.
 
         Args:
@@ -148,7 +144,7 @@ class ISO21434Extractor(BaseExtractor):
         # Pattern for ISO clauses: X or X.Y or X.Y.Z or X.Y.Z.W
         # Format: NUMBER[.NUMBER[.NUMBER[.NUMBER]]] TITLE
         # Examples: "5 Organizational cybersecurity" or "5.4.2 Risk assessment methodology"
-        pattern = r'(\d+(?:\.\d+){0,3})\s+([A-Z][A-Za-z\s,\-\(\)]+?)(?:\n|$|\.(?=\s*\d+\.))'
+        pattern = r"(\d+(?:\.\d+){0,3})\s+([A-Z][A-Za-z\s,\-\(\)]+?)(?:\n|$|\.(?=\s*\d+\.))"
 
         for match in re.finditer(pattern, text):
             clause_id = match.group(1)
@@ -177,14 +173,16 @@ class ISO21434Extractor(BaseExtractor):
             content = f"{title}"
 
             if len(content) >= MIN_CONTENT_LENGTH:
-                controls.append(Control(
-                    id=clause_id,
-                    title=title,
-                    content=content,
-                    page=page_num,
-                    category=category,
-                    parent=parent
-                ))
+                controls.append(
+                    Control(
+                        id=clause_id,
+                        title=title,
+                        content=content,
+                        page=page_num,
+                        category=category,
+                        parent=parent,
+                    )
+                )
 
         return controls
 

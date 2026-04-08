@@ -10,6 +10,7 @@ from mcp.server import Server
 from mcp.server.stdio import stdio_server
 from mcp.types import TextContent, Tool
 
+from .citation import build_citation
 from .config import Config
 from .data_loader import SCFData
 from .legal_notice import print_legal_notice
@@ -21,8 +22,7 @@ from .standard_rendering import (
     render_standard_not_found,
     render_standard_search_results,
 )
-from .citation import build_citation
-from .tools.version_tracking import PREMIUM_TOOLS, PREMIUM_HANDLERS
+from .tools.version_tracking import PREMIUM_HANDLERS, PREMIUM_TOOLS
 
 # Initialize data loader
 scf_data = SCFData()
@@ -360,9 +360,7 @@ async def list_tools() -> list[Tool]:
                     },
                     "limit": {
                         "type": "integer",
-                        "description": (
-                            "Maximum number of results to return. Default: 10."
-                        ),
+                        "description": ("Maximum number of results to return. Default: 10."),
                         "default": 10,
                         "minimum": 1,
                         "maximum": 50,
@@ -406,7 +404,10 @@ async def list_tools() -> list[Tool]:
                 "additionalProperties": False,
             },
         ),
-    ] + [Tool(name=t["name"], description=t["description"], inputSchema=t["inputSchema"]) for t in PREMIUM_TOOLS]
+    ] + [
+        Tool(name=t["name"], description=t["description"], inputSchema=t["inputSchema"])
+        for t in PREMIUM_TOOLS
+    ]
 
 
 @app.call_tool()
@@ -715,7 +716,9 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                 for fw_key in sorted(fw_keys):
                     fw = scf_data.frameworks.get(fw_key)
                     if fw:
-                        text += f"- `{fw['key']}`: {fw['name']} ({fw['controls_mapped']} controls)\n"
+                        text += (
+                            f"- `{fw['key']}`: {fw['name']} ({fw['controls_mapped']} controls)\n"
+                        )
 
         return [TextContent(type="text", text=text)]
 
@@ -911,7 +914,9 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                                     text += f"📄 Page {clause.page}\n"
                                 text += render_excerpt_footer(metadata)
 
-                text += "*Showing example from first mapping. Use get_clause for specific clauses.*\n"
+                text += (
+                    "*Showing example from first mapping. Use get_clause for specific clauses.*\n"
+                )
 
         return [
             TextContent(type="text", text=text),

@@ -70,7 +70,7 @@ class TestDataDrift:
         if expected_count is None:
             pytest.skip("No expected_controls in golden hashes")
 
-        with open(REPO_ROOT / "src/security_controls_mcp/data/scf-controls.json") as f:
+        with open(REPO_ROOT / "src/security_controls_mcp/data/scf-controls.json", encoding="utf-8") as f:
             data = json.load(f)
 
         actual_count = len(data) if isinstance(data, list) else len(data.get("controls", []))

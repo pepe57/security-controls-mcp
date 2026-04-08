@@ -25,6 +25,7 @@ class GDPRExtractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page in pdf.pages[:VERSION_DETECTION_MAX_PAGES]:
                     if page_text := page.extract_text():
@@ -33,7 +34,7 @@ class GDPRExtractor(BaseExtractor):
             logger.debug(f"Error: {e}")
 
         if not text:
-            text = pdf_bytes.decode('utf-8', errors='ignore')
+            text = pdf_bytes.decode("utf-8", errors="ignore")
 
         # GDPR (Regulation 2016/679)
         if re.search(r"(?:Regulation|EU)\s*(?:\(EU\))?\s*2016/679", text):
@@ -56,6 +57,7 @@ class GDPRExtractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page_num, page in enumerate(pdf.pages):
                     if page_text := page.extract_text():
@@ -70,7 +72,7 @@ class GDPRExtractor(BaseExtractor):
         controls: List[Control] = []
 
         # GDPR format: Article X or Article X(Y)
-        pattern = r'Article\s+(\d+(?:\(\d+\))?)\s+(?:-\s+)?([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$)'
+        pattern = r"Article\s+(\d+(?:\(\d+\))?)\s+(?:-\s+)?([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$)"
 
         for match in re.finditer(pattern, text):
             article_id = f"Article {match.group(1)}"
@@ -80,7 +82,7 @@ class GDPRExtractor(BaseExtractor):
                 continue
 
             # Categorize by article range
-            article_num = int(re.search(r'\d+', match.group(1)).group())
+            article_num = int(re.search(r"\d+", match.group(1)).group())
             if article_num <= 4:
                 category = "General Provisions"
             elif article_num <= 11:
@@ -98,14 +100,16 @@ class GDPRExtractor(BaseExtractor):
             else:
                 category = "Final Provisions"
 
-            controls.append(Control(
-                id=article_id,
-                title=title,
-                content=title,
-                page=page_num,
-                category=category,
-                parent=None
-            ))
+            controls.append(
+                Control(
+                    id=article_id,
+                    title=title,
+                    content=title,
+                    page=page_num,
+                    category=category,
+                    parent=None,
+                )
+            )
 
         return controls
 

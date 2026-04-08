@@ -25,6 +25,7 @@ class CISControlsExtractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page in pdf.pages[:VERSION_DETECTION_MAX_PAGES]:
                     if page_text := page.extract_text():
@@ -33,7 +34,7 @@ class CISControlsExtractor(BaseExtractor):
             logger.debug(f"Error: {e}")
 
         if not text:
-            text = pdf_bytes.decode('utf-8', errors='ignore')
+            text = pdf_bytes.decode("utf-8", errors="ignore")
 
         # Version 8
         if re.search(r"CIS.*?Controls.*?v?8", text, re.IGNORECASE):
@@ -57,6 +58,7 @@ class CISControlsExtractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page_num, page in enumerate(pdf.pages):
                     if page_text := page.extract_text():
@@ -71,7 +73,7 @@ class CISControlsExtractor(BaseExtractor):
         controls: List[Control] = []
 
         # CIS Controls format: X.Y (e.g., 1.1, 4.3) or Control X
-        pattern = r'(?:Control\s+)?(\d+(?:\.\d+)?)\s+([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$)'
+        pattern = r"(?:Control\s+)?(\d+(?:\.\d+)?)\s+([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$)"
 
         for match in re.finditer(pattern, text):
             control_id = match.group(1)
@@ -104,14 +106,16 @@ class CISControlsExtractor(BaseExtractor):
             }
             category = categories.get(main_control, "General")
 
-            controls.append(Control(
-                id=control_id,
-                title=title,
-                content=title,
-                page=page_num,
-                category=category,
-                parent=None
-            ))
+            controls.append(
+                Control(
+                    id=control_id,
+                    title=title,
+                    content=title,
+                    page=page_num,
+                    category=category,
+                    parent=None,
+                )
+            )
 
         return controls
 

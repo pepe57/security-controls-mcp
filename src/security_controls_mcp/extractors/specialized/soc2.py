@@ -4,7 +4,7 @@ import io
 import logging
 import re
 import time
-from typing import List, Tuple, Dict, Any
+from typing import Dict, List, Tuple
 
 from ..base import BaseExtractor, Control, ExtractionResult, VersionDetection
 from ..registry import register_extractor
@@ -37,6 +37,7 @@ class SOC2Extractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 max_pages = min(VERSION_DETECTION_MAX_PAGES, len(pdf.pages))
                 for page in pdf.pages[:max_pages]:
@@ -50,7 +51,7 @@ class SOC2Extractor(BaseExtractor):
 
         if not text:
             try:
-                text = pdf_bytes.decode('utf-8', errors='ignore')
+                text = pdf_bytes.decode("utf-8", errors="ignore")
             except Exception as e:
                 logger.debug(f"Error during text extraction: {e}")
                 return ("unknown", VersionDetection.UNKNOWN, evidence)
@@ -79,6 +80,7 @@ class SOC2Extractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page_num, page in enumerate(pdf.pages):
                     page_text = page.extract_text()
@@ -87,7 +89,7 @@ class SOC2Extractor(BaseExtractor):
                         controls.extend(page_controls)
         except ImportError:
             logger.debug("pdfplumber not available")
-            text = pdf_bytes.decode('utf-8', errors='ignore')
+            text = pdf_bytes.decode("utf-8", errors="ignore")
             controls = self._parse_controls_from_text(text, 1)
         except Exception as e:
             logger.debug(f"Error during extraction: {e}")
@@ -100,7 +102,7 @@ class SOC2Extractor(BaseExtractor):
 
         # Pattern for SOC 2 controls: PREFIX + NUMBER.NUMBER
         # Examples: CC1.1, CC2.1, A1.2, PI1.1, C1.1, P1.1
-        pattern = r'((?:CC|A|PI|C|P)\d+\.\d+)\s+([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$|\.(?=\s*(?:CC|A|PI|C|P)\d))'
+        pattern = r"((?:CC|A|PI|C|P)\d+\.\d+)\s+([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$|\.(?=\s*(?:CC|A|PI|C|P)\d))"
 
         for match in re.finditer(pattern, text):
             control_id = match.group(1)
@@ -116,14 +118,16 @@ class SOC2Extractor(BaseExtractor):
             content = f"{title}"
 
             if len(content) >= MIN_CONTENT_LENGTH:
-                controls.append(Control(
-                    id=control_id,
-                    title=title,
-                    content=content,
-                    page=page_num,
-                    category=category,
-                    parent=None
-                ))
+                controls.append(
+                    Control(
+                        id=control_id,
+                        title=title,
+                        content=content,
+                        page=page_num,
+                        category=category,
+                        parent=None,
+                    )
+                )
 
         return controls
 

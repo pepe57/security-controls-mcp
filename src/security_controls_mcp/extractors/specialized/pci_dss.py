@@ -27,6 +27,7 @@ class PCIDSSExtractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page in pdf.pages[:VERSION_DETECTION_MAX_PAGES]:
                     if page_text := page.extract_text():
@@ -35,7 +36,7 @@ class PCIDSSExtractor(BaseExtractor):
             logger.debug(f"PDF parsing error: {e}")
 
         if not text:
-            text = pdf_bytes.decode('utf-8', errors='ignore')
+            text = pdf_bytes.decode("utf-8", errors="ignore")
 
         # Version 4.0
         if re.search(r"PCI\s+DSS.*?v?4\.0", text, re.IGNORECASE):
@@ -59,6 +60,7 @@ class PCIDSSExtractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page_num, page in enumerate(pdf.pages):
                     if page_text := page.extract_text():
@@ -73,7 +75,7 @@ class PCIDSSExtractor(BaseExtractor):
         controls: List[Control] = []
 
         # PCI DSS format: Requirement X.Y.Z
-        pattern = r'(?:Requirement\s+)?(\d+\.\d+(?:\.\d+)?)\s+([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$)'
+        pattern = r"(?:Requirement\s+)?(\d+\.\d+(?:\.\d+)?)\s+([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$)"
 
         for match in re.finditer(pattern, text):
             req_id = match.group(1)
@@ -106,14 +108,16 @@ class PCIDSSExtractor(BaseExtractor):
             if len(parts) > 2:
                 parent = ".".join(parts[:-1])
 
-            controls.append(Control(
-                id=req_id,
-                title=title,
-                content=title,
-                page=page_num,
-                category=category,
-                parent=parent
-            ))
+            controls.append(
+                Control(
+                    id=req_id,
+                    title=title,
+                    content=title,
+                    page=page_num,
+                    category=category,
+                    parent=parent,
+                )
+            )
 
         return controls
 

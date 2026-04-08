@@ -26,6 +26,7 @@ class IEC62443Extractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page in pdf.pages[:VERSION_DETECTION_MAX_PAGES]:
                     if page_text := page.extract_text():
@@ -34,7 +35,7 @@ class IEC62443Extractor(BaseExtractor):
             logger.debug(f"PDF error: {e}")
 
         if not text:
-            text = pdf_bytes.decode('utf-8', errors='ignore')
+            text = pdf_bytes.decode("utf-8", errors="ignore")
 
         # IEC 62443 has multiple parts (62443-2-1, 62443-3-3, etc.)
         if match := re.search(r"62443-(\d)-(\d)", text):
@@ -58,6 +59,7 @@ class IEC62443Extractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page_num, page in enumerate(pdf.pages):
                     if page_text := page.extract_text():
@@ -73,7 +75,7 @@ class IEC62443Extractor(BaseExtractor):
 
         # IEC 62443-3-3 uses SR (Security Requirement), FR (Foundational Requirement)
         # Format: SR X.Y, FR X, CR X.Y
-        pattern = r'((?:SR|FR|CR)\s*\d+(?:\.\d+)?)\s+(?:-\s*)?([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$)'
+        pattern = r"((?:SR|FR|CR)\s*\d+(?:\.\d+)?)\s+(?:-\s*)?([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$)"
 
         for match in re.finditer(pattern, text):
             req_id = match.group(1).replace(" ", "")
@@ -89,14 +91,16 @@ class IEC62443Extractor(BaseExtractor):
             elif req_id.startswith("CR"):
                 category = "Component Requirement"
 
-            controls.append(Control(
-                id=req_id,
-                title=title,
-                content=title,
-                page=page_num,
-                category=category,
-                parent=None
-            ))
+            controls.append(
+                Control(
+                    id=req_id,
+                    title=title,
+                    content=title,
+                    page=page_num,
+                    category=category,
+                    parent=None,
+                )
+            )
 
         return controls
 

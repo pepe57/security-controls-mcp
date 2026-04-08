@@ -25,6 +25,7 @@ class CCPAExtractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page in pdf.pages[:VERSION_DETECTION_MAX_PAGES]:
                     if page_text := page.extract_text():
@@ -33,7 +34,7 @@ class CCPAExtractor(BaseExtractor):
             logger.debug(f"Error: {e}")
 
         if not text:
-            text = pdf_bytes.decode('utf-8', errors='ignore')
+            text = pdf_bytes.decode("utf-8", errors="ignore")
 
         # CPRA (2020 amendment)
         if re.search(r"(?:CPRA|California\s+Privacy\s+Rights\s+Act)", text, re.IGNORECASE):
@@ -59,6 +60,7 @@ class CCPAExtractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page_num, page in enumerate(pdf.pages):
                     if page_text := page.extract_text():
@@ -73,7 +75,7 @@ class CCPAExtractor(BaseExtractor):
         controls: List[Control] = []
 
         # CCPA format: Section 1798.XXX or §1798.XXX
-        pattern = r'(?:Section|§)\s*(1798\.\d+)\s+([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$)'
+        pattern = r"(?:Section|§)\s*(1798\.\d+)\s+([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$)"
 
         for match in re.finditer(pattern, text):
             section_id = f"Section {match.group(1)}"
@@ -97,14 +99,16 @@ class CCPAExtractor(BaseExtractor):
             else:
                 category = "General Provisions"
 
-            controls.append(Control(
-                id=section_id,
-                title=title,
-                content=title,
-                page=page_num,
-                category=category,
-                parent=None
-            ))
+            controls.append(
+                Control(
+                    id=section_id,
+                    title=title,
+                    content=title,
+                    page=page_num,
+                    category=category,
+                    parent=None,
+                )
+            )
 
         return controls
 

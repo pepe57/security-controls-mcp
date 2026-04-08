@@ -4,7 +4,7 @@ import io
 import logging
 import re
 import time
-from typing import List, Tuple, Dict, Any, Optional
+from typing import Any, Dict, List, Tuple
 
 from ..base import BaseExtractor, Control, ExtractionResult, VersionDetection
 from ..registry import register_extractor
@@ -42,14 +42,8 @@ CONTROL_FAMILIES = {
 
 # Expected control counts per version
 VERSIONS: Dict[str, Dict[str, Any]] = {
-    "r5": {
-        "count": 320,
-        "expected_ids": []  # Populated below
-    },
-    "r4": {
-        "count": 946,  # Including enhancements
-        "expected_ids": []
-    }
+    "r5": {"count": 320, "expected_ids": []},  # Populated below
+    "r4": {"count": 946, "expected_ids": []},  # Including enhancements
 }
 
 # Generate expected control IDs for R5 (320 base controls)
@@ -57,9 +51,26 @@ VERSIONS: Dict[str, Dict[str, Any]] = {
 # AC=25, AT=5, AU=16, CA=9, CM=14, CP=13, IA=12, IR=10, MA=6, MP=8,
 # PE=23, PL=11, PM=33, PS=9, PT=8, RA=10, SA=22, SC=51, SI=23, SR=12
 _r5_control_counts = {
-    "AC": 25, "AT": 5, "AU": 16, "CA": 9, "CM": 14, "CP": 13, "IA": 12,
-    "IR": 10, "MA": 6, "MP": 8, "PE": 23, "PL": 11, "PM": 33, "PS": 9,
-    "PT": 8, "RA": 10, "SA": 22, "SC": 51, "SI": 23, "SR": 12
+    "AC": 25,
+    "AT": 5,
+    "AU": 16,
+    "CA": 9,
+    "CM": 14,
+    "CP": 13,
+    "IA": 12,
+    "IR": 10,
+    "MA": 6,
+    "MP": 8,
+    "PE": 23,
+    "PL": 11,
+    "PM": 33,
+    "PS": 9,
+    "PT": 8,
+    "RA": 10,
+    "SA": 22,
+    "SC": 51,
+    "SI": 23,
+    "SR": 12,
 }
 
 for family, count in _r5_control_counts.items():
@@ -100,7 +111,7 @@ class NIST80053Extractor(BaseExtractor):
         # Fallback: try to extract text directly
         if not text:
             try:
-                text = pdf_bytes.decode('utf-8', errors='ignore')
+                text = pdf_bytes.decode("utf-8", errors="ignore")
             except Exception as e:
                 logger.debug(f"Error during text extraction: {e}")
                 return ("unknown", VersionDetection.UNKNOWN, evidence)
@@ -145,15 +156,13 @@ class NIST80053Extractor(BaseExtractor):
                 for page_num, page in enumerate(pdf.pages):
                     page_text = page.extract_text()
                     if page_text:
-                        page_controls = self._parse_controls_r5_from_text(
-                            page_text, page_num + 1
-                        )
+                        page_controls = self._parse_controls_r5_from_text(page_text, page_num + 1)
                         controls.extend(page_controls)
 
         except ImportError:
             logger.debug("pdfplumber not available for R5 extraction")
             # Fallback to basic extraction
-            text = pdf_bytes.decode('utf-8', errors='ignore')
+            text = pdf_bytes.decode("utf-8", errors="ignore")
             controls = self._parse_controls_r5_from_text(text, 1)
 
         except Exception as e:
@@ -161,9 +170,7 @@ class NIST80053Extractor(BaseExtractor):
 
         return controls
 
-    def _parse_controls_r5_from_text(
-        self, text: str, page_num: int
-    ) -> List[Control]:
+    def _parse_controls_r5_from_text(self, text: str, page_num: int) -> List[Control]:
         """Parse NIST 800-53 R5 controls from text.
 
         Args:
@@ -177,7 +184,7 @@ class NIST80053Extractor(BaseExtractor):
 
         # Pattern for base controls: AC-1, AU-2, etc.
         # Format: FAMILY-NUMBER TITLE
-        pattern = r'([A-Z]{2}-\d{1,2})\s+([A-Z][A-Za-z\s,\-]+?)(?:\n|$)'
+        pattern = r"([A-Z]{2}-\d{1,2})\s+([A-Z][A-Za-z\s,\-]+?)(?:\n|$)"
 
         for match in re.finditer(pattern, text):
             control_id = match.group(1)
@@ -195,17 +202,19 @@ class NIST80053Extractor(BaseExtractor):
             content = f"{title}"
 
             if len(content) >= MIN_CONTENT_LENGTH:
-                controls.append(Control(
-                    id=control_id,
-                    title=title,
-                    content=content,
-                    page=page_num,
-                    category=category,
-                    parent=None
-                ))
+                controls.append(
+                    Control(
+                        id=control_id,
+                        title=title,
+                        content=content,
+                        page=page_num,
+                        category=category,
+                        parent=None,
+                    )
+                )
 
         # Pattern for control enhancements: AC-1(1), AU-2(3), etc.
-        enhancement_pattern = r'([A-Z]{2}-\d{1,2})\((\d{1,2})\)\s+([A-Z][A-Za-z\s,\-]+?)(?:\n|$)'
+        enhancement_pattern = r"([A-Z]{2}-\d{1,2})\((\d{1,2})\)\s+([A-Z][A-Za-z\s,\-]+?)(?:\n|$)"
 
         for match in re.finditer(enhancement_pattern, text):
             base_id = match.group(1)
@@ -225,14 +234,16 @@ class NIST80053Extractor(BaseExtractor):
             content = f"{title}"
 
             if len(content) >= MIN_CONTENT_LENGTH:
-                controls.append(Control(
-                    id=control_id,
-                    title=title,
-                    content=content,
-                    page=page_num,
-                    category=category,
-                    parent=base_id
-                ))
+                controls.append(
+                    Control(
+                        id=control_id,
+                        title=title,
+                        content=content,
+                        page=page_num,
+                        category=category,
+                        parent=base_id,
+                    )
+                )
 
         return controls
 

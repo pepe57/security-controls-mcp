@@ -25,6 +25,7 @@ class NISTAIRMFExtractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page in pdf.pages[:VERSION_DETECTION_MAX_PAGES]:
                     if page_text := page.extract_text():
@@ -33,7 +34,7 @@ class NISTAIRMFExtractor(BaseExtractor):
             logger.debug(f"Error: {e}")
 
         if not text:
-            text = pdf_bytes.decode('utf-8', errors='ignore')
+            text = pdf_bytes.decode("utf-8", errors="ignore")
 
         # NIST AI 100-1
         if re.search(r"(?:NIST\s+)?AI\s+100-1", text, re.IGNORECASE):
@@ -56,6 +57,7 @@ class NISTAIRMFExtractor(BaseExtractor):
 
         try:
             import pdfplumber
+
             with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
                 for page_num, page in enumerate(pdf.pages):
                     if page_text := page.extract_text():
@@ -71,7 +73,7 @@ class NISTAIRMFExtractor(BaseExtractor):
 
         # NIST AI RMF uses functions: GOVERN, MAP, MEASURE, MANAGE
         # Format: GOVERN-1.1, MAP-2.3, etc.
-        pattern = r'((?:GOVERN|MAP|MEASURE|MANAGE)-\d+\.\d+)\s*[:.]?\s*([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$)'
+        pattern = r"((?:GOVERN|MAP|MEASURE|MANAGE)-\d+\.\d+)\s*[:.]?\s*([A-Z][A-Za-z\s,\-\(\):]+?)(?:\n|$)"
 
         for match in re.finditer(pattern, text):
             control_id = match.group(1)
@@ -90,14 +92,16 @@ class NISTAIRMFExtractor(BaseExtractor):
             }
             category = categories.get(function, "AI Risk Management")
 
-            controls.append(Control(
-                id=control_id,
-                title=title,
-                content=title,
-                page=page_num,
-                category=category,
-                parent=None
-            ))
+            controls.append(
+                Control(
+                    id=control_id,
+                    title=title,
+                    content=title,
+                    page=page_num,
+                    category=category,
+                    parent=None,
+                )
+            )
 
         return controls
 

@@ -158,7 +158,7 @@ PREMIUM_TOOLS = [
                 },
                 "to_version": {
                     "type": "string",
-                    "description": 'SCF release version (defaults to current)',
+                    "description": "SCF release version (defaults to current)",
                 },
             },
             "required": ["control_id", "from_version"],
@@ -249,12 +249,8 @@ def handle_diff_control(arguments: dict) -> str:
     vh = get_version_history()
     history = vh.get_control_history(control_id)
 
-    from_entry = next(
-        (h for h in history if h.get("scf_version") == from_version), None
-    )
-    to_entry = next(
-        (h for h in history if h.get("scf_version") == to_version), None
-    )
+    from_entry = next((h for h in history if h.get("scf_version") == from_version), None)
+    to_entry = next((h for h in history if h.get("scf_version") == to_version), None)
 
     if not from_entry and not to_entry:
         return json.dumps(

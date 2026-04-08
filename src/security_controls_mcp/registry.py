@@ -164,9 +164,7 @@ class StandardRegistry:
         Returns:
             True if at least one paid standard is available
         """
-        return any(
-            provider.get_metadata().access == "paid" for provider in self.providers.values()
-        )
+        return any(provider.get_metadata().access == "paid" for provider in self.providers.values())
 
     def has_public_standards(self) -> bool:
         """Check if any bundled public standards are loaded."""

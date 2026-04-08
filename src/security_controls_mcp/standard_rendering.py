@@ -78,7 +78,9 @@ def render_source_block(metadata: StandardMetadata, include_purchase_date: bool 
             lines.append(f"**Issuer:** {metadata.issuer}")
         if metadata.jurisdiction:
             lines.append(f"**Jurisdiction:** {metadata.jurisdiction}")
-        urls = [document.get("url") for document in metadata.source_documents if document.get("url")]
+        urls = [
+            document.get("url") for document in metadata.source_documents if document.get("url")
+        ]
         if urls:
             lines.append(f"**Official sources:** {', '.join(urls[:2])}")
         lines.append(
