@@ -33,5 +33,5 @@ jobs:
       - name: Socket Security scan
         uses: SocketDev/action@v1
         with:
-          mode: diff
+          mode: cli
           github-token: ${{ secrets.GITHUB_TOKEN }}
