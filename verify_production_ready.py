@@ -76,19 +76,19 @@ def check_data_integrity():
         data = SCFData()
 
         # Check controls
-        controls_ok = len(data.controls) == 1451
-        print_check("Control count (1451)", controls_ok, f"Found: {len(data.controls)}")
+        controls_ok = len(data.controls) == 1468
+        print_check("Control count (1468)", controls_ok, f"Found: {len(data.controls)}")
 
-        # Check frameworks (262: 261 base + TIBER-EU)
-        frameworks_ok = len(data.frameworks) == 262
-        print_check("Framework count (262)", frameworks_ok, f"Found: {len(data.frameworks)}")
+        # Check frameworks (249 in SCF 2026.1)
+        frameworks_ok = len(data.frameworks) == 249
+        print_check("Framework count (249)", frameworks_ok, f"Found: {len(data.frameworks)}")
 
         # Check specific high-value frameworks
         critical_frameworks = {
             "nist_800_53_r5": 777,
-            "soc_2_tsc": 412,
-            "pci_dss_4.0.1": 364,
-            "dora": 103,
+            "aicpa_tsc_2017_2022_(used_for_soc_2)": 412,
+            "pci_dss_4.0.1": 371,
+            "emea_eu_dora": 102,
             "iso_27001_2022": 51,
         }
 
@@ -145,17 +145,17 @@ def check_tool_functionality():
         test2 = len(results) > 0
         print_check("search_controls('encryption')", test2, f"Found {len(results)} results")
 
-        # Test 3: list_frameworks (262: 261 base + TIBER-EU)
-        test3 = len(data.frameworks) == 262
+        # Test 3: list_frameworks (249 in SCF 2026.1)
+        test3 = len(data.frameworks) == 249
         print_check("list_frameworks", test3, f"{len(data.frameworks)} frameworks")
 
         # Test 4: get_framework_controls
-        dora_controls = data.get_framework_controls("dora")
-        test4 = len(dora_controls) == 103
-        print_check("get_framework_controls('dora')", test4, f"Found {len(dora_controls)} controls")
+        dora_controls = data.get_framework_controls("emea_eu_dora")
+        test4 = len(dora_controls) == 102
+        print_check("get_framework_controls('emea_eu_dora')", test4, f"Found {len(dora_controls)} controls")
 
         # Test 5: map_frameworks
-        mappings = data.map_frameworks("iso_27001_2022", "dora", "5.1")
+        mappings = data.map_frameworks("iso_27001_2022", "emea_eu_dora", "5.1")
         test5 = len(mappings) > 0
         print_check("map_frameworks(iso→dora)", test5, f"Found {len(mappings)} mappings")
 

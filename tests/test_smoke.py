@@ -42,7 +42,7 @@ class TestDataFiles:
         controls_file = data_dir / "scf-controls.json"
         with open(controls_file, "r", encoding="utf-8") as f:
             data = json.load(f)
-        assert len(data["controls"]) == 1451, "Expected 1451 controls"
+        assert len(data["controls"]) == 1468, "Expected 1468 controls"
 
     def test_all_frameworks_present(self):
         """Verify all expected frameworks are present in data."""
@@ -51,36 +51,27 @@ class TestDataFiles:
         data = SCFData()
 
         expected_frameworks = [
-            # Original 16 frameworks
+            # Core frameworks (SCF 2026.1 IDs auto-derived from headers)
             "nist_csf_2.0",
             "nist_800_53_r5",
             "iso_27001_2022",
             "iso_27002_2022",
             "cis_csc_8.1",
             "pci_dss_4.0.1",
-            "cmmc_2.0_level_1",
-            "cmmc_2.0_level_2",
-            "soc_2_tsc",
-            "dora",
-            "nis2",
-            "gdpr",
-            "uk_caf_4.0",  # Renamed from ncsc_caf_4.0 in SCF 2025.4
-            "uk_cyber_essentials",
-            "fedramp_r5_moderate",
-            "hipaa_security_rule",
-            # New 12 frameworks
-            "australia_essential_8",
-            "australia_ism_2024",
-            "singapore_mas_trm_2021",
-            "swift_cscf_2023",
-            "nist_privacy_framework_1.0",  # Uses dot in SCF 2025.4
-            "netherlands",
-            "norway",
-            "sweden",
-            "germany",
-            "germany_bait",
-            "germany_c5_2020",
-            "csa_ccm_4",
+            "aicpa_tsc_2017_2022_(used_for_soc_2)",
+            "emea_eu_dora",
+            "emea_eu_nis2",
+            "emea_eu_gdpr",
+            "emea_uk_caf_4.0",
+            "emea_uk_cyber_essentials",
+            "us_fedramp_r5_(moderate)",
+            "us_hipaa_security_rule_nist_sp_800_66_r2",
+            # Regional / cloud
+            "apac_australia_essential_8",
+            "apac_australia_ism_june_2024",
+            "apac_singapore_mas_trm_2021",
+            "nist_privacy_framework_1.0",
+            "emea_germany",
         ]
 
         for framework in expected_frameworks:

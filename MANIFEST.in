@@ -27,6 +27,7 @@ include *.py
 recursive-include scripts *.py
 recursive-include scripts *.json
 recursive-include scripts *.xlsx
+recursive-include scripts *.txt
 
 # Include API and fixtures
 recursive-include api *.py

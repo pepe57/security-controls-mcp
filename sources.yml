@@ -3,22 +3,22 @@
 
 sources:
   - name: Secure Controls Framework (SCF)
-    version: "2025.4"
+    version: "2026.1"
     url: https://www.securecontrolsframework.com
     license: Creative Commons BY 4.0
     type: primary
     description: >
       The SCF provides a comprehensive catalog of security and privacy controls
       with cross-framework mappings. Used as the rosetta stone for bidirectional
-      framework mapping across 262 frameworks.
+      framework mapping across 249 frameworks.
     data_files:
       - src/security_controls_mcp/data/scf-controls.json
       - src/security_controls_mcp/data/framework-to-scf.json
     update_mechanism: manual
     update_frequency: quarterly (aligned with SCF releases)
-    last_checked: "2026-02-17"
-    controls_count: 1451
-    frameworks_count: 262
+    last_checked: "2026-04-08"
+    controls_count: 1468
+    frameworks_count: 249
 
 notes:
   - >

@@ -902,7 +902,7 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
         )[:10]
 
         text = f"**Security Controls MCP Server v{SERVER_VERSION}**\n\n"
-        text += "**Database:** SCF 2025.4\n"
+        text += "**Database:** SCF 2026.1\n"
         text += f"**Controls:** {len(scf_data.controls)} unique controls\n"
         text += f"**Frameworks:** {len(scf_data.frameworks)} supported\n\n"
         text += "**Top 10 Frameworks by Coverage:**\n"
@@ -1186,7 +1186,7 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                 "built": DATA_BUILT,
                 "jurisdiction": "International",
                 "content_basis": (
-                    "Secure Controls Framework (SCF) 2025.4 control catalog with "
+                    "Secure Controls Framework (SCF) 2026.1 control catalog with "
                     "cross-framework mappings, plus bundled public framework profiles "
                     "derived from official publications. Proprietary standard text is "
                     "only available from user-imported purchased copies."
@@ -1198,7 +1198,7 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                 "freshness": {
                     "last_checked": "2026-02-17",
                     "check_method": "Manual SCF release monitoring",
-                    "scf_version": "2025.4",
+                    "scf_version": "2026.1",
                 },
             },
             "provenance": {
@@ -1333,7 +1333,7 @@ async def health_check(request):
             "database": {
                 "connected": True,
                 "type": "json",
-                "version": "SCF 2025.4",
+                "version": "SCF 2026.1",
                 "fingerprint": DATA_FINGERPRINT,
                 "built": DATA_BUILT,
             },
@@ -1436,7 +1436,7 @@ async def api_root(request):
     return JSONResponse({
         "service": "security-controls-api",
         "version": SERVER_VERSION,
-        "database": "SCF 2025.4",
+        "database": "SCF 2026.1",
         "endpoints": {
             "health": "/health",
             "search": "POST /api/search",

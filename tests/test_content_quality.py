@@ -134,8 +134,8 @@ class TestFrameworkMappingQuality:
             "nist_800_53_r5": 700,
             "iso_27002_2022": 300,
             "pci_dss_4.0.1": 300,
-            "soc_2_tsc": 400,
-            "dora": 100,
+            "aicpa_tsc_2017_2022_(used_for_soc_2)": 400,
+            "emea_eu_dora": 100,
         }
 
         for fw_key, minimum in critical_minimums.items():
@@ -199,7 +199,7 @@ class TestFrameworkSpecificContent:
 
     def test_dora_has_ict_controls(self, scf_data):
         """DORA framework should have ICT-related controls."""
-        controls = scf_data.get_framework_controls("dora", include_descriptions=True)
+        controls = scf_data.get_framework_controls("emea_eu_dora", include_descriptions=True)
         descriptions = " ".join([c.get("description", "") for c in controls]).lower()
 
         # DORA is about ICT risk and operational resilience
@@ -222,7 +222,7 @@ class TestFrameworkSpecificContent:
 
     def test_hipaa_has_health_controls(self, scf_data):
         """HIPAA should have health information controls."""
-        controls = scf_data.get_framework_controls("hipaa_security_rule", include_descriptions=True)
+        controls = scf_data.get_framework_controls("us_hipaa_security_rule_nist_sp_800_66_r2", include_descriptions=True)
         descriptions = " ".join([c.get("description", "") for c in controls]).lower()
 
         # HIPAA is about health information
@@ -236,7 +236,7 @@ class TestFrameworkSpecificContent:
 
     def test_gdpr_has_privacy_controls(self, scf_data):
         """GDPR should have privacy/data protection controls."""
-        controls = scf_data.get_framework_controls("gdpr", include_descriptions=True)
+        controls = scf_data.get_framework_controls("emea_eu_gdpr", include_descriptions=True)
         descriptions = " ".join([c.get("description", "") for c in controls]).lower()
 
         # GDPR is about data protection and privacy

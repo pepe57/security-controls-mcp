@@ -53,7 +53,7 @@ class TestAbout:
         """Test about includes dataset freshness information."""
         result = await call_tool("about", {})
         data = json.loads(result[0].text)
-        assert data["dataset"]["freshness"]["scf_version"] == "2025.4"
+        assert data["dataset"]["freshness"]["scf_version"] == "2026.1"
         assert data["dataset"]["freshness"]["check_method"] is not None
 
     @pytest.mark.asyncio

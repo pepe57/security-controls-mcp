@@ -87,7 +87,7 @@ class StandardRegistry:
         standards.append(
             {
                 "standard_id": "scf",
-                "title": "Secure Controls Framework (SCF) 2025.4",
+                "title": "Secure Controls Framework (SCF) 2026.1",
                 "type": "built-in",
                 "license": "Creative Commons BY-ND 4.0",
                 "controls": "1,451 controls across 16 frameworks",
